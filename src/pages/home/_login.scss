@@ -1,0 +1,27 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    height: 450px;
+    width: 340px;
+    border-radius: $default-border-radius;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+
+    &__title {
+        margin-top: 50px;
+        margin-bottom: 40px;
+        color: $cod-gray;
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    &_large {
+        height: 615px;
+    }
+} 

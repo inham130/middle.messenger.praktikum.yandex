@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/style.scss">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="main">
+        <form class="form profile">
+            <div class="profile__photo">
+                <img src="/static/avatar.png" alt="" class="photo" width="130" height="130">
+            </div>
+            <div class="profile__title">
+                <span class="title">Иван</span>
+            </div>
+            <div class="profile__data">
+                <ul class="profile__list">
+                    <li class="profile__list-item">
+                        <span class="text text_dark">Старый пароль</span>
+                        <input type="password" name="oldPassword" id="" class="form__input form__input_no-border text text_gray text_right" value="qweasd123">
+                    </li>
+                    <li class="profile__list-item">
+                        <span class="text text_dark">Новый пароль</span>
+                        <input type="password" name="newPassword" id="" class="form__input form__input_no-border text text_gray text_right" value="qweasd123">
+                    </li>
+                    <li class="profile__list-item">
+                        <span class="text text_dark">Повторите новый пароль</span>
+                        <input type="password" name="newPassword" id="" class="form__input form__input_no-border text text_gray text_right" value="qweasd123">
+                    </li>
+                </ul>
+            </div>
+            <div class="profile__footer">
+                <button class="button">Сохранить</button>
+            </div>
+        </form>
+    </main>
+    <script src="src/pages/profile/index.js"></script>
+</body>
+</html>

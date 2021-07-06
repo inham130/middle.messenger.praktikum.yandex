@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/style.scss">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="main">
+        <form class="form profile">
+            <div class="profile__photo">
+                <img src="/static/avatar.png" alt="" class="photo" width="130" height="130">
+            </div>
+            <div class="profile__title">
+                <span class="title">Иван</span>
+            </div>
+            <div class="profile__data">
+                <ul class="profile__list">
+                    <li class="profile__list-item">
+                        <span class="text text_dark">Почта</span>
+                        <input type="text" name="email" id="" class="form__input form__input_no-border text text_gray text_right" value="dymm@email.com">
+                    </li>
+                    <li class="profile__list-item">
+                        <span class="text text_dark">Логин</span>
+                        <input type="text" name="login" id="" class="form__input form__input_no-border text text_gray text_right" value="ivanovivan">
+                    </li>
+                    <li class="profile__list-item">
+                        <span class="text text_dark">Имя</span>
+                        <input type="text" name="first_name" id="" class="form__input form__input_no-border text text_gray text_right" value="Иван">
+                    </li>
+                    <li class="profile__list-item">
+                        <span class="text text_dark">Фамилия</span>
+                        <input type="text" name="second_name" id="" class="form__input form__input_no-border text text_gray text_right" value="Иванов">
+                    </li>
+                    <li class="profile__list-item">
+                        <span class="text text_dark">Имя в чате</span>
+                        <input type="text" name="display_name" id="" class="form__input form__input_no-border text text_gray text_right" value="ivan">
+                    </li>
+                    <li class="profile__list-item">
+                        <span class="text text_dark">Телефон</span>
+                        <input type="text" name="phone" id="" class="form__input form__input_no-border text text_gray text_right" value="+79999999999">
+                    </li>
+                </ul>
+            </div>
+            <div class="profile__footer">
+                <button class="button">Сохранить</button>
+            </div>
+        </form>
+    </main>
+    <script src="src/pages/profile/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+body {
+    display: flex;
+    min-height: 100%;
+    margin: 0;
+    font-family: Roboto;
+}
+
+$cod-gray: #1E1E1E;
+$dusty-gray: #999999;
+$gallery: #EAEAEA;
+$royal-blue: #3369F3;
+$red: #FF0000;
+$white: #ffffff;
+$default-border-radius: 6px;
+
+
+@import './components/form/form';
+@import './pages/home/login';
+@import './pages/profile/profile';
+
+
+.main {
+    display: flex;
+    flex-grow: 1;
+}
+
+.title {
+    font-size: 20px;
+    color: $cod-gray;
+}
+
+.link {
+    font-size: 13px;
+    color: $royal-blue;
+    text-decoration: none;
+
+    &_red {
+        color: $red;
+    }
+}
+
+.text {
+    font-size: 13px;
+
+    &_dark {
+        color: $cod-gray;
+    }
+
+    &_gray {
+        color: $dusty-gray;
+    }
+
+    &_right {
+        text-align: right;
+    }
+}
+
+.button {
+    border: none;
+    border-radius: $default-border-radius;
+    padding: 12px 70px;
+    background-color: $royal-blue;
+    font-size: 13px;
+    color: $white;
+}
