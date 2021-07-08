@@ -1,1 +1,1 @@
-export {html as login} from './login';
+export { html as login } from './login';

@@ -1,7 +1,6 @@
 import Handlebars from "handlebars";
 import { templateMarkup } from "./profile.tpl";
-import avatar from '/static/avatar.png'
-
+import avatar from '/static/avatar.png';
 
 const context = {
     avatar,

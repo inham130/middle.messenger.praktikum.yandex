@@ -13,6 +13,10 @@ body {
     margin: 0;
     font-family: Roboto;
 }
+h1, h2 {
+    margin: 0;
+}
+
 
 $cod-gray: #1E1E1E;
 $dusty-gray: #999999;
@@ -22,20 +26,9 @@ $red: #FF0000;
 $white: #ffffff;
 $default-border-radius: 6px;
 
-
-@import './components/form/form';
-@import './pages/home/login';
-@import './pages/profile/profile';
-
-
 .main {
     display: flex;
     flex-grow: 1;
-}
-
-.title {
-    font-size: 20px;
-    color: $cod-gray;
 }
 
 .link {
@@ -62,6 +55,20 @@ $default-border-radius: 6px;
     &_right {
         text-align: right;
     }
+
+    &_center {
+        text-align: center;
+    }
+}
+
+.title {
+    &_h1 {
+        font-size: 40px;
+    }
+
+    &_h2 {
+        font-size: 20px;
+    }
 }
 
 .button {
@@ -72,3 +79,8 @@ $default-border-radius: 6px;
     font-size: 13px;
     color: $white;
 }
+
+@import './components/form/form';
+@import './pages/home/login';
+@import './pages/profile/profile';
+@import './pages/error/error';

@@ -1,6 +1,6 @@
 export const templateMarkup = `
     <main class="main">
-        <div class="profile">
+        <form class="form profile">
             <div class="profile__photo">
                 <img src="{{avatar}}" alt="" class="photo" width="130" height="130">
             </div>
@@ -12,21 +12,13 @@ export const templateMarkup = `
                     {{#each profile.listData}}
                         <li class="profile__list-item">
                             <span class="text text_dark">{{label}}</span>
-                            <span class="text text_gray">{{value}}</span>
+                            <input type="{{type}}" name="{{name}}" id="" class="form__input form__input_no-border text text_gray text_right" value="{{value}}">
                         </li>
                     {{/each}}
                 </ul>
             </div>
             <div class="profile__footer">
-                <div class="profile__link">
-                    <a href="./profile-edit-data.html" class="link">Изменить данные</a>
-                </div>
-                <div class="profile__link">
-                    <a href="./profile-edit-pass.html" class="link">Изменить пароль</a>
-                </div>
-                <div class="profile__link">
-                    <a href="" class="link link_red">Выйти</a>
-                </div>
+                <button class="button">Сохранить</button>
             </div>
-        </div>
+        </form>
     </main>`;
