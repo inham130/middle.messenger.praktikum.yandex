@@ -10,9 +10,9 @@ npm install
 
 <h2 align="center">NPM Scripts</h2>
 
-dev 
+start 
 ```bash
-npm run dev
+npm run start
 ```
 
 build
@@ -22,5 +22,5 @@ npm run build
 
 Start node server
 ```bash
-npm run start
+npm run express
 ```
