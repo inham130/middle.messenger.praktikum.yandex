@@ -1,6 +1,3 @@
-import { Form } from '../../components/form/index';
-
-new Form();
 export const templateMarkup = `
     <main class="main">
         <div class="login">

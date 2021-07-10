@@ -17,7 +17,6 @@ h1, h2 {
     margin: 0;
 }
 
-
 $cod-gray: #1E1E1E;
 $dusty-gray: #999999;
 $gallery: #EAEAEA;
@@ -25,6 +24,11 @@ $royal-blue: #3369F3;
 $red: #FF0000;
 $white: #ffffff;
 $default-border-radius: 6px;
+
+#root {
+    display: flex;
+    flex-grow: 1;
+}
 
 .main {
     display: flex;

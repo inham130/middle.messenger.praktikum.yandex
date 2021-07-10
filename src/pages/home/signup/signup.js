@@ -1,5 +1,6 @@
-import Handlebars from "handlebars";
-import { templateMarkup } from "./signup.tpl";
+import Handlebars from 'handlebars';
+import { templateMarkup } from './signup.tpl';
+import '../../../components/form/form';
 
 const context = {
     form: {

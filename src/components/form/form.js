@@ -1,9 +1,4 @@
-import { templateMarkup } from "./form.tpl";
-import Handlebars from "handlebars";
+import Handlebars from 'handlebars';
+import { templateMarkup } from './form.tpl';
 
-export class Form {
-    constructor() {
-        this.templateMarkup = templateMarkup;
-        Handlebars.registerPartial('form', this.templateMarkup);
-    }
-}
+Handlebars.registerPartial('form', templateMarkup);

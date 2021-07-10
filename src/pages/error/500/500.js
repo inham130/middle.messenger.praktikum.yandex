@@ -1,5 +1,5 @@
-import Handlebars from "handlebars";
-import { templateMarkup } from "../error.tpl";
+import Handlebars from 'handlebars';
+import { templateMarkup } from '../error.tpl';
 
 const context = {
     title: '500',

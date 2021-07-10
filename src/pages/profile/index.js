@@ -1,3 +1,4 @@
 import { html as markup } from './profile'
 
-document.body.innerHTML = markup;
+const root = document.querySelector('#root');
+root.innerHTML = markup;

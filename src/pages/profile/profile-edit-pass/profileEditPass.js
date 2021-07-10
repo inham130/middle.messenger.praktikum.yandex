@@ -1,5 +1,5 @@
-import Handlebars from "handlebars";
-import { templateMarkup } from "../profile_edit_data/profileEditData.tpl";
+import Handlebars from 'handlebars';
+import { templateMarkup } from '../profile-edit-data/profileEditData.tpl';
 import avatar from '/static/avatar.png'
 
 const context = {

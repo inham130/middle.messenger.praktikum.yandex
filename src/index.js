@@ -1,3 +1,4 @@
 import { login } from './pages/home/index'
 
-document.body.innerHTML = login;
+const root = document.querySelector('#root');
+root.innerHTML = login;

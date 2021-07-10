@@ -1,5 +1,6 @@
-import Handlebars from "handlebars";
-import { templateMarkup } from "./login.tpl";
+import Handlebars from 'handlebars';
+import { templateMarkup } from './login.tpl';
+import '../../components/form/form';
 
 const template = Handlebars.compile(templateMarkup);
 const context = {
