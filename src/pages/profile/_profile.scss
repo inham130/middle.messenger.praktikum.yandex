@@ -1,0 +1,46 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: none;
+    margin: auto;
+    width: 510px;
+
+    &__photo {
+        margin-bottom: 20px;
+    }
+
+    &__title {
+        margin-bottom: 50px;
+    }
+
+    &__data {
+        width: 100%;
+        margin-bottom: 60px;
+    }
+
+    &__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__list-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $gallery;
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__link {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+    }
+}
