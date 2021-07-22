@@ -1,4 +1,6 @@
-import Component from "../component";
+import Handlebars from 'handlebars';
+import Component from '../component';
+import { templateMarkup } from './button.tpl';
 
 type buttonProps = {
     text: string,
@@ -6,7 +8,7 @@ type buttonProps = {
     settings?: {}
 }
 
-export default class Button extends Component {
+export class Button extends Component {
     props: buttonProps;
 
     constructor(props: buttonProps) {
@@ -14,6 +16,7 @@ export default class Button extends Component {
     }
 
     render() {
-        return `<div>${this.props.text}</div>`;
+        const template = Handlebars.compile(templateMarkup);
+        return template({text: this.props.text});
     }
 }

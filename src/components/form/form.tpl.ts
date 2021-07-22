@@ -3,7 +3,7 @@ export const templateMarkup = `
         {{#each form.controls}}
             <div class="form__control">
                 <label class="form__label">{{label}}</label>
-                <input name="{{name}}" class="form__input" type="{{type}}">
+                {{{input}}}
             </div>
         {{/each}}
     </form>`;

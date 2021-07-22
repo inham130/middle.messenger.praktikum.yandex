@@ -4,7 +4,7 @@ export const templateMarkup = `
             <div class="login__title">
                 <h2 class="text title title_h2">Вход</h2>
             </div>
-            {{>form}}
+            {{{form}}}
             <div class="login__footer">
                 <button class="button">Авторизоваться</button>
                 <a href="./signup.html" class="link">Нет аккаунта?</a>

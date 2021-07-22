@@ -1,9 +1,9 @@
 import Handlebars from 'handlebars';
 import { templateMarkup } from './login.tpl';
-import '../../components/form/form';
+import { Form } from '../../components/form/index';
 
 const template = Handlebars.compile(templateMarkup);
-const context = {
+const formProps = {
     form: {
         controls: [{
             label: 'Логин',
@@ -16,5 +16,6 @@ const context = {
         }]
     }
 };
+const form = new Form(formProps);
 
-export const html = template(context);
+export const html = template({form: form.render()});

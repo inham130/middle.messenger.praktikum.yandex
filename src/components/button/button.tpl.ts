@@ -1,0 +1,1 @@
+export const templateMarkup = `<button class="button">{{text}}</button>`;

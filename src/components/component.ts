@@ -25,12 +25,6 @@ export default class Component {
     _events: event[] = [];
     _id: string;
   
-    /** JSDoc
-     * @param {string} tagName
-     * @param {Object} props
-     *
-     * @returns {void}
-     */
     constructor(tagName: string = 'div', props = {}) {
         this._meta = {
             tagName,
