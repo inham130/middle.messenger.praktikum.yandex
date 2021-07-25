@@ -50,7 +50,7 @@ class HTTPTransport {
         
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open(method, url);
+            xhr.open(method!, url);
 
             xhr.onload = function() {
                 resolve(xhr);
@@ -69,7 +69,7 @@ class HTTPTransport {
             if (method === METHODS.GET || !data) {
                 xhr.send();
             } else {
-                xhr.send(data);
+                xhr.send(JSON.stringify(data));
             }
         });
     };

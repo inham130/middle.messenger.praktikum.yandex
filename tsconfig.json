@@ -1,15 +1,25 @@
 {
     "compilerOptions": {
-        "outDir": "dist",
-        "target": "es2016",
-        "lib": ["es2017"],
-        "declaration": false,
-        "module": "ES6",
-        "noImplicitAny": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "sourceMap": true,
-        "strictNullChecks": true
+         "outDir": "dist",
+         "target": "es2016",
+         "lib": [
+            "es2017",
+            "dom"
+         ],
+         "declaration": false,
+         "module": "ES6",
+         "noImplicitAny": true,
+         "noUnusedLocals": true,
+         "noUnusedParameters": true,
+         "sourceMap": true,
+         "strictNullChecks": true,
+         "moduleResolution": "Node",
+         "baseUrl": ".",
+         "paths": {
+               "*": ["node_modules/*"],
+               "s": ["static/*"]
+         },
+         "allowSyntheticDefaultImports": true
      },
      
      "exclude": [

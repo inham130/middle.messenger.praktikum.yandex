@@ -2,7 +2,6 @@ import {v4 as makeUUID} from 'uuid';
 import EventBus from '../utils/eventBus'
 
 type meta = {
-    tagName: string,
     props: Record<any, any>
 }
 type event = {
@@ -20,19 +19,19 @@ export default class Component {
     
     props: Record<any, any>;
     eventBus: EventBus;
-    _element: HTMLElement;
+    _element: HTMLElement | null;
+    _fragment: DocumentFragment
     _meta: meta;
     _events: event[] = [];
     _id: string;
   
-    constructor(tagName: string = 'div', props = {}) {
+    constructor(props = {}) {
         this._meta = {
-            tagName,
             props
         };
 
         this._id = makeUUID();
-        this.props = this._makePropsProxy({...props, __id: this._id});
+        this.props = this._makePropsProxy({...props, _id: this._id});
 
         this.eventBus = new EventBus();
         this._registerEvents();
@@ -47,8 +46,7 @@ export default class Component {
     }
   
     _createResources(): void {
-        const tagName: string = this._meta.tagName;
-        this._element = this._createDocumentElement(tagName);
+        this._element = null;
     }
   
     init(): void {
@@ -61,7 +59,7 @@ export default class Component {
         this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
     }
   
-    componentDidMount(oldProps: Object = {}): void {}
+    componentDidMount(): void {}
   
     _componentDidUpdate(oldProps: Object, newProps: Object): void {
         const response = this.componentDidUpdate(oldProps, newProps);
@@ -83,35 +81,56 @@ export default class Component {
     get element(): HTMLElement {
         return this._element;
     }
-  
+
     _render(): void {
         this._removeEvents();
+     
         const component = this.render();
-        this._element.innerHTML = component;
+        if (this._element === null) {
+            this._element = component;
+        } else {
+            this._element.replaceWith(component);
+            this._element = component;
+        }
+        
         this._addEvents();
     }
-  
-    render(): string {
-        return '';
+    
+    createFragmentFromString(str: string){
+        var template = document.createElement('template');
+        template.innerHTML = str.trim();
+        return template.content;
     }
   
+    render() {}
+  
+    isString(value: unknown): value is string {
+        if (typeof value === 'string') {
+            return true; 
+        } else {
+            return false;
+        }
+    }
+
     getContent(): HTMLElement {
         return this.element;
     }
 
     _removeEvents(): void {
         this._events.forEach((event) => {
-            this.element.removeEventListener(event.eventName, event.eventHandler)
+            window.removeEventListener(event.eventName, event.eventHandler)
         });
+        this._events = [];
     }
 
     _addEvents(): void {
         if (this.props.hasOwnProperty('events')) {
             const events: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject> = this.props.events;
 
+            debugger;
             Object.keys(events).forEach((eventName: keyof HTMLElementEventMap) => {
-                this._element.addEventListener(eventName, events[eventName]);
-                this._events.push({ eventName, eventHandler: events[eventName] });
+                this.element.addEventListener(eventName, events[eventName]);
+                this._events.push({ eventName, eventHandler: events[eventName]});
             });
         }
     }
@@ -141,13 +160,5 @@ export default class Component {
             }
         }
         return element;
-    }
-  
-    show() {
-        this._element.style.display = 'block';
-    }
-  
-    hide() {
-        this._element.style.display = 'none';
     }
   }

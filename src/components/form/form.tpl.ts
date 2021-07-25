@@ -1,9 +1,9 @@
 export const templateMarkup = `
-    <form action="" class="form">
-        {{#each form.controls}}
+    <form name="{{name}}" action="" class="form" data-id={{_id}}>
+        {{#each controls}}
             <div class="form__control">
                 <label class="form__label">{{label}}</label>
-                {{{input}}}
+                <div data-component-name="input"></div>
             </div>
         {{/each}}
     </form>`;

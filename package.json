@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/inham130/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
+    "@types/uuid": "^8.3.1",
     "express": "^4.17.1",
     "handlebars": "^4.7.7",
     "parcel-bundler": "^1.12.5",
@@ -28,6 +29,12 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "comment": "0.0.2",
+    "component": "^1.1.0",
+    "components": "^0.1.0",
+    "s": "^1.0.0",
+    "src": "^1.1.2",
+    "static": "^2.0.0",
     "uuid": "^8.3.2"
   }
 }

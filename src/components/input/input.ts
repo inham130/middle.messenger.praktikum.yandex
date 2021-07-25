@@ -4,11 +4,13 @@ import { templateMarkup } from './input.tpl';
 
 export class Input extends Component {
     constructor(props: {}) {
-        super('input', props);
+        super(props);
     }
 
     render() {
         const template = Handlebars.compile(templateMarkup);
-        return template({type: this.props.type, name: this.props.name});
+        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
+        
+        return fragment.firstChild;
     }
 }

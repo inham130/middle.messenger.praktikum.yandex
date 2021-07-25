@@ -1,21 +1,47 @@
 import Handlebars from 'handlebars';
+import Component from '../../components/component';
+import { Form } from '../../components/form';
 import { templateMarkup } from './login.tpl';
-import { Form } from '../../components/form/index';
 
-const template = Handlebars.compile(templateMarkup);
-const formProps = {
+const loginProps = {
     form: {
+        name: "login",
         controls: [{
             label: 'Логин',
             name: 'login',
-            type: 'text'
+            type: 'text',
+            events: {
+                input: function(event) {
+                    console.log(event.target.value);
+                }
+            }
         }, {
             label: 'Пароль',
             name: 'password',
-            type: 'password'
+            type: 'password',
+            events: {
+                input: function(event) {
+                    console.log(event.target.value);
+                }
+            }
         }]
     }
 };
-const form = new Form(formProps);
 
-export const html = template({form: form.render()});
+
+export class Login extends Component {
+    constructor(props = loginProps) {
+        super(props);
+    }
+
+    render() {
+        const template = Handlebars.compile(templateMarkup);
+        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
+
+        const form = new Form(this.props.form);
+        const formTarget: HTMLElement = fragment.querySelector('[data-component-name="form"]');
+        formTarget.replaceWith(form.getContent());
+
+        return fragment.firstChild;
+    }
+}

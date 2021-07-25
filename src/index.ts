@@ -1,6 +1,6 @@
-import { login } from './pages/home/index';
+import { Login } from './pages/home/index';
+import { render } from './utils/renderDOM';
 
-const root = document.querySelector('#root');
-if (root !== null) {
-    root.innerHTML = login;
-}
+
+const login = new Login();
+render('#root', login);
