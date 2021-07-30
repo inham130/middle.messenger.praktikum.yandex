@@ -12,11 +12,14 @@ export class Button extends Component {
     props: buttonProps;
 
     constructor(props: buttonProps) {
-        super('button', props);
+        super(props);
     }
 
     render() {
+
         const template = Handlebars.compile(templateMarkup);
-        return template({text: this.props.text});
+        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
+        
+        return fragment.firstChild;
     }
 }

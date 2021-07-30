@@ -25,6 +25,10 @@
         &_no-border {
             border: none;
         }
+
+        &_invalid {
+            border-color: #FF2F2F;
+        }
     }
 
     &__label {

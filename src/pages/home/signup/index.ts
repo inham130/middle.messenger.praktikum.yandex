@@ -1,6 +1,5 @@
-import { html as signup } from './signup'
+import { SignUp } from './signup';
+import { render } from '../../../utils/renderDOM';
 
-const root = document.querySelector('#root');
-if (root !== null) {
-    root.innerHTML = signup;
-}
+const signUp = new SignUp();
+render('#root', signUp);

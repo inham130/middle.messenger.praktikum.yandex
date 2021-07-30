@@ -13,4 +13,12 @@ export class Input extends Component {
         
         return fragment.firstChild;
     }
+
+    updateValidity(isValid: boolean) {
+        if (isValid) {
+            this.element.classList.remove('form__input_invalid');
+        } else {
+            this.element.classList.add('form__input_invalid')
+        }
+    }
 }

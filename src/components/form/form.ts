@@ -12,7 +12,7 @@ export class Form extends Component {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
 
-        const inputs: HTMLElement[] = Array.from(fragment.querySelectorAll('[data-component-name="input"]'));
+        const inputs: HTMLElement[] = Array.from(fragment.querySelectorAll('[data-component-type="input"]'));
         inputs.forEach((input, index) => {
             const inputComponent: Input = new Input(this.props.controls[index]);
             input.replaceWith(inputComponent.getContent());

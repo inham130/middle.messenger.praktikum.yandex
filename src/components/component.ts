@@ -88,7 +88,7 @@ export default class Component {
         const component = this.render();
         if (this._element === null) {
             this._element = component;
-        } else {
+        } else if (component !== null) {
             this._element.replaceWith(component);
             this._element = component;
         }
@@ -127,10 +127,10 @@ export default class Component {
         if (this.props.hasOwnProperty('events')) {
             const events: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject> = this.props.events;
 
-            debugger;
             Object.keys(events).forEach((eventName: keyof HTMLElementEventMap) => {
-                this.element.addEventListener(eventName, events[eventName]);
-                this._events.push({ eventName, eventHandler: events[eventName]});
+                const eventHandler: EventListenerOrEventListenerObject = events[eventName].bind(this);
+                this.element.addEventListener(eventName, eventHandler);
+                this._events.push({ eventName, eventHandler: eventHandler});
             });
         }
     }
