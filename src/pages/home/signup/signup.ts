@@ -1,8 +1,7 @@
 import Handlebars from 'handlebars';
 import Component from '../../../components/component';
 import { Form } from '../../../components/form';
-import { Button } from '../../../components/button'
-import { validation } from '../../../utils/formValidation'
+import { validation } from '../../../utils/formValidation';
 import { templateMarkup } from './signup.tpl';
 
 const signUpProps = {
@@ -64,17 +63,18 @@ const signUpProps = {
                 focus: validation.password,
                 blur: validation.password
             }
-        }]
-    },
-    button: {
-        text: 'Зарегистрироваться',
-        events: {
-            click: function() {
-                const form: HTMLFormElement | null = document.querySelector('form[name="signUp"]');
-                if (form !== null) {
-                    const formData: FormData = new FormData(form);
-                    console.log(Object.fromEntries(formData));    
-                }  
+        }],
+        button: {
+            text: 'Зарегистрироваться',
+            events: {
+                click: function(event: Event) {
+                    event.preventDefault();
+                    const form: HTMLFormElement | null = document.querySelector('form[name="signUp"]');
+                    if (form !== null) {
+                        const formData: FormData = new FormData(form);
+                        console.log(Object.fromEntries(formData));    
+                    }  
+                }
             }
         }
     }
@@ -93,12 +93,6 @@ export class SignUp extends Component {
         if (formTarget !== null) {
             const form = new Form(this.props.form);
             formTarget.replaceWith(form.getContent());
-        }
-
-        const buttonTarget: HTMLElement | null = fragment.querySelector('[data-component-type="button"]');
-        if (buttonTarget !== null) {
-            const button = new Button(this.props.button);
-            buttonTarget.replaceWith(button.getContent())
         }
 
         return fragment.firstChild;

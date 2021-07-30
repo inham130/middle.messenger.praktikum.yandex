@@ -37,17 +37,17 @@ const loginProps = {
                 focus: validation.password,
                 blur: validation.password,
             }
-        }]
-    },
-    button: {
-        text: 'Авторизоваться',
-        events: {
-            click: function() {
-                const form: HTMLFormElement | null = document.querySelector('form[name="signUp"]');
-                if (form !== null) {
-                    const formData: FormData = new FormData(form);
-                    console.log(Object.fromEntries(formData));    
-                }  
+        }],
+        button: {
+            text: 'Авторизоваться',
+            events: {
+                click: function() {
+                    const form: HTMLFormElement | null = document.querySelector('form[name="signUp"]');
+                    if (form !== null) {
+                        const formData: FormData = new FormData(form);
+                        console.log(Object.fromEntries(formData));    
+                    }  
+                }
             }
         }
     }

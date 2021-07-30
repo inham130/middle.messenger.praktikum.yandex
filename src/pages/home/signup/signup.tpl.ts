@@ -6,7 +6,6 @@ export const templateMarkup = `
             </div>
             <div data-component-type="form"></div>
             <div class="login__footer">
-                <div data-component-type="button"></div>
                 <a href="./index.html" class="link">Войти</a>
             </div>
         </div>

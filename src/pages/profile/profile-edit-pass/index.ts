@@ -1,4 +1,5 @@
-import { html as markup } from './profileEditPass'
+import { EditPass } from './profileEditPass';
+import { render } from '../../../utils/renderDOM';
 
-const root = document.querySelector('#root');
-root.innerHTML = markup;
+const editPass = new EditPass();
+render('#root', editPass);

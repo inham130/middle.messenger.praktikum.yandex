@@ -1,4 +1,5 @@
-import { html as markup } from './profileEditData'
+import { EditProfile } from './profileEditData';
+import { render } from '../../../utils/renderDOM';
 
-const root = document.querySelector('#root');
-root.innerHTML = markup;
+const editProfile = new EditProfile();
+render('#root', editProfile);
