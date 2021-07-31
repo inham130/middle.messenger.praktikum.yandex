@@ -1,0 +1,71 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "env": {
+        "browser": true
+    },
+    "rules": {
+        "no-duplicate-case": "error",
+        "no-extra-semi": "error",
+        "no-func-assign": "error",
+        "no-invalid-regexp": "error",
+        "no-unexpected-multiline": "error",
+        "no-unreachable": "error",
+        "no-magic-numbers": ["warn", { "ignore": [1, 0, -1], "ignoreArrayIndexes": true }],
+        "no-self-assign": "error",
+        "no-unmodified-loop-condition": "error",
+        "no-useless-catch": "error",
+        "no-useless-escape": "error",
+        "no-useless-return": "error",
+        "array-bracket-newline": ["error", "consistent"],
+        "array-element-newline": ["error", "consistent"],
+        "block-spacing": ["error", "always"],
+        "camelcase": "error",
+        "comma-spacing": [
+            "error", {
+                "before": false,
+                "after": true
+            }
+        ],
+        "function-paren-newline": ["error", "consistent"],
+        "max-depth": "warn",
+        "max-len": [
+            "error", {
+                "code": 140,
+                "ignoreUrls": true
+            }
+        ],
+        "max-params": [
+            "warn", {
+                "max": 4
+            }
+        ],
+        "no-lonely-if": "error",
+        "no-mixed-spaces-and-tabs": "error",
+        "no-multiple-empty-lines": "error",
+        "no-nested-ternary": "error",
+        "no-tabs": "error",
+        "no-trailing-spaces": "error",
+        "no-whitespace-before-property": "error",
+        "operator-linebreak":	["warn", "before"],
+
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
+        "semi-spacing": ["error", {"before": false, "after": true}],
+        "semi-style": ["error", "last"],
+        "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }],
+        "space-before-function-paren": ["error", "never"],
+        "space-in-parens": ["error", "never"],
+        "space-infix-ops": ["error"],
+        "space-unary-ops": ["warn", {"words": true, "nonwords": false}],
+        "spaced-comment": "warn",
+        "switch-colon-spacing": ["error", {"after": true, "before": false}],
+        "template-tag-spacing": "error"
+    }
+}

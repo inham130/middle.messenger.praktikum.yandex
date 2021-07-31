@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars';
 import Component from '../../components/component';
 import { Form } from '../../components/form';
-import { Button } from '../../components/button'
-import { validation } from '../../utils/formValidation'
+import { Button } from '../../components/button';
+import { validation } from '../../utils/formValidation';
 import { templateMarkup } from './login.tpl';
 
 function validateLenght(event: Event) {
@@ -10,7 +10,7 @@ function validateLenght(event: Event) {
     const MAX_LENGTH = 15;
     const value = event.target.value;
     let isValid = false;
-    
+
     if (value.length >= MIN_LENGTH && value.length <= MAX_LENGTH) {
         isValid = true;
     }
@@ -20,7 +20,7 @@ function validateLenght(event: Event) {
 
 const loginProps = {
     form: {
-        name: "login",
+        name: 'login',
         controls: [{
             label: 'Логин',
             name: 'login',
@@ -45,8 +45,8 @@ const loginProps = {
                     const form: HTMLFormElement | null = document.querySelector('form[name="signUp"]');
                     if (form !== null) {
                         const formData: FormData = new FormData(form);
-                        console.log(Object.fromEntries(formData));    
-                    }  
+                        console.log(Object.fromEntries(formData));
+                    }
                 }
             }
         }
@@ -72,7 +72,7 @@ export class Login extends Component {
         const buttonTarget: HTMLElement | null = fragment.querySelector('[data-component-type="button"]');
         if (buttonTarget !== null) {
             const button = new Button(this.props.button);
-            buttonTarget.replaceWith(button.getContent())
+            buttonTarget.replaceWith(button.getContent());
         }
 
         return fragment.firstChild;

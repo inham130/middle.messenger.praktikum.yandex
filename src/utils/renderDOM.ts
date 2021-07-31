@@ -7,4 +7,4 @@ export function render(query: string, component: Component) {
         root.appendChild(component.element);
     }
     return root;
-}   
+}

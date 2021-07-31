@@ -1,4 +1,4 @@
-import { html as markup } from './profile'
+import { html as markup } from './profile';
 
 
 const root = document.querySelector('#root');

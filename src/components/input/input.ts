@@ -10,7 +10,7 @@ export class Input extends Component {
     render() {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-        
+
         return fragment.firstChild;
     }
 
@@ -18,7 +18,7 @@ export class Input extends Component {
         if (isValid) {
             this.element.classList.remove('form__input_invalid');
         } else {
-            this.element.classList.add('form__input_invalid')
+            this.element.classList.add('form__input_invalid');
         }
     }
 }

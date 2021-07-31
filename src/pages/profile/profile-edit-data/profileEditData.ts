@@ -3,7 +3,7 @@ import Component from '../../../components/component';
 import { Form } from '../../../components/form';
 import { validation } from '../../../utils/formValidation';
 import { templateMarkup } from './profileEditData.tpl';
-import avatar from '/static/avatar.png'
+import avatar from '/static/avatar.png';
 
 const editProfileProps = {
     avatar,
@@ -11,7 +11,7 @@ const editProfileProps = {
     form: {
         classes: 'profile',
         profileTitle: 'Иван',
-        name: "editUserInfo",
+        name: 'editUserInfo',
         controls: [{
             label: 'Почта',
             name: 'email',
@@ -61,13 +61,13 @@ const editProfileProps = {
                     const form: HTMLFormElement | null = document.querySelector('form[name="editUserInfo"]');
                     if (form !== null) {
                         const formData: FormData = new FormData(form);
-                        console.log(Object.fromEntries(formData));    
+                        console.log(Object.fromEntries(formData));
                     }
                 }
             }
         }
     }
-}
+};
 
 export class EditProfile extends Component {
     constructor(props = editProfileProps) {

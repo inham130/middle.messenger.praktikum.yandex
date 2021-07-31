@@ -8,7 +8,7 @@ type options = {
 const defaultType: options = {
     timeout: 5000,
     data: {}
-}
+};
 
 const METHODS = {
     GET: 'GET',
@@ -21,7 +21,7 @@ function queryStringify(data: Record<string, string>) {
     let query = '';
     if (data) {
         Object.keys(data).forEach((key, index) => {
-            const prefix = index === 0 ? '?' : '&' 
+            const prefix = index === 0 ? '?' : '&';
             query += `${prefix}${key}=${data[key]}`;
         });
     }
@@ -47,7 +47,7 @@ class HTTPTransport {
 
     request = (url: string, options: options) => {
         const {data, headers, method, timeout} = options;
-        
+
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open(method!, url);
@@ -58,7 +58,7 @@ class HTTPTransport {
 
             if (headers) {
                 const _headers: [string, string] = Object.entries(headers)[0];
-                xhr.setRequestHeader(..._headers);        
+                xhr.setRequestHeader(..._headers);
             }
             xhr.timeout = timeout;
 

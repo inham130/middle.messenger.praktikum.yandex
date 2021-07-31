@@ -1,7 +1,7 @@
 import Handlebars  from 'handlebars';
 import Component from '../component';
 import { Input } from '../input/index';
-import { Button } from '../button'
+import { Button } from '../button';
 import { templateMarkup } from './form.tpl';
 
 export class Form extends Component {
@@ -22,7 +22,7 @@ export class Form extends Component {
         const buttonTarget: HTMLElement | null = fragment.querySelector('[data-component-type="button"]');
         if (buttonTarget !== null) {
             const button = new Button(this.props.button);
-            buttonTarget.replaceWith(button.getContent())
+            buttonTarget.replaceWith(button.getContent());
         }
 
         return fragment.firstChild;

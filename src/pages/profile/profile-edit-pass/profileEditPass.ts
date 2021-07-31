@@ -3,7 +3,7 @@ import Component from '../../../components/component';
 import { Form } from '../../../components/form';
 import { validation } from '../../../utils/formValidation';
 import { templateMarkup } from '../profile-edit-data/profileEditData.tpl';
-import avatar from '/static/avatar.png'
+import avatar from '/static/avatar.png';
 
 const editPassProps = {
     avatar,
@@ -11,7 +11,7 @@ const editPassProps = {
     form: {
         classes: 'profile',
         profileTitle: 'Иван',
-        name: "editUserInfo",
+        name: 'editUserInfo',
         controls: [, {
             label: 'Пароль',
             name: 'password',
@@ -28,7 +28,7 @@ const editPassProps = {
                 focus: validation.password,
                 blur: validation.password
             }
-        },{
+        }, {
             label: 'Повторите новый пароль',
             value: '',
             name: 'newPasswordRepeat',
@@ -46,13 +46,13 @@ const editPassProps = {
                     const form: HTMLFormElement | null = document.querySelector('form[name="editUserInfo"]');
                     if (form !== null) {
                         const formData: FormData = new FormData(form);
-                        console.log(Object.fromEntries(formData));    
+                        console.log(Object.fromEntries(formData));
                     }
                 }
             }
         }
     }
-}
+};
 
 export class EditPass extends Component {
     constructor(props = editPassProps) {

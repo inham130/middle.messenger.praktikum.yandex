@@ -19,7 +19,7 @@ export class Button extends Component {
 
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-        
+
         return fragment.firstChild;
     }
 }

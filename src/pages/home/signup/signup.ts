@@ -6,7 +6,7 @@ import { templateMarkup } from './signup.tpl';
 
 const signUpProps = {
     form: {
-        name: "signUp",
+        name: 'signUp',
         controls: [{
             label: 'Почта',
             name: 'email',
@@ -72,8 +72,8 @@ const signUpProps = {
                     const form: HTMLFormElement | null = document.querySelector('form[name="signUp"]');
                     if (form !== null) {
                         const formData: FormData = new FormData(form);
-                        console.log(Object.fromEntries(formData));    
-                    }  
+                        console.log(Object.fromEntries(formData));
+                    }
                 }
             }
         }
