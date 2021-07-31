@@ -19,14 +19,6 @@ export class Form extends Component {
             input.replaceWith(inputComponent.getContent());
         });
 
-        if (Array.isArray(this.props.hiddenFields)) {
-            this.props.hiddenFields.forEach((control) => {
-                const input: HTMLElement = fragment.querySelector(`[data-component-type="input"][data-component-name="${control.name}"]`);
-                const inputComponent: Input = new Input(control);
-                input.replaceWith(inputComponent.getContent());
-            });
-        }
-
         const buttonTarget: HTMLElement | null = fragment.querySelector('[data-component-type="button"]');
         if (buttonTarget !== null) {
             const button = new Button(this.props.button);

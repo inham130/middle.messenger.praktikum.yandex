@@ -53,11 +53,6 @@ const editProfileProps = {
                 blur: validation.phone
             }
         }],
-        hiddenFields: [{
-            name: 'avatar',
-            type: 'file',
-            hidden: true
-        }],
         button: {
             text: 'Сохранить',
             events: {

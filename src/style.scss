@@ -47,6 +47,7 @@ $default-border-radius: 6px;
 
 .text {
     font-size: 13px;
+    
 
     &_dark {
         color: $cod-gray;
@@ -62,6 +63,16 @@ $default-border-radius: 6px;
 
     &_center {
         text-align: center;
+    }
+
+    &_truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &_break-word {
+        overflow-wrap: break-word;
     }
 }
 
@@ -82,9 +93,16 @@ $default-border-radius: 6px;
     background-color: $royal-blue;
     font-size: 13px;
     color: $white;
+
+    &_small {
+        padding: 6px 10px;
+    }
 }
+
+
 
 @import './components/form/form';
 @import './pages/home/login';
 @import './pages/profile/profile';
+@import './pages/chat/chat.scss';
 @import './pages/error/error';
