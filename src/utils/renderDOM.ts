@@ -4,7 +4,7 @@ export function render(query: string, component: Component) {
     const root = document.querySelector(query);
 
     if (root !== null) {
-        root.appendChild(component.element);
+        root.appendChild(component.element as Node);
     }
     return root;
 }

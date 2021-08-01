@@ -11,6 +11,8 @@
         "browser": true
     },
     "rules": {
+        "no-empty-function": "off",
+        "@typescript-eslint/no-empty-function": ["off"],
         "no-duplicate-case": "error",
         "no-extra-semi": "error",
         "no-func-assign": "error",
@@ -35,12 +37,6 @@
         ],
         "function-paren-newline": ["error", "consistent"],
         "max-depth": "warn",
-        "max-len": [
-            "error", {
-                "code": 140,
-                "ignoreUrls": true
-            }
-        ],
         "max-params": [
             "warn", {
                 "max": 4

@@ -59,16 +59,16 @@ export class EditPass extends Component {
         super(props);
     }
 
-    render() {
+    render(): HTMLElement {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
 
         const formTarget: HTMLElement | null = fragment.querySelector('[data-component-type="form"]');
         if (formTarget !== null) {
             const form = new Form(this.props.form);
-            formTarget.replaceWith(form.getContent());
+            formTarget.replaceWith(form.getContent() as Node);
         }
 
-        return fragment.firstChild;
+        return fragment.firstChild as HTMLElement;
     }
 }

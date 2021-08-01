@@ -5,19 +5,6 @@ import { Button } from '../../components/button';
 import { validation } from '../../utils/formValidation';
 import { templateMarkup } from './login.tpl';
 
-function validateLenght(event: Event) {
-    const MIN_LENGTH = 3;
-    const MAX_LENGTH = 15;
-    const value = event.target.value;
-    let isValid = false;
-
-    if (value.length >= MIN_LENGTH && value.length <= MAX_LENGTH) {
-        isValid = true;
-    }
-
-    this.updateValidity(isValid);
-}
-
 const loginProps = {
     form: {
         name: 'login',
@@ -41,8 +28,9 @@ const loginProps = {
         button: {
             text: 'Авторизоваться',
             events: {
-                click: function() {
-                    const form: HTMLFormElement | null = document.querySelector('form[name="signUp"]');
+                click: function(event: Event) {
+                    event.preventDefault();
+                    const form: HTMLFormElement | null = document.querySelector('form[name="login"]');
                     if (form !== null) {
                         const formData: FormData = new FormData(form);
                         console.log(Object.fromEntries(formData));
@@ -59,22 +47,22 @@ export class Login extends Component {
         super(props);
     }
 
-    render() {
+    render(): HTMLElement {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
 
         const formTarget: HTMLElement | null = fragment.querySelector('[data-component-type="form"]');
         if (formTarget !== null) {
             const form = new Form(this.props.form);
-            formTarget.replaceWith(form.getContent());
+            formTarget.replaceWith(form.getContent() as Node);
         }
 
         const buttonTarget: HTMLElement | null = fragment.querySelector('[data-component-type="button"]');
         if (buttonTarget !== null) {
             const button = new Button(this.props.button);
-            buttonTarget.replaceWith(button.getContent());
+            buttonTarget.replaceWith(button.getContent() as Node);
         }
 
-        return fragment.firstChild;
+        return fragment.firstChild as HTMLElement;
     }
 }

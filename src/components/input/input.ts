@@ -2,23 +2,31 @@ import Handlebars from 'handlebars';
 import Component from '../component';
 import { templateMarkup } from './input.tpl';
 
+type inputProps = {
+    name: string,
+    type: string,
+    events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
+    settings?: Record<string, unknown>
+}
 export class Input extends Component {
-    constructor(props: {}) {
+    constructor(props: inputProps) {
         super(props);
     }
 
-    render() {
+    render(): HTMLElement {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
 
-        return fragment.firstChild;
+        return fragment.firstChild  as HTMLElement;
     }
 
-    updateValidity(isValid: boolean) {
-        if (isValid) {
-            this.element.classList.remove('form__input_invalid');
-        } else {
-            this.element.classList.add('form__input_invalid');
+    updateValidity(isValid: boolean): void {
+        if (this.element !== null) {
+            if (isValid) {
+                this.element.classList.remove('form__input_invalid');
+            } else {
+                this.element.classList.add('form__input_invalid');
+            }
         }
     }
 }

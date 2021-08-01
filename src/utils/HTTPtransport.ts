@@ -12,7 +12,7 @@ const defaultType: options = {
 
 const METHODS = {
     GET: 'GET',
-    POST:  'POST',
+    POST: 'POST',
     PUT: 'PUT',
     DELETE: 'DELETE'
 };

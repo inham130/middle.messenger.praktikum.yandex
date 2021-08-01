@@ -4,22 +4,19 @@ import { templateMarkup } from './button.tpl';
 
 type buttonProps = {
     text: string,
-    events?: {},
-    settings?: {}
+    events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
+    settings?: Record<string, unknown>
 }
 
 export class Button extends Component {
-    props: buttonProps;
-
     constructor(props: buttonProps) {
         super(props);
     }
 
-    render() {
-
+    render(): HTMLElement {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
 
-        return fragment.firstChild;
+        return fragment.firstChild as HTMLElement;
     }
 }

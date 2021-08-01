@@ -8,10 +8,10 @@ const PATTERNS = {
 
 const makeValidationFunc = function(pattern: RegExp) {
     return function(event: Event) {
-        if (!isEventTarget(event.target) || !isString(event.target.value)) {
+        if (!isEventTarget(event.target) || !isString((event.target as HTMLTextAreaElement).value)) {
             return;
         }
-        const value: string = event.target.value;
+        const value: string = (event.target as HTMLTextAreaElement).value;
         const test = value.match(pattern);
         let isValid = false;
 

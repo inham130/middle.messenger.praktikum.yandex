@@ -2,11 +2,11 @@ import {v4 as makeUUID} from 'uuid';
 import EventBus from '../utils/eventBus';
 
 type meta = {
-    props: Record<any, any>
+    props: Record<string, unknown>
 }
 type event = {
     eventName: keyof HTMLElementEventMap,
-    eventHandler: EventListenerOrEventListenerObject
+    eventHandler: EventListener
 }
 
 export default class Component {
@@ -38,14 +38,14 @@ export default class Component {
         this.eventBus.emit(Component.EVENTS.INIT);
     }
 
-    _registerEvents(): void {
+    private _registerEvents(): void {
         this.eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
         this.eventBus.on(Component.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         this.eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this));
         this.eventBus.on(Component.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     }
 
-    _createResources(): void {
+    private _createResources(): void {
         this._element = null;
     }
 
@@ -54,35 +54,35 @@ export default class Component {
         this.eventBus.emit(Component.EVENTS.FLOW_CDM);
     }
 
-    _componentDidMount(): void {
+    private _componentDidMount(): void {
         this.componentDidMount();
         this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
     }
 
     componentDidMount(): void {}
 
-    _componentDidUpdate(oldProps: Object, newProps: Object): void {
+    private _componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>): void {
         const response = this.componentDidUpdate(oldProps, newProps);
         if (response) {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
         }
     }
 
-    componentDidUpdate(oldProps: Object, newProps: Object): boolean {
+    componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>): boolean {
         return true;
     }
 
-    setProps(nextProps: Object): void {
-        if (nextProps) {
+    setProps(nextProps: unknown): void {
+        if (nextProps && typeof nextProps === 'object') {
             Object.assign(this.props, nextProps);
         }
     }
 
-    get element(): HTMLElement {
+    get element(): HTMLElement | null {
         return this._element;
     }
 
-    _render(): void {
+    private _render(): void {
         this._removeEvents();
 
         const component = this.render();
@@ -102,7 +102,9 @@ export default class Component {
         return template.content;
     }
 
-    render() {}
+    render(): HTMLElement | null {
+        return null;
+    }
 
     isString(value: unknown): value is string {
         if (typeof value === 'string') {
@@ -112,36 +114,35 @@ export default class Component {
         }
     }
 
-    getContent(): HTMLElement {
+    getContent(): HTMLElement | null {
         return this.element;
     }
 
-    _removeEvents(): void {
+    private _removeEvents(): void {
         this._events.forEach((event) => {
             window.removeEventListener(event.eventName, event.eventHandler);
         });
         this._events = [];
     }
 
-    _addEvents(): void {
-        if (this.props.hasOwnProperty('events')) {
-            const events: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject> = this.props.events;
+    private _addEvents(): void {
+        if (this.props.hasOwnProperty('events') && this.element !== null) {
+            const events: Record<keyof HTMLElementEventMap, EventListener> = this.props.events;
 
             Object.keys(events).forEach((eventName: keyof HTMLElementEventMap) => {
-                const eventHandler: EventListenerOrEventListenerObject = events[eventName].bind(this);
+                const eventHandler: EventListener = events[eventName].bind(this);
                 this.element.addEventListener(eventName, eventHandler);
                 this._events.push({ eventName, eventHandler: eventHandler});
             });
         }
     }
 
-    _makePropsProxy(props: Object) {
-        const self = this;
+    private _makePropsProxy(props: Record<string, unknown>) {
         props = new Proxy(props, {
             set(target: { [key: string]: unknown }, prop: string, val: unknown) {
                 const oldTarget = Object.assign({}, target);
                 target[prop] = val;
-                self.eventBus.emit(Component.EVENTS.FLOW_CDU, oldTarget, target);
+                this.eventBus.emit(Component.EVENTS.FLOW_CDU, oldTarget, target);
                 return true;
             },
             deleteProperty() {
@@ -149,16 +150,5 @@ export default class Component {
             }
         });
         return props;
-    }
-
-    _createDocumentElement(tagName: string) {
-        const element: HTMLElement = document.createElement(tagName);
-        if (this.props.hasOwnProperty('settings')) {
-            const {withInternalID = false} = this.props.settings;
-            if (withInternalID) {
-                element.setAttribute('data-id', this._id);
-            }
-        }
-        return element;
     }
   }
