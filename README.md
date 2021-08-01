@@ -35,3 +35,9 @@ Start node server
 ```bash
 npm run express
 ```
+
+## The project use following tools and technologies:
+### Typescript: https://www.typescriptlang.org/
+### ESLint: https://eslint.org/
+### Stylelint: https://stylelint.io/
+### Self-written "reactive" component
