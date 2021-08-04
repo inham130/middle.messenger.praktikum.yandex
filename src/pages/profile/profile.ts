@@ -25,7 +25,7 @@ const context = {
             value: '+79999999999'
         }]
     }
-}
+};
 const template = Handlebars.compile(templateMarkup);
 
 export const html = template(context);

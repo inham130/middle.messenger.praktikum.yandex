@@ -1,5 +1,3 @@
-https://github.com/inham130/middle.messenger.praktikum.yandex/pull/2
-
 ### Messenger
 
 Messenger is a training project in «[Middle frontend-developer course](https://praktikum.yandex.ru/middle-frontend/)» to understeand how the Frontend works without frameworks.
@@ -37,3 +35,10 @@ Start node server
 ```bash
 npm run express
 ```
+
+
+## The project use following tools and technologies:
+### Typescript: https://www.typescriptlang.org/
+### ESLint: https://eslint.org/
+### Stylelint: https://stylelint.io/
+### Self-written "reactive" component

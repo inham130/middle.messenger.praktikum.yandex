@@ -4,6 +4,9 @@
   "description": "### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main. Название pull request может быть любое.",
   "main": "index.js",
   "scripts": {
+    "stylelint": "stylelint 'src/**/**.scss' --syntax sass",
+    "eslint": "eslint . --ext .ts",
+    "dev": "parcel *.html --port 3000",
     "start": "parcel build *.html && npm run express",
     "build": "parcel build *.html",
     "express": "node ./server.js "
@@ -20,10 +23,25 @@
   },
   "homepage": "https://github.com/inham130/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
+    "@types/uuid": "^8.3.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "eslint": "^7.32.0",
     "express": "^4.17.1",
     "handlebars": "^4.7.7",
     "parcel-bundler": "^1.12.5",
-    "sass": "^1.35.1"
+    "sass": "^1.35.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "typescript": "^4.3.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "comment": "0.0.2",
+    "component": "^1.1.0",
+    "components": "^0.1.0",
+    "s": "^1.0.0",
+    "src": "^1.1.2",
+    "static": "^2.0.0",
+    "uuid": "^8.3.2"
+  }
 }

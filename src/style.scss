@@ -5,86 +5,113 @@
 }
 
 html {
-    height: 100%;
-}
-body {
-    display: flex;
-    min-height: 100%;
-    margin: 0;
-    font-family: Roboto;
-}
-h1, h2 {
-    margin: 0;
+  height: 100%;
 }
 
-$cod-gray: #1E1E1E;
-$dusty-gray: #999999;
-$gallery: #EAEAEA;
-$royal-blue: #3369F3;
-$red: #FF0000;
-$white: #ffffff;
+body {
+  display: flex;
+  min-height: 100%;
+  margin: 0;
+  font-family: Roboto;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+$cod-gray: #1e1e1e;
+$dusty-gray: #999;
+$gallery: #eaeaea;
+$royal-blue: #3369f3;
+$red: #f00;
+$white: #fff;
 $default-border-radius: 6px;
 
 #root {
-    display: flex;
-    flex-grow: 1;
+  display: flex;
+  flex-grow: 1;
 }
 
 .main {
-    display: flex;
-    flex-grow: 1;
+  display: flex;
+  flex-grow: 1;
 }
 
 .link {
-    font-size: 13px;
-    color: $royal-blue;
-    text-decoration: none;
+  font-size: 13px;
+  color: $royal-blue;
+  text-decoration: none;
 
-    &_red {
-        color: $red;
-    }
+  &_red {
+    color: $red;
+  }
 }
 
 .text {
-    font-size: 13px;
+  font-size: 13px;
 
-    &_dark {
-        color: $cod-gray;
-    }
 
-    &_gray {
-        color: $dusty-gray;
-    }
+  &_dark {
+    color: $cod-gray;
+  }
 
-    &_right {
-        text-align: right;
-    }
+  &_gray {
+    color: $dusty-gray;
+  }
 
-    &_center {
-        text-align: center;
-    }
+  &_red {
+    color: $red;
+  }
+
+  &_right {
+    text-align: right;
+  }
+
+  &_center {
+    text-align: center;
+  }
+
+  &_small {
+    font-size: 10px;
+  }
+
+  &_truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &_break-word {
+    overflow-wrap: break-word;
+  }
 }
 
 .title {
-    &_h1 {
-        font-size: 40px;
-    }
+  &_h1 {
+    font-size: 40px;
+  }
 
-    &_h2 {
-        font-size: 20px;
-    }
+  &_h2 {
+    font-size: 20px;
+  }
 }
 
 .button {
-    border: none;
-    border-radius: $default-border-radius;
-    padding: 12px 70px;
-    background-color: $royal-blue;
-    font-size: 13px;
-    color: $white;
+  border: none;
+  border-radius: $default-border-radius;
+  padding: 12px 20px;
+  background-color: $royal-blue;
+  font-size: 13px;
+  color: $white;
+
+  &_small {
+    padding: 6px 10px;
+  }
 }
 
 @import './components/form/form';
 @import './pages/home/login';
 @import './pages/profile/profile';
+@import './pages/chat/chat.scss';
 @import './pages/error/error';

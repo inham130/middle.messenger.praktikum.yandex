@@ -4,9 +4,8 @@ export const templateMarkup = `
             <div class="login__title">
                 <h2 class="title">Регистрация</h2>
             </div>
-            {{>form}}
+            <div data-component-type="form"></div>
             <div class="login__footer">
-                <button class="button">Зарегистрироваться</button>
                 <a href="./index.html" class="link">Войти</a>
             </div>
         </div>
