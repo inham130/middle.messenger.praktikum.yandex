@@ -1,3 +1,5 @@
+import { isString} from './typeGuards';
+
 const PATTERNS = {
     EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     LOGIN: /^[a-z0-9_-]{3,15}$/,
@@ -7,11 +9,10 @@ const PATTERNS = {
 };
 
 const makeValidationFunc = function(pattern: RegExp) {
-    return function(event: Event) {
-        if (!isEventTarget(event.target) || !isString((event.target as HTMLTextAreaElement).value)) {
+    return function(value: string) {
+        if (!isString(value)) {
             return;
         }
-        const value: string = (event.target as HTMLTextAreaElement).value;
         const test = value.match(pattern);
         let isValid = false;
 
@@ -20,16 +21,10 @@ const makeValidationFunc = function(pattern: RegExp) {
         }
 
         this.updateValidity(isValid);
+
+        return isValid;
     };
 };
-
-function isEventTarget(value: unknown): value is EventTarget {
-    return value instanceof EventTarget;
-}
-
-function isString(value: unknown): value is string {
-    return typeof value === 'string';
-}
 
 export const validation = {
     email: makeValidationFunc(PATTERNS.EMAIL),

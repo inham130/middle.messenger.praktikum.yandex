@@ -60,12 +60,20 @@ $default-border-radius: 6px;
     color: $dusty-gray;
   }
 
+  &_red {
+    color: $red;
+  }
+
   &_right {
     text-align: right;
   }
 
   &_center {
     text-align: center;
+  }
+
+  &_small {
+    font-size: 10px;
   }
 
   &_truncate {

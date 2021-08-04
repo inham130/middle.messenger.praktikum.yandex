@@ -1,8 +1,15 @@
+enum Methods {
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    DELETE = 'DELETE'
+}
+
 type options = {
     timeout: number,
-    data: Record<string, string>,
+    data: Record<string, string> | null,
     headers?: Record<string, string>,
-    method?: string
+    method?: Methods
 }
 
 const defaultType: options = {
@@ -10,14 +17,7 @@ const defaultType: options = {
     data: {}
 };
 
-const METHODS = {
-    GET: 'GET',
-    POST: 'POST',
-    PUT: 'PUT',
-    DELETE: 'DELETE'
-};
-
-function queryStringify(data: Record<string, string>) {
+function queryStringify(data: Record<string, string> | null) {
     let query = '';
     if (data) {
         Object.keys(data).forEach((key, index) => {
@@ -29,24 +29,28 @@ function queryStringify(data: Record<string, string>) {
     return query;
 }
 
-
 class HTTPTransport {
     get = (url: string, options: options = defaultType) => {
         url += queryStringify(options.data);
-        return this.request(url, {...options, method: METHODS.GET});
+        options.data = null;
+        return this.request(url, {...options, method: Methods.GET});
     };
     put = (url: string, options: options) => {
-        return this.request(url, {...options, method: METHODS.PUT});
+        return this.request(url, {...options, method: Methods.PUT});
     };
     post = (url: string, options: options) => {
-        return this.request(url, {...options, method: METHODS.POST});
+        return this.request(url, {...options, method: Methods.POST});
     };
     delete = (url: string, options: options) => {
-        return this.request(url, {...options, method: METHODS.DELETE});
+        return this.request(url, {...options, method: Methods.DELETE});
     };
 
     request = (url: string, options: options) => {
         const {data, headers, method, timeout} = options;
+        let payload: string | null = null;
+        if (data !== null) {
+            payload = JSON.stringify(data);
+        }
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -66,11 +70,7 @@ class HTTPTransport {
             xhr.onerror = reject;
             xhr.ontimeout = reject;
 
-            if (method === METHODS.GET || !data) {
-                xhr.send();
-            } else {
-                xhr.send(JSON.stringify(data));
-            }
+            xhr.send(payload);
         });
     };
 }

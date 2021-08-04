@@ -16,53 +16,85 @@ const editProfileProps = {
             label: 'Почта',
             name: 'email',
             type: 'text',
+            controlId: 'email',
+            validationFunc: validation.email,
             events: {
-                focus: validation.email,
-                blur: validation.email
+                focus: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                },
+                blur: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                }
             }
         }, {
             label: 'Логин',
             name: 'login',
             type: 'text',
+            controlId: 'login',
+            validationFunc: validation.login,
             events: {
-                focus: validation.login,
-                blur: validation.login
+                focus: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                },
+                blur: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                }
             }
         }, {
             label: 'Имя',
             name: 'first_name',
             type: 'text',
+            controlId: 'first_name',
+            validationFunc: validation.name,
             events: {
-                focus: validation.name,
-                blur: validation.name
+                focus: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                },
+                blur: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                }
             }
         }, {
             label: 'Фамилия',
             name: 'second_name',
             type: 'text',
+            controlId: 'second_name',
+            validationFunc: validation.name,
             events: {
-                focus: validation.name,
-                blur: validation.name
+                focus: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                },
+                blur: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                }
             }
         }, {
             label: 'Телефон',
             name: 'phone',
             type: 'text',
+            controlId: 'phone',
+            validationFunc: validation.phone,
             events: {
-                focus: validation.phone,
-                blur: validation.phone
+                focus: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                },
+                blur: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                }
             }
         }],
         button: {
             text: 'Сохранить',
-            events: {
-                click: function(event: Event) {
-                    event.preventDefault();
-                    const form: HTMLFormElement | null = document.querySelector('form[name="editUserInfo"]');
-                    if (form !== null) {
-                        const formData: FormData = new FormData(form);
-                        console.log(Object.fromEntries(formData));
-                    }
+            type: 'submit'
+        },
+        events: {
+            submit: function(event: Event) {
+                event.preventDefault();
+                const form: HTMLFormElement | null = document.querySelector('form[name="editUserInfo"]');
+                const isFormValid = this.validateForm();
+                if (form !== null) {
+                    const formData: FormData = new FormData(form);
+                    console.log(Object.fromEntries(formData));
                 }
             }
         }

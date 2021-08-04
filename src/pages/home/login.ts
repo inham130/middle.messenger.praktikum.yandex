@@ -12,29 +12,43 @@ const loginProps = {
             label: 'Логин',
             name: 'login',
             type: 'text',
+            controlId: 'login',
+            validationFunc: validation.login,
             events: {
-                focus: validation.login,
-                blur: validation.login,
+                focus: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                },
+                blur: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                }
             }
         }, {
             label: 'Пароль',
             name: 'password',
             type: 'password',
+            controlId: 'password',
+            validationFunc: validation.password,
             events: {
-                focus: validation.password,
-                blur: validation.password,
+                focus: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                },
+                blur: function(event: Event) {
+                    this.props.validationFunc.call(this, event.target.value);
+                }
             }
         }],
         button: {
             text: 'Авторизоваться',
-            events: {
-                click: function(event: Event) {
-                    event.preventDefault();
-                    const form: HTMLFormElement | null = document.querySelector('form[name="login"]');
-                    if (form !== null) {
-                        const formData: FormData = new FormData(form);
-                        console.log(Object.fromEntries(formData));
-                    }
+            type: 'submit',
+        },
+        events: {
+            submit: function(event: Event) {
+                event.preventDefault();
+                const form: HTMLFormElement | null = document.querySelector('form[name="login"]');
+                const isFormValid = this.validateForm();
+                if (form !== null) {
+                    const formData: FormData = new FormData(form);
+                    console.log(Object.fromEntries(formData));
                 }
             }
         }

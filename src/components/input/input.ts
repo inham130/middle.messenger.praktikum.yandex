@@ -5,6 +5,7 @@ import { templateMarkup } from './input.tpl';
 type inputProps = {
     name: string,
     type: string,
+    validationFunc?: CallableFunction,
     events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
     settings?: Record<string, unknown>
 }
@@ -21,6 +22,15 @@ export class Input extends Component {
     }
 
     updateValidity(isValid: boolean): void {
+        const event = new CustomEvent('validateControl', {
+            bubbles: true,
+            detail: {
+                isValid,
+                dataId: this._id
+            }
+        });
+        this.element.dispatchEvent(event);
+
         if (this.element !== null) {
             if (isValid) {
                 this.element.classList.remove('form__input_invalid');

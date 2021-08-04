@@ -7,7 +7,7 @@ export const templateMarkup = `
                         <div class="avatar">
                             <img src="/static/avatar.png" alt="" class="photo" width="32" height="32">
                         </div>
-                        <button class="button button_small">add chat</button>
+                        <button class="button button_small" type="button">add chat</button>
                     </div>
                     <div class="search">
                         <input type="text" name="search" placeholder="Поиск">
@@ -25,7 +25,9 @@ export const templateMarkup = `
                             </div>
                         </div>
                         <div class="chat__meta-info">
-                            <div class="text text_gray chat__time">10:14</div>
+                            <div class="text text_gray chat__time">
+                                <time datetime="10:14">10:14</time>
+                            </div>
                             <div class="text text_gray chat__count">4</div>
                         </div>
                     </li>
@@ -40,7 +42,9 @@ export const templateMarkup = `
                             </div>
                         </div>
                         <div class="chat__meta-info">
-                            <div class="text text_gray chat__time">10:14</div>
+                            <div class="text text_gray chat__time">
+                                <time datetime="10:14">10:14</time>
+                            </div>
                             <div class="text text_gray chat__count">4</div>
                         </div>
                     </li>
@@ -55,7 +59,9 @@ export const templateMarkup = `
                             </div>
                         </div>
                         <div class="chat__meta-info">
-                            <div class="text text_gray chat__time">10:14</div>
+                            <div class="text text_gray chat__time">
+                                <time datetime="10:14">10:14</time>
+                            </div>
                             <div class="text text_gray chat__count">4</div>
                         </div>
                     </li>
@@ -70,7 +76,9 @@ export const templateMarkup = `
                             </div>
                         </div>
                         <div class="chat__meta-info">
-                            <div class="text text_gray chat__time">10:14</div>
+                            <div class="text text_gray chat__time">
+                                <time datetime="10:14">10:14</time>
+                            </div>
                             <div class="text text_gray chat__count">4</div>
                         </div>
                     </li>
@@ -83,7 +91,7 @@ export const templateMarkup = `
                     </div>
                     <div class="text text_dark chat__name">Chat name</div>
                     <div class="chat__actions">
-                        <button class="button button_small">Actions</button>
+                        <button class="button button_small" type="button">Actions</button>
                     </div>
                 </div>
                 <div class="chat__messages">
@@ -109,13 +117,13 @@ export const templateMarkup = `
                 </div>
                 <form class="chat__message-form">
                     <div class="attach-button">
-                        <button class="button button_small">attach</button>
+                        <button class="button button_small" type="button">attach</button>
                     </div>
                     <div class="chat__message-input">
                         <textarea name="message" class="message-area"></textarea>
                     </div>
                     <div class="send-button">
-                        <button class="button button_small">send</button>
+                        <button class="button button_small" type="submit">send</button>
                     </div>
                 </form>
             </div>

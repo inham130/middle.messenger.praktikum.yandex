@@ -106,14 +106,6 @@ export default class Component {
         return null;
     }
 
-    isString(value: unknown): value is string {
-        if (typeof value === 'string') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     getContent(): HTMLElement | null {
         return this.element;
     }
