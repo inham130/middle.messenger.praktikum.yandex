@@ -115,6 +115,11 @@ const signUpProps = {
                 event.preventDefault();
                 const form: HTMLFormElement | null = document.querySelector('form[name="signUp"]');
                 const isFormValid = this.validateForm();
+
+                if (!isFormValid) {
+                    event.preventDefault();
+                }
+
                 if (form !== null) {
                     const formData: FormData = new FormData(form);
                     console.log(Object.fromEntries(formData));

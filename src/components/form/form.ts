@@ -21,20 +21,22 @@ export class Form extends Component {
     }
 
     validateControl(event: CustomEvent) {
-        const {isValid, dataId} = event.detail;
-        const target = event.target;
-        const hintFor = document.querySelector(`[data-hint-for="${dataId}"]`);
+        const {isValid, controlId} = event.detail;
+        const msgContainer = document.querySelector(`[data-msg-for="${controlId}"]`);
 
+        if (msgContainer === null) {
+            return;
+        }
         if (isValid === false) {
-            if (hintFor === null) {
+            if (msgContainer.innerHTML === '') {
                 const hintSpan = document.createElement('span');
                 hintSpan.classList.add('text', 'text_red', 'text_small');
-                hintSpan.setAttribute('data-hint-for', dataId);
+                hintSpan.setAttribute('data-hint-for', controlId);
                 hintSpan.textContent = 'Неверный ввод';
-                target.after(hintSpan);
+                msgContainer.appendChild(hintSpan);
             }
-        } else if (hintFor) {
-            hintFor.remove();
+        } else if (msgContainer.innerHTML !== '') {
+            msgContainer.innerHTML = '';
         }
     }
 

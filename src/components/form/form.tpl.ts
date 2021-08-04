@@ -5,6 +5,7 @@ export const templateMarkup = `
                 <li class="form__control">
                     <label for="{{controlId}}" class="form__label">{{label}}</label>
                     <div data-component-type="input" data-component-name="{{name}}"></div>
+                    <div class="validation-msg" data-msg-for="{{controlId}}"></div>
                 </li>
             {{/each}}
         </ul>

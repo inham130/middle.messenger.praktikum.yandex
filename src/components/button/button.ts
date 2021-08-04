@@ -2,14 +2,14 @@ import Handlebars from 'handlebars';
 import Component from '../component';
 import { templateMarkup } from './button.tpl';
 
-enum buttonTypes {
+enum ButtonTypes {
     submit = 'submit',
     button = 'button'
 }
 
 type buttonProps = {
     text: string,
-    type: buttonTypes,
+    type: ButtonTypes,
     events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
     settings?: Record<string, unknown>
 }

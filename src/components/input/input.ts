@@ -5,6 +5,7 @@ import { templateMarkup } from './input.tpl';
 type inputProps = {
     name: string,
     type: string,
+    controlId: string,
     validationFunc?: CallableFunction,
     events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
     settings?: Record<string, unknown>
@@ -26,7 +27,7 @@ export class Input extends Component {
             bubbles: true,
             detail: {
                 isValid,
-                dataId: this._id
+                controlId: this.props.controlId
             }
         });
         this.element.dispatchEvent(event);

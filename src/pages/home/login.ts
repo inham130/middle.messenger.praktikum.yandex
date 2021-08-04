@@ -43,9 +43,13 @@ const loginProps = {
         },
         events: {
             submit: function(event: Event) {
-                event.preventDefault();
                 const form: HTMLFormElement | null = document.querySelector('form[name="login"]');
                 const isFormValid = this.validateForm();
+
+                if (!isFormValid) {
+                    event.preventDefault();
+                }
+
                 if (form !== null) {
                     const formData: FormData = new FormData(form);
                     console.log(Object.fromEntries(formData));
