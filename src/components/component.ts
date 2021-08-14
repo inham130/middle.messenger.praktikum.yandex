@@ -143,4 +143,14 @@ export default class Component {
         });
         return props;
     }
-  }
+
+    hide() {
+        console.log('hide');
+        this.element.setAttribute('style', 'display:none');
+    }
+    show() {
+        console.log('show');
+        this.element.removeAttribute('style');
+        // this.getContent().remove();
+    }
+}

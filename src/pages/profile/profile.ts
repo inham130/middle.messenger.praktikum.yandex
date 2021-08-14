@@ -1,8 +1,9 @@
 import Handlebars from 'handlebars';
+import Component from '../../components/component';
 import { templateMarkup } from './profile.tpl';
 import avatar from '/static/avatar.png';
 
-const context = {
+const profileProps = {
     avatar,
     profile: {
         listData: [{
@@ -26,6 +27,16 @@ const context = {
         }]
     }
 };
-const template = Handlebars.compile(templateMarkup);
 
-export const html = template(context);
+export class Profile extends Component {
+    constructor(props = profileProps) {
+        super(props);
+    }
+
+    render(): HTMLElement {
+        const template = Handlebars.compile(templateMarkup);
+        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
+
+        return fragment.firstChild as HTMLElement;
+    }
+}

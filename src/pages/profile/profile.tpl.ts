@@ -19,10 +19,10 @@ export const templateMarkup = `
             </div>
             <div class="profile__footer">
                 <div class="profile__link">
-                    <a href="./profile-edit-data.html" class="link">Изменить данные</a>
+                    <a href="./settings" class="link">Изменить данные</a>
                 </div>
                 <div class="profile__link">
-                    <a href="./profile-edit-pass.html" class="link">Изменить пароль</a>
+                    <a href="./pass" class="link">Изменить пароль</a>
                 </div>
                 <div class="profile__link">
                     <a href="" class="link link_red">Выйти</a>
