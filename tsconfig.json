@@ -16,13 +16,12 @@
          "moduleResolution": "Node",
          "baseUrl": ".",
          "paths": {
-               "*": ["node_modules/*"],
-               "s": ["static/*"]
+               "~/*": ["./*"],
          },
          "allowSyntheticDefaultImports": true
      },
-     
+
      "exclude": [
         "node_modules"
      ]
-} 
+}

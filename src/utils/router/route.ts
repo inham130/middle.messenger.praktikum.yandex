@@ -27,7 +27,7 @@ export class Route {
 
     leave(): void {
         if (this._block) {
-            this._block.hide();
+            this._block.remove();
         }
     }
 
@@ -38,9 +38,8 @@ export class Route {
     render(): void {
         if (!this._block) {
             this._block = new this._blockClass();
-            render(this._props.rootQuery, this._block);
-            return;
         }
-        this._block.show();
+
+        render(this._props.rootQuery, this._block);
     }
 }

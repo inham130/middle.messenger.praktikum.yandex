@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars';
 import Component from '../../../components/component';
 import { Form } from '../../../components/form';
+import { SignUpController } from './signup.controller';
 import { validation } from '../../../utils/formValidation';
 import { templateMarkup } from './signup.tpl';
 
@@ -112,26 +113,26 @@ const signUpProps = {
         },
         events: {
             submit: function(event: Event) {
-                event.preventDefault();
-                const form: HTMLFormElement | null = document.querySelector('form[name="signUp"]');
-                const isFormValid = this.validateForm();
-
-                if (!isFormValid) {
-                    event.preventDefault();
-                }
-
-                if (form !== null) {
-                    const formData: FormData = new FormData(form);
-                    console.log(Object.fromEntries(formData));
-                }
+                this.submit(event);
             }
         }
     }
 };
 
 export class SignUp extends Component {
-    constructor(props = signUpProps) {
+    signUpAPI: SignUpApi;
+    private signUpController: SignUpController;
+
+    constructor(props = signUpProps, controller = SignUpController) {
         super(props);
+        this.signUpController = new SignUpController();
+
+        this.signUp = this.signUp.bind(this);
+        this.registerCustomEvents();
+    }
+
+    registerCustomEvents(): void {
+        this.element.addEventListener('formSubmit', this.signUp);
     }
 
     render() {
@@ -141,9 +142,15 @@ export class SignUp extends Component {
         const formTarget: HTMLElement | null = fragment.querySelector('[data-component-type="form"]');
         if (formTarget !== null) {
             const form = new Form(this.props.form);
-            formTarget.replaceWith(form.getContent());
+            formTarget.replaceWith(form.getContent() as HTMLElement);
         }
 
         return fragment.firstChild;
+    }
+
+    signUp(event: CustomEvent) {
+        const formData = event.detail.formData;
+        const data = Object.fromEntries(formData);
+        this.signUpController.signUp(data);
     }
 }

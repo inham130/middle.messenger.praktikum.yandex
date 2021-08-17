@@ -83,4 +83,6 @@ export class Login extends Component {
 
         return fragment.firstChild as HTMLElement;
     }
+
+    componentDidMount(): void {}
 }

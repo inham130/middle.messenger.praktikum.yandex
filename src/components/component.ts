@@ -145,12 +145,21 @@ export default class Component {
     }
 
     hide() {
-        console.log('hide');
         this.element.setAttribute('style', 'display:none');
     }
     show() {
-        console.log('show');
         this.element.removeAttribute('style');
-        // this.getContent().remove();
+    }
+
+    remove() {
+        this.element.remove();
+    }
+
+    destroy() {
+        this._removeEvents();
+        this.remove();
+        this.props = null;
+        this._meta = null;
+        this._element = null;
     }
 }

@@ -6,8 +6,8 @@ enum Methods {
 }
 
 type options = {
-    timeout: number,
     data: Record<string, string> | null,
+    timeout?: number,
     headers?: Record<string, string>,
     method?: Methods
 }
@@ -29,7 +29,7 @@ function queryStringify(data: Record<string, string> | null) {
     return query;
 }
 
-class HTTPTransport {
+export default class HTTPTransport {
     get = (url: string, options: options = defaultType) => {
         url += queryStringify(options.data);
         options.data = null;
@@ -60,10 +60,11 @@ class HTTPTransport {
                 resolve(xhr);
             };
 
-            if (headers) {
-                const _headers: [string, string] = Object.entries(headers)[0];
-                xhr.setRequestHeader(..._headers);
-            }
+            Object.entries(headers)
+                .forEach(([key, value]: [string, string]) => {
+                    xhr.setRequestHeader(key, value);
+                });
+
             xhr.timeout = timeout;
 
             xhr.onabort = reject;

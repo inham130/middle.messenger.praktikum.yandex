@@ -52,6 +52,23 @@ export class Form extends Component {
         return isFormValid;
     }
 
+    submit(event: Event) {
+        event.preventDefault();
+        const form: HTMLFormElement | null = document.querySelector(`form[name="${this.props.name}"]`);
+        const isFormValid = this.validateForm();
+
+        if (isFormValid) {
+            const formData: FormData = new FormData(form);
+            console.log(Object.fromEntries(formData));
+
+            const customEvent = new CustomEvent('formSubmit', {
+                bubbles: true,
+                detail: {formData}
+            });
+            this.element.dispatchEvent(customEvent);
+        }
+    }
+
     render(): HTMLElement {
         this.controls = [];
 
