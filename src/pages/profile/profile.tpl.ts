@@ -25,7 +25,7 @@ export const templateMarkup = `
                     <a href="./pass" class="link">Изменить пароль</a>
                 </div>
                 <div class="profile__link">
-                    <a href="" class="link link_red">Выйти</a>
+                    <div data-component-type="button" data-component-name="logoutButton"></div>
                 </div>
             </div>
         </div>

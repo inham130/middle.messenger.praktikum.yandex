@@ -11,7 +11,9 @@ type buttonProps = {
     text: string,
     type: ButtonTypes,
     events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
-    settings?: Record<string, unknown>
+    settings?: Record<string, unknown>,
+    classes?: string,
+    action: string,
 }
 
 export class Button extends Component {

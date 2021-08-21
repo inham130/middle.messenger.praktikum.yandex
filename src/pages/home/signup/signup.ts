@@ -4,6 +4,7 @@ import { Form } from '../../../components/form';
 import { SignUpController } from './signup.controller';
 import { validation } from '../../../utils/formValidation';
 import { templateMarkup } from './signup.tpl';
+import { Router } from '../../../utils/router/index';
 
 const signUpProps = {
     form: {
@@ -151,6 +152,10 @@ export class SignUp extends Component {
     signUp(event: CustomEvent) {
         const formData = event.detail.formData;
         const data = Object.fromEntries(formData);
-        this.signUpController.signUp(data);
+        this.signUpController
+            .signUp(data)
+            .then(() => {
+                new Router().go('/messenger');
+            });
     }
 }

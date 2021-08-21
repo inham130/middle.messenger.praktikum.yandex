@@ -30,19 +30,21 @@ function queryStringify(data: Record<string, string> | null) {
 }
 
 export default class HTTPTransport {
+    constructor(protected HOST_URL: string) {}
+
     get = (url: string, options: options = defaultType) => {
-        url += queryStringify(options.data);
+        url = `${this.HOST_URL}${url}${queryStringify(options.data)}`;
         options.data = null;
         return this.request(url, {...options, method: Methods.GET});
     };
     put = (url: string, options: options) => {
-        return this.request(url, {...options, method: Methods.PUT});
+        return this.request(`${this.HOST_URL}${url}`, {...options, method: Methods.PUT});
     };
     post = (url: string, options: options) => {
-        return this.request(url, {...options, method: Methods.POST});
+        return this.request(`${this.HOST_URL}${url}`, {...options, method: Methods.POST});
     };
     delete = (url: string, options: options) => {
-        return this.request(url, {...options, method: Methods.DELETE});
+        return this.request(`${this.HOST_URL}${url}`, {...options, method: Methods.DELETE});
     };
 
     request = (url: string, options: options) => {
@@ -56,8 +58,13 @@ export default class HTTPTransport {
             const xhr = new XMLHttpRequest();
             xhr.open(method!, url);
 
-            xhr.onload = function() {
-                resolve(xhr);
+            xhr.onload = () => {
+                const { status, response} = xhr;
+                if (status === 200) {
+                    resolve(response);
+                } else {
+                    reject({response, status});
+                }
             };
 
             Object.entries(headers)

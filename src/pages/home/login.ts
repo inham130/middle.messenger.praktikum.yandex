@@ -3,6 +3,8 @@ import Component from '../../components/component';
 import { Form } from '../../components/form';
 import { Button } from '../../components/button';
 import { validation } from '../../utils/formValidation';
+import { LoginController } from '../../controllers/login.controller';
+import { Router } from '../../utils/router/index';
 import { templateMarkup } from './login.tpl';
 
 const loginProps = {
@@ -43,17 +45,7 @@ const loginProps = {
         },
         events: {
             submit: function(event: Event) {
-                const form: HTMLFormElement | null = document.querySelector('form[name="login"]');
-                const isFormValid = this.validateForm();
-
-                if (!isFormValid) {
-                    event.preventDefault();
-                }
-
-                if (form !== null) {
-                    const formData: FormData = new FormData(form);
-                    console.log(Object.fromEntries(formData));
-                }
+                this.submit(event);
             }
         }
     }
@@ -63,6 +55,27 @@ const loginProps = {
 export class Login extends Component {
     constructor(props = loginProps) {
         super(props);
+
+        this.loginController = new LoginController();
+        this.signIn = this.signIn.bind(this);
+        this.registerCustomEvents();
+    }
+
+    registerCustomEvents(): void {
+        this.element.addEventListener('formSubmit', this.signIn);
+    }
+
+    signIn(event: CustomEvent) {
+        const formData = event.detail.formData;
+        const data = Object.fromEntries(formData);
+        this.loginController
+            .signIn(data)
+            .then((response) => {
+                new Router().go('/messenger');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     render(): HTMLElement {

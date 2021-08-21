@@ -1,5 +1,5 @@
 export class BaseAPI {
-    protected baseURL = 'https://ya-praktikum.tech/api/v2';
+    protected host = 'https://ya-praktikum.tech/api/v2';
 
     create(): void {
         throw new Error('Not implemented');
