@@ -71,7 +71,7 @@ export class Login extends Component {
         this.loginController
             .signIn(data)
             .then((response) => {
-                new Router().go('/messenger');
+                new Router().go('/profile');
             })
             .catch((error) => {
                 console.error(error);

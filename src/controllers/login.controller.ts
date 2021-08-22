@@ -7,7 +7,8 @@ export class LoginController {
     }
 
     signIn(data: Record<string, unknown>) {
-        return this.loginAPI.signIn(data);
+        return this.loginAPI
+            .signIn(data);
     }
 
     logout() {
