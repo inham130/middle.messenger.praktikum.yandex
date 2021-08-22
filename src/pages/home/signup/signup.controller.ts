@@ -16,10 +16,7 @@ export class SignUpController {
             })
             .then(() => {
                 this.signUpAPI
-                    .request()
-                    .then((response) => {
-                        console.log(response);
-                    });
+                    .request();
             });
     }
 }

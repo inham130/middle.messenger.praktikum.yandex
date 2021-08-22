@@ -1,16 +1,16 @@
 import Handlebars from 'handlebars';
 import Component from '../../../components/component';
 import { Form } from '../../../components/form';
+import { UserController } from '../../../controllers/user.controller';
 import { validation } from '../../../utils/formValidation';
 import { templateMarkup } from './profileEditData.tpl';
 import avatar from '/static/avatar.png';
 
 const editProfileProps = {
     avatar,
-    userName: 'Иван',
+    displayName: '',
     form: {
         classes: 'profile',
-        profileTitle: 'Иван',
         name: 'editUserInfo',
         controls: [{
             label: 'Почта',
@@ -69,6 +69,12 @@ const editProfileProps = {
                 }
             }
         }, {
+            label: 'Имя в чате',
+            value: '',
+            name: 'display_name',
+            type: 'text',
+            controlId: 'display_name'
+        }, {
             label: 'Телефон',
             name: 'phone',
             type: 'text',
@@ -89,26 +95,48 @@ const editProfileProps = {
         },
         events: {
             submit: function(event: Event) {
-                event.preventDefault();
-                const form: HTMLFormElement | null = document.querySelector('form[name="editUserInfo"]');
-                const isFormValid = this.validateForm();
-
-                if (!isFormValid) {
-                    event.preventDefault();
-                }
-
-                if (form !== null) {
-                    const formData: FormData = new FormData(form);
-                    console.log(Object.fromEntries(formData));
-                }
+                this.submit(event);
             }
         }
     }
 };
 
 export class EditProfile extends Component {
+    userController: UserController;
     constructor(props = editProfileProps) {
         super(props);
+
+        this.saveUserData = this.saveUserData.bind(this);
+    }
+
+    registerCustomEvents(): void {
+        this.element.addEventListener('formSubmit', this.saveUserData);
+    }
+
+    saveUserData(event: CustomEvent) {
+        const formData = event.detail.formData;
+        const data = Object.fromEntries(formData);
+        this.userController.saveUserData(data);
+    }
+
+    componentDidMount() {
+        this.userController = new UserController();
+
+        this.userController
+            .getUserData()
+            .then((response: string) => {
+                try {
+                    const userData = JSON.parse(response);
+                    const actualData = this.userController.mapnUserData(this.props.form.controls, userData);
+
+                    this.props.displayName = userData.display_name;
+                    this.props.userData = actualData;
+
+                    console.log(this.props.displayName);
+                } catch (error) {
+                    throw new Error(error);
+                }
+            });
     }
 
     render(): HTMLElement {

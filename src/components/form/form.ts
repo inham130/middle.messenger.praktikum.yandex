@@ -43,9 +43,11 @@ export class Form extends Component {
     validateForm() {
         let isFormValid = true;
         this.controls.forEach(function(control) {
-            const isControlValid = control.props.validationFunc.call(control, control.element.value);
-            if (isControlValid === false) {
-                isFormValid = false;
+            if (control.props.validationFunc) {
+                const isControlValid = control.props.validationFunc.call(control, control.element.value);
+                if (isControlValid === false) {
+                    isFormValid = false;
+                }
             }
         });
 

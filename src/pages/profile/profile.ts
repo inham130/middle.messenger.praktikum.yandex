@@ -3,32 +3,38 @@ import Component from '../../components/component';
 import { Button } from '../../components/button/index';
 import { templateMarkup } from './profile.tpl';
 import { LoginController } from '../../controllers/login.controller';
+import { UserController } from '../../controllers/user.controller';
 import { Router } from '../../utils/router/index';
 import avatar from '/static/avatar.png';
 
 const profileProps = {
     avatar,
-    profile: {
-        listData: [{
-            label: 'Почта',
-            value: 'dymm@email.com'
-        }, {
-            label: 'Логин',
-            value: 'ivanovivan'
-        }, {
-            label: 'Имя',
-            value: 'Иван'
-        }, {
-            label: 'Фамилия',
-            value: 'Иванов'
-        }, {
-            label: 'Имя в чате',
-            value: 'ivan'
-        }, {
-            label: 'Телефон',
-            value: '+79999999999'
-        }]
-    },
+    displayName: '',
+    userData: [{
+        label: 'Почта',
+        value: 'dymm@email.com',
+        name: 'email'
+    }, {
+        label: 'Логин',
+        value: 'ivanovivan',
+        name: 'login'
+    }, {
+        label: 'Имя',
+        value: 'Иван',
+        name: 'first_name'
+    }, {
+        label: 'Фамилия',
+        value: 'Иванов',
+        name: 'second_name'
+    }, {
+        label: 'Имя в чате',
+        value: 'ivan',
+        name: 'display_name'
+    }, {
+        label: 'Телефон',
+        value: '+79999999999',
+        name: 'phone'
+    }],
     logoutButton: {
         text: 'Выйти',
         type: 'button',
@@ -44,31 +50,28 @@ const profileProps = {
 
 export class Profile extends Component {
     loginController: LoginController;
+    userController: UserController;
+
     constructor(props = profileProps) {
         super(props);
+    }
 
+    componentDidMount() {
         this.loginController = new LoginController();
-    }
+        this.userController = new UserController();
 
-    clickHandler(event:Event) {
-        const target = event.target;
-        const action = target.dataset.action;
-        if (action) {
-            switch(action) {
-                case 'logout':
-                    this.logout();
-                    break;
-            }
-        }
-    }
+        this.userController
+            .getUserData()
+            .then((response: string) => {
+                try {
+                    const userData = JSON.parse(response);
+                    const actualData = this.userController.mapnUserData(this.props.userData, userData);
 
-    logout() {
-        this.loginController.logout()
-            .then(() => {
-                new Router().go('/');
-            })
-            .catch((error) => {
-                console.log(error);
+                    this.props.displayName = userData.display_name;
+                    this.props.userData = actualData;
+                } catch (error) {
+                    throw new Error(error);
+                }
             });
     }
 
@@ -83,5 +86,27 @@ export class Profile extends Component {
         }
 
         return fragment.firstChild as HTMLElement;
+    }
+
+    logout() {
+        this.loginController.logout()
+            .then(() => {
+                new Router().go('/');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    clickHandler(event:Event) {
+        const target = event.target;
+        const action = target.dataset.action;
+        if (action) {
+            switch(action) {
+                case 'logout':
+                    this.logout();
+                    break;
+            }
+        }
     }
 }

@@ -106,6 +106,8 @@ export default class Component {
         return null;
     }
 
+    registerCustomEvents(): void {}
+
     getContent(): HTMLElement | null {
         return this.element;
     }
@@ -127,14 +129,16 @@ export default class Component {
                 this._events.push({ eventName, eventHandler: eventHandler});
             });
         }
+        this.registerCustomEvents();
     }
 
     private _makePropsProxy(props: Record<string, unknown>) {
+        const self = this;
         props = new Proxy(props, {
             set(target: { [key: string]: unknown }, prop: string, val: unknown) {
                 const oldTarget = Object.assign({}, target);
                 target[prop] = val;
-                this.eventBus.emit(Component.EVENTS.FLOW_CDU, oldTarget, target);
+                self.eventBus.emit(Component.EVENTS.FLOW_CDU, oldTarget, target);
                 return true;
             },
             deleteProperty() {

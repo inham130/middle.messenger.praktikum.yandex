@@ -13,7 +13,7 @@ type options = {
 }
 
 const defaultType: options = {
-    timeout: 5000,
+    timeout: 10000,
     data: {}
 };
 
