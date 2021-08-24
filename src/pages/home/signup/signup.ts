@@ -129,7 +129,6 @@ export class SignUp extends Component {
         this.signUpController = new SignUpController();
 
         this.signUp = this.signUp.bind(this);
-        this.registerCustomEvents();
     }
 
     registerCustomEvents(): void {

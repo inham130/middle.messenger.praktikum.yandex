@@ -111,6 +111,7 @@ $default-border-radius: 6px;
 }
 
 @import './components/form/form';
+@import './components/popup/popup';
 @import './pages/home/login';
 @import './pages/profile/profile';
 @import './pages/chat/chat.scss';

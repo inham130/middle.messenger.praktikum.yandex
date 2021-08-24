@@ -56,38 +56,6 @@ export class Profile extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        this.loginController = new LoginController();
-        this.userController = new UserController();
-
-        this.userController
-            .getUserData()
-            .then((response: string) => {
-                try {
-                    const userData = JSON.parse(response);
-                    const actualData = this.userController.mapnUserData(this.props.userData, userData);
-
-                    this.props.displayName = userData.display_name;
-                    this.props.userData = actualData;
-                } catch (error) {
-                    throw new Error(error);
-                }
-            });
-    }
-
-    render(): HTMLElement {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        const buttonTarget: ChildNode | null = fragment.querySelector('[data-component-type="button"][data-component-name="logoutButton"]');
-        if (buttonTarget !== null) {
-            const button = new Button(this.props.logoutButton);
-            buttonTarget.replaceWith(button.getContent() as Node);
-        }
-
-        return fragment.firstChild as HTMLElement;
-    }
-
     logout() {
         this.loginController.logout()
             .then(() => {
@@ -108,5 +76,37 @@ export class Profile extends Component {
                     break;
             }
         }
+    }
+
+    componentDidMount() {
+        this.loginController = new LoginController();
+        this.userController = new UserController();
+
+        this.userController
+            .getUserData()
+            .then((response: string) => {
+                try {
+                    const userData = JSON.parse(response);
+                    const actualData = this.userController.mapUserData(this.props.userData, userData);
+
+                    this.props.displayName = userData.display_name;
+                    this.props.userData = actualData;
+                } catch (error) {
+                    throw new Error(error);
+                }
+            });
+    }
+
+    render(): HTMLElement {
+        const template = Handlebars.compile(templateMarkup);
+        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
+
+        const buttonTarget: ChildNode | null = fragment.querySelector('[data-component-type="button"][data-component-name="logoutButton"]');
+        if (buttonTarget !== null) {
+            const button = new Button(this.props.logoutButton);
+            buttonTarget.replaceWith(button.getContent() as Node);
+        }
+
+        return fragment.firstChild as HTMLElement;
     }
 }

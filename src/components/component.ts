@@ -14,7 +14,8 @@ export default class Component {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
         FLOW_RENDER: 'flow:render',
-        FLOW_CDU: 'flow:component-did-update'
+        FLOW_CDU: 'flow:component-did-update',
+        FLOW_CDR: 'flow:component-did-render'
     };
 
     props: Record<any, any>;
@@ -43,6 +44,7 @@ export default class Component {
         this.eventBus.on(Component.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         this.eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this));
         this.eventBus.on(Component.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+        this.eventBus.on(Component.EVENTS.FLOW_CDR, this._componentDidRender.bind(this));
     }
 
     private _createResources(): void {
@@ -72,6 +74,12 @@ export default class Component {
         return true;
     }
 
+    private _componentDidRender(): void {
+        this.componentDidRender();
+    }
+
+    componentDidRender(): void {}
+
     setProps(nextProps: unknown): void {
         if (nextProps && typeof nextProps === 'object') {
             Object.assign(this.props, nextProps);
@@ -94,6 +102,8 @@ export default class Component {
         }
 
         this._addEvents();
+
+        this.eventBus.emit(Component.EVENTS.FLOW_CDR);
     }
 
     createFragmentFromString(str: string) {

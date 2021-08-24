@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars';
 import Component from '../../../components/component';
 import { Form } from '../../../components/form';
+import { Popup } from '../../../components/popup/index';
 import { UserController } from '../../../controllers/user.controller';
 import { validation } from '../../../utils/formValidation';
 import { templateMarkup } from './profileEditData.tpl';
@@ -98,6 +99,11 @@ const editProfileProps = {
                 this.submit(event);
             }
         }
+    },
+    events: {
+        click: function(event: Event) {
+            this.clickHandler(event);
+        }
     }
 };
 
@@ -111,6 +117,56 @@ export class EditProfile extends Component {
 
     registerCustomEvents(): void {
         this.element.addEventListener('formSubmit', this.saveUserData);
+    }
+
+    clickHandler(event:Event) {
+        const target = event.target;
+        const action = target.dataset.action;
+
+        if (action) {
+            switch(action) {
+                case 'uploadPhoto':
+                    this.uploadPhoto();
+                    break;
+            }
+        }
+    }
+
+    uploadPhoto() {
+        const popupProps = {
+            title: 'Загрузите файл',
+            form: {
+                name: 'uploadPhoto',
+                controls: [{
+                    label: '',
+                    name: 'avatar',
+                    type: 'file',
+                    controlId: 'avatar',
+                    accept: ['.jpg', '.jpeg', '.png']
+                }],
+                button: {
+                    text: 'Загрузить',
+                    type: 'submit'
+                },
+                events: {
+                    submit: (event: Event) => {
+                        event.preventDefault();
+                        const fileInput = event.target.querySelector('input[type="file"]');
+                        const [file] = fileInput.files;
+                        const formData: FormData = new FormData();
+                        formData.append('avatar', file);
+
+                        this.userController
+                            .uploadAvatar(formData)
+                            .then((response) => {
+                                console.log(response);
+                            });
+                    }
+                }
+            }
+        };
+        const popup = new Popup(popupProps);
+        this.element.appendChild(popup.element);
     }
 
     saveUserData(event: CustomEvent) {
@@ -127,12 +183,10 @@ export class EditProfile extends Component {
             .then((response: string) => {
                 try {
                     const userData = JSON.parse(response);
-                    const actualData = this.userController.mapnUserData(this.props.form.controls, userData);
+                    const actualData = this.userController.mapUserData(this.props.form.controls, userData);
 
                     this.props.displayName = userData.display_name;
                     this.props.userData = actualData;
-
-                    console.log(this.props.displayName);
                 } catch (error) {
                     throw new Error(error);
                 }

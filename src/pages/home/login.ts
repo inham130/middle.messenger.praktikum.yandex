@@ -53,23 +53,23 @@ const loginProps = {
 
 
 export class Login extends Component {
+    loginController: LoginController;
+
     constructor(props = loginProps) {
         super(props);
 
         this.loginController = new LoginController();
-        this.signIn = this.signIn.bind(this);
-        this.registerCustomEvents();
+        // this.signIn = this.signIn.bind(this);
     }
 
     registerCustomEvents(): void {
-        this.element.addEventListener('formSubmit', this.signIn);
+        this.element.addEventListener('formSubmit', (e) => this.signIn(e));
     }
 
     signIn(event: CustomEvent) {
         const formData = event.detail.formData;
         const data = Object.fromEntries(formData);
-        this.loginController
-            .signIn(data)
+        this.loginController.signIn(data)
             .then((response) => {
                 new Router().go('/profile');
             })

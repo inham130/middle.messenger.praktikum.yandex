@@ -12,15 +12,19 @@ export class UserController {
     }
 
     saveUserData(data): Promise<unknown> {
-        return this.userAPI.update(data):
+        return this.userAPI.update(JSON.stringify(data)):
     }
 
-    mapnUserData(target: [], data: Record<string, unknown>): Array<Record<string, unknown>> {
+    mapUserData(target: [], data: Record<string, unknown>): Array<Record<string, unknown>> {
         let value;
         return target.map((item) => {
             value = data[item.name] === null ? '' : data[item.name];
             item.value = value;
             return item;
         });
+    }
+
+    uploadAvatar(data) {
+        return this.userAPI.uploadAvatar(data);
     }
 }

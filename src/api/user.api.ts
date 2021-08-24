@@ -29,4 +29,17 @@ export class UserAPI extends BaseAPI {
         };
         return this.http.put(url, options);
     }
+
+    uploadAvatar(data) {
+        const url = '/user/profile/avatar';
+        console.log(data);
+
+        const options = {
+            data,
+            // headers: {
+            //     'Origin': 'http://localhost:3000'
+            // }
+        };
+        return this.http.put(url, options);
+    }
 }
