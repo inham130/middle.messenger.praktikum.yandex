@@ -3,6 +3,7 @@ import Component from '../../components/component';
 import { Form } from '../../components/form';
 import { Button } from '../../components/button';
 import { validation } from '../../utils/formValidation';
+import { errorHandlerMixin } from '../../utils/mixin/ErrorHandlerMixin';
 import { LoginController } from '../../controllers/login.controller';
 import { Router } from '../../utils/router/index';
 import { templateMarkup } from './login.tpl';
@@ -51,7 +52,6 @@ const loginProps = {
     }
 };
 
-
 export class Login extends Component {
     loginController: LoginController;
 
@@ -59,7 +59,6 @@ export class Login extends Component {
         super(props);
 
         this.loginController = new LoginController();
-        // this.signIn = this.signIn.bind(this);
     }
 
     registerCustomEvents(): void {
@@ -70,12 +69,11 @@ export class Login extends Component {
         const formData = event.detail.formData;
         const data = Object.fromEntries(formData);
         this.loginController.signIn(data)
-            .then((response) => {
+            .then(() => {
+                // поскольку Router является синглтоном я использую new, но не уверен, что это хорошо
                 new Router().go('/profile');
             })
-            .catch((error) => {
-                console.error(error);
-            });
+            .catch(this.handleHTTPError);
     }
 
     render(): HTMLElement {
@@ -84,8 +82,8 @@ export class Login extends Component {
 
         const formTarget: HTMLElement | null = fragment.querySelector('[data-component-type="form"]');
         if (formTarget !== null) {
-            const form = new Form(this.props.form);
-            formTarget.replaceWith(form.getContent() as Node);
+            this.form = new Form(this.props.form);
+            formTarget.replaceWith(this.form.getContent() as Node);
         }
 
         const buttonTarget: HTMLElement | null = fragment.querySelector('[data-component-type="button"]');
@@ -96,6 +94,6 @@ export class Login extends Component {
 
         return fragment.firstChild as HTMLElement;
     }
-
-    componentDidMount(): void {}
 }
+
+Object.assign(Login.prototype, errorHandlerMixin);

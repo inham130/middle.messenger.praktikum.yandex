@@ -19,7 +19,7 @@ export class Input extends Component {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
 
-        return fragment.firstChild  as HTMLElement;
+        return fragment.firstChild as HTMLElement;
     }
 
     updateValidity(isValid: boolean): void {

@@ -1,6 +1,7 @@
 export const templateMarkup = `
     <main class="main">
         <div class="login">
+            <div id="notificationContainer"></div>
             <div class="login__title">
                 <h2 class="text title title_h2">Вход</h2>
             </div>
