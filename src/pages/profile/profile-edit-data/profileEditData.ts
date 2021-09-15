@@ -187,6 +187,11 @@ export class EditProfile extends Component {
 
                     this.props.displayName = userData.display_name;
                     this.props.userData = actualData;
+                    if (userData.avatar) {
+                        const avatarSrc = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
+                        const img = document.querySelector('#profileAvatar');
+                        img.setAttribute('src', avatarSrc);
+                    }
                 } catch (error) {
                     throw new Error(error);
                 }
