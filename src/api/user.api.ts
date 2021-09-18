@@ -30,16 +30,21 @@ export class UserAPI extends BaseAPI {
         return this.http.put(url, options);
     }
 
-    uploadAvatar(data) {
-        const url = '/user/profile/avatar';
-        console.log(data);
-
+    changePassword(data) {
+        const url = '/user/password';
         const options = {
             data,
-            // headers: {
-            //     'Origin': 'http://localhost:3000'
-            // }
+            headers: {
+                'content-type': 'application/json'
+            }
         };
+
+        return this.http.put(url, options);
+    }
+
+    uploadAvatar(data) {
+        const url = '/user/profile/avatar';
+        const options = {data};
         return this.http.put(url, options);
     }
 }

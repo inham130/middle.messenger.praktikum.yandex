@@ -49,10 +49,6 @@ export default class HTTPTransport {
 
     request = (url: string, options: options) => {
         const {data = null, headers = {}, method, timeout} = options;
-        // let data: string | null = null;
-        // if (data !== null) {
-        //     payload = JSON.stringify(data);
-        // }
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();

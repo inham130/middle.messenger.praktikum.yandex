@@ -38,5 +38,3 @@ export function isEqual(lhs: PlainObject, rhs: PlainObject): boolean {
 
     return true;
 }
-
-// export default isEqual;

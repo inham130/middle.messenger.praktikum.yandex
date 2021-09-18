@@ -15,6 +15,14 @@ export class UserController {
         return this.userAPI.update(JSON.stringify(data));
     }
 
+    uploadAvatar(data) {
+        return this.userAPI.uploadAvatar(data);
+    }
+
+    changePassword(data) {
+        return this.userAPI.changePassword(JSON.stringify(data));
+    }
+
     mapUserData(target: [], data: Record<string, unknown>): Array<Record<string, unknown>> {
         let value;
         return target.map((item) => {
@@ -22,9 +30,5 @@ export class UserController {
             item.value = value;
             return item;
         });
-    }
-
-    uploadAvatar(data) {
-        return this.userAPI.uploadAvatar(data);
     }
 }

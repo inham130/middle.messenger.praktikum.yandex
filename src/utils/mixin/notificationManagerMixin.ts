@@ -1,7 +1,4 @@
-enum NOTIFICATION_TYPES {
-    SUCCESS = 'text_green',
-    ERROR = 'text_red'
-}
+import { NOTIFICATION_TYPES } from './notificationTypes';
 
 function showNotification(type: string, message: string, selector = '#notificationContainer') {
     const notificationContainer = document.querySelector(selector);
@@ -21,6 +18,8 @@ function showNotification(type: string, message: string, selector = '#notificati
 }
 
 export const notificationManagerMixin = {
+    showNotification,
+
     showHTTPError(responseData, selector = '#notificationContainer'): void {
         const response = JSON.parse(responseData.response);
         const {reason: errorText = 'что - то пошло не так'} = response;

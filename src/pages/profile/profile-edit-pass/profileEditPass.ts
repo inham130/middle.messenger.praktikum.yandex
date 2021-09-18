@@ -4,6 +4,9 @@ import { Form } from '../../../components/form';
 import { validation } from '../../../utils/formValidation';
 import { templateMarkup } from '../profile-edit-data/profileEditData.tpl';
 import { UserController } from '../../../controllers/user.controller';
+import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
+import { NOTIFICATION_TYPES } from '../../../utils/mixin/notificationTypes';
+
 import avatar from '/static/avatar.png';
 
 const editPassProps = {
@@ -15,9 +18,9 @@ const editPassProps = {
         name: 'editUserInfo',
         controls: [{
             label: 'Пароль',
-            name: 'password',
+            name: 'oldPassword',
             type: 'password',
-            controlId: 'password',
+            controlId: 'oldPassword',
             validationFunc: validation.password,
             events: {
                 focus: function(event: Event) {
@@ -28,9 +31,9 @@ const editPassProps = {
                 }
             }
         }, {
-            label: 'Пароль еще раз',
+            label: 'Новый пароль',
             name: 'newPassword',
-            type: 'newPassword',
+            type: 'password',
             controlId: 'newPassword',
             validationFunc: validation.password,
             events: {
@@ -63,18 +66,7 @@ const editPassProps = {
         },
         events: {
             submit: function(event: Event) {
-                event.preventDefault();
-                const form: HTMLFormElement | null = document.querySelector('form[name="editUserInfo"]');
-                const isFormValid = this.validateForm();
-
-                if (!isFormValid) {
-                    event.preventDefault();
-                }
-
-                if (form !== null) {
-                    const formData: FormData = new FormData(form);
-                    console.log(Object.fromEntries(formData));
-                }
+                this.submit(event);
             }
         }
     }
@@ -84,6 +76,23 @@ export class EditPass extends Component {
     userController: UserController;
     constructor(props = editPassProps) {
         super(props);
+    }
+
+    registerCustomEvents(): void {
+        this.element.addEventListener('formSubmit', (e: CustomEvent) => { this.changePassword(e); });
+    }
+
+    changePassword(event: CustomEvent): void {
+        const formData = event.detail.formData;
+        const data = Object.fromEntries(formData);
+
+        if (data.newPasswordRepeat === data.newPassword) {
+            this.userController.changePassword(data)
+            .then(() => this.showHTTPSuccess())
+            .catch(this.showHTTPError);
+        } else {
+            this.showNotification(NOTIFICATION_TYPES.ERROR, 'новые пароли не совпадают');
+        }
     }
 
     componentDidMount() {
@@ -118,3 +127,5 @@ export class EditPass extends Component {
         return fragment.firstChild as HTMLElement;
     }
 }
+
+Object.assign(EditPass.prototype, notificationManagerMixin);
