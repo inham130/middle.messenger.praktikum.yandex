@@ -2,7 +2,7 @@ export const templateMarkup = `
     <main class="main">
         <div class="profile">
             <div class="profile__photo">
-                <img src="{{avatar}}" alt="" class="photo" width="130" height="130">
+                <img src="{{avatar}}" alt="" id="profileAvatar" class="photo" width="130" height="130">
             </div>
             <div class="profile__title">
                 <span class="title">{{displayName}}</span>

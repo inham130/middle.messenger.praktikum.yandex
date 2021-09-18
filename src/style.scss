@@ -115,6 +115,13 @@ $default-border-radius: 6px;
   }
 }
 
+.photo {
+  border-radius: 50%;
+  &_edit {
+    cursor: pointer;
+  }
+}
+
 @import './components/form/form';
 @import './components/popup/popup';
 @import './pages/home/login';

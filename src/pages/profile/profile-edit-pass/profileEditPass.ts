@@ -3,6 +3,7 @@ import Component from '../../../components/component';
 import { Form } from '../../../components/form';
 import { validation } from '../../../utils/formValidation';
 import { templateMarkup } from '../profile-edit-data/profileEditData.tpl';
+import { UserController } from '../../../controllers/user.controller';
 import avatar from '/static/avatar.png';
 
 const editPassProps = {
@@ -80,8 +81,28 @@ const editPassProps = {
 };
 
 export class EditPass extends Component {
+    userController: UserController;
     constructor(props = editPassProps) {
         super(props);
+    }
+
+    componentDidMount() {
+        this.userController = new UserController();
+
+        this.userController
+            .getUserData()
+            .then((response: string) => {
+                try {
+                    const userData = JSON.parse(response);
+                    if (userData.avatar) {
+                        const avatarSrc = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
+                        const img = document.querySelector('#profileAvatar');
+                        img.setAttribute('src', avatarSrc);
+                    }
+                } catch (error) {
+                    throw new Error(error);
+                }
+            });
     }
 
     render(): HTMLElement {
