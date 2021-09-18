@@ -3,6 +3,7 @@ import Component from '../../../components/component';
 import { Form } from '../../../components/form';
 import { SignUpController } from './signup.controller';
 import { validation } from '../../../utils/formValidation';
+import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
 import { templateMarkup } from './signup.tpl';
 import { Router } from '../../../utils/router/index';
 
@@ -121,18 +122,16 @@ const signUpProps = {
 };
 
 export class SignUp extends Component {
-    signUpAPI: SignUpApi;
+    showHTTPError: CallableFunction;
     private signUpController: SignUpController;
 
     constructor(props = signUpProps, controller = SignUpController) {
         super(props);
         this.signUpController = new SignUpController();
-
-        this.signUp = this.signUp.bind(this);
     }
 
     registerCustomEvents(): void {
-        this.element.addEventListener('formSubmit', this.signUp);
+        this.element.addEventListener('formSubmit', (e: CustomEvent) => this.signUp(e));
     }
 
     render() {
@@ -154,7 +153,11 @@ export class SignUp extends Component {
         this.signUpController
             .signUp(data)
             .then(() => {
+                // поскольку Router является синглтоном я использую new, но не уверен, что это хорошо
                 new Router().go('/messenger');
-            });
+            })
+            .catch(this.showHTTPError);
     }
 }
+
+Object.assign(SignUp.prototype, notificationManagerMixin);

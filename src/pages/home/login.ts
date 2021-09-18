@@ -3,7 +3,7 @@ import Component from '../../components/component';
 import { Form } from '../../components/form';
 import { Button } from '../../components/button';
 import { validation } from '../../utils/formValidation';
-import { errorHandlerMixin } from '../../utils/mixin/ErrorHandlerMixin';
+import { notificationManagerMixin } from '../../utils/mixin/notificationManagerMixin';
 import { LoginController } from '../../controllers/login.controller';
 import { Router } from '../../utils/router/index';
 import { templateMarkup } from './login.tpl';
@@ -62,7 +62,7 @@ export class Login extends Component {
     }
 
     registerCustomEvents(): void {
-        this.element.addEventListener('formSubmit', (e) => this.signIn(e));
+        this.element.addEventListener('formSubmit', (e: CustomEvent) => this.signIn(e));
     }
 
     signIn(event: CustomEvent) {
@@ -73,7 +73,7 @@ export class Login extends Component {
                 // поскольку Router является синглтоном я использую new, но не уверен, что это хорошо
                 new Router().go('/profile');
             })
-            .catch(this.handleHTTPError);
+            .catch(this.showHTTPError);
     }
 
     render(): HTMLElement {
@@ -96,4 +96,4 @@ export class Login extends Component {
     }
 }
 
-Object.assign(Login.prototype, errorHandlerMixin);
+Object.assign(Login.prototype, notificationManagerMixin);

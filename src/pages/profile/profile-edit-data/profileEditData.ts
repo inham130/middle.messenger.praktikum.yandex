@@ -4,6 +4,7 @@ import { Form } from '../../../components/form';
 import { Popup } from '../../../components/popup/index';
 import { UserController } from '../../../controllers/user.controller';
 import { validation } from '../../../utils/formValidation';
+import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
 import { templateMarkup } from './profileEditData.tpl';
 import avatar from '/static/avatar.png';
 
@@ -113,6 +114,7 @@ export class EditProfile extends Component {
         super(props);
 
         this.saveUserData = this.saveUserData.bind(this);
+        this.submitPhoto = this.submitPhoto.bind(this);
     }
 
     registerCustomEvents(): void {
@@ -149,30 +151,45 @@ export class EditProfile extends Component {
                     type: 'submit'
                 },
                 events: {
-                    submit: (event: Event) => {
-                        event.preventDefault();
-                        const fileInput = event.target.querySelector('input[type="file"]');
-                        const [file] = fileInput.files;
-                        const formData: FormData = new FormData();
-                        formData.append('avatar', file);
-
-                        this.userController
-                            .uploadAvatar(formData)
-                            .then((response) => {
-                                console.log(response);
-                            });
-                    }
+                    submit: this.submitPhoto
                 }
             }
         };
-        const popup = new Popup(popupProps);
-        this.element.appendChild(popup.element);
+        this.popup = new Popup(popupProps);
+        this.element.appendChild(this.popup.element);
+    }
+
+    submitPhoto(event: Event) {
+        event.preventDefault();
+        const fileInput = event.target.querySelector('input[type="file"]');
+        const [file] = fileInput.files;
+        const formData: FormData = new FormData();
+        const me = this;
+        formData.append('avatar', file);
+
+        this.userController
+            .uploadAvatar(formData)
+            .then((response: string) => {
+                try {
+                    const userData = JSON.parse(response);
+                    if (userData.avatar) {
+                        this.renderAvatar(userData.avatar);
+                    }
+                    me.popup.destroy();
+                    me.showHTTPSuccess();
+                } catch(error) {
+                    throw new Error(error);
+                }
+            })
+            .catch(this.showHTTPError);
     }
 
     saveUserData(event: CustomEvent) {
         const formData = event.detail.formData;
         const data = Object.fromEntries(formData);
-        this.userController.saveUserData(data);
+        this.userController.saveUserData(data)
+            .then(() => this.showHTTPSuccess())
+            .catch(this.showHTTPError);
     }
 
     componentDidMount() {
@@ -188,15 +205,20 @@ export class EditProfile extends Component {
                     this.props.displayName = userData.display_name;
                     this.props.userData = actualData;
                     if (userData.avatar) {
-                        const avatarSrc = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
-                        const img = document.querySelector('#profileAvatar');
-                        img.setAttribute('src', avatarSrc);
+                        this.renderAvatar(userData.avatar);
                     }
                 } catch (error) {
                     throw new Error(error);
                 }
             });
     }
+
+    renderAvatar(fileName) {
+        const avatarSrc = `https://ya-praktikum.tech/api/v2/resources${fileName}`;
+        const img = document.querySelector('#profileAvatar');
+        img.setAttribute('src', avatarSrc);
+    }
+
 
     render(): HTMLElement {
         const template = Handlebars.compile(templateMarkup);
@@ -211,3 +233,5 @@ export class EditProfile extends Component {
         return fragment.firstChild as HTMLElement;
     }
 }
+
+Object.assign(EditProfile.prototype, notificationManagerMixin);

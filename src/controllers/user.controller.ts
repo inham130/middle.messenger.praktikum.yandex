@@ -12,7 +12,7 @@ export class UserController {
     }
 
     saveUserData(data): Promise<unknown> {
-        return this.userAPI.update(JSON.stringify(data)):
+        return this.userAPI.update(JSON.stringify(data));
     }
 
     mapUserData(target: [], data: Record<string, unknown>): Array<Record<string, unknown>> {

@@ -1,6 +1,7 @@
 export const templateMarkup = `
     <main class="main">
         <div class="profile profile_edit">
+            <div id="notificationContainer"></div>
             <div class="profile__photo">
                 <img src="{{avatar}}" id="profileAvatar" alt="" class="photo" data-action="uploadPhoto" width="130" height="130">
             </div>

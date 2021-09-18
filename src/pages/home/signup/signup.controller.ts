@@ -8,15 +8,7 @@ export class SignUpController {
 
     signUp(data: Record<string, unknown>) {
         return this.signUpAPI
-            .create(data)
-            .then((response) => {
-                if (response.status !== 200) {
-                    console.error(response);
-                }
-            })
-            .then(() => {
-                this.signUpAPI
-                    .request();
-            });
+            .create(JSON.stringify(data))
+            .then(() => this.signUpAPI.request());
     }
 }
