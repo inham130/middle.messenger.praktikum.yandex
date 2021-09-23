@@ -13,76 +13,8 @@ export const templateMarkup = `
                         <input type="text" name="search" placeholder="Поиск">
                     </div>
                 </div>
-                <ul class="chat__list">
-                    <li class="chat__item">
-                        <div class="chat__avatar">
-                            <img src="/static/avatar.png" alt="" class="photo" width="47" height="47">
-                        </div>
-                        <div class="chat__preview">
-                            <div class="text text_dark chat__name">User name</div>
-                            <div class="text text_gray text_truncate chat__last-message">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.
-                            </div>
-                        </div>
-                        <div class="chat__meta-info">
-                            <div class="text text_gray chat__time">
-                                <time datetime="10:14">10:14</time>
-                            </div>
-                            <div class="text text_gray chat__count">4</div>
-                        </div>
-                    </li>
-                    <li class="chat__item">
-                        <div class="chat__avatar">
-                            <img src="/static/avatar.png" alt="" class="photo" width="47" height="47">
-                        </div>
-                        <div class="chat__preview">
-                            <div class="text text_dark chat__name">User name</div>
-                            <div class="text text_gray text_truncate chat__last-message">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.
-                            </div>
-                        </div>
-                        <div class="chat__meta-info">
-                            <div class="text text_gray chat__time">
-                                <time datetime="10:14">10:14</time>
-                            </div>
-                            <div class="text text_gray chat__count">4</div>
-                        </div>
-                    </li>
-                    <li class="chat__item">
-                        <div class="chat__avatar">
-                            <img src="/static/avatar.png" alt="" class="photo" width="47" height="47">
-                        </div>
-                        <div class="chat__preview">
-                            <div class="text text_dark chat__name">User name</div>
-                            <div class="text text_gray text_truncate chat__last-message">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.
-                            </div>
-                        </div>
-                        <div class="chat__meta-info">
-                            <div class="text text_gray chat__time">
-                                <time datetime="10:14">10:14</time>
-                            </div>
-                            <div class="text text_gray chat__count">4</div>
-                        </div>
-                    </li>
-                    <li class="chat__item">
-                        <div class="chat__avatar">
-                            <img src="/static/avatar.png" alt="" class="photo" width="47" height="47">
-                        </div>
-                        <div class="chat__preview">
-                            <div class="text text_dark chat__name">User name</div>
-                            <div class="text text_gray text_truncate chat__last-message">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.
-                            </div>
-                        </div>
-                        <div class="chat__meta-info">
-                            <div class="text text_gray chat__time">
-                                <time datetime="10:14">10:14</time>
-                            </div>
-                            <div class="text text_gray chat__count">4</div>
-                        </div>
-                    </li>
-                </ul>
+
+                <div data-component-type="chatList"></div>
             </div>
             <div class="chat__main">
                 <div class="chat__menu">

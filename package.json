@@ -6,7 +6,7 @@
   "scripts": {
     "stylelint": "stylelint 'src/**/**.scss' --syntax sass",
     "eslint": "eslint . --ext .ts",
-    "dev": "parcel index.html --port 3000",
+    "dev": "rm -rf .cache && parcel index.html --port 3000",
     "start": "parcel build *.html && npm run express",
     "build": "parcel build *.html",
     "express": "node ./server.js "
