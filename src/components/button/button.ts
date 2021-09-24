@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Component from '../component';
+import Component from '../../utils/component/component';
 import { templateMarkup } from './button.tpl';
 
 enum ButtonTypes {

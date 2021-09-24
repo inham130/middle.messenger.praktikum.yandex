@@ -1,4 +1,4 @@
-import { isString} from './typeGuards';
+import { isString} from '../type-guards/typeGuards';
 
 const PATTERNS = {
     EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,

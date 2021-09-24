@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Component from '../../components/component';
+import Component from '../../utils/component/component';
 import { Form } from '../../components/form';
 import { templateMarkup } from './popup.tpl';
 

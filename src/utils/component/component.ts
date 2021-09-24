@@ -1,5 +1,5 @@
 import {v4 as makeUUID} from 'uuid';
-import EventBus from '../utils/eventBus';
+import EventBus from '../eventbus/eventBus';
 
 type meta = {
     props: Record<string, unknown>

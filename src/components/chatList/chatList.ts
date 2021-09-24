@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Component from '../component';
+import Component from '../../utils/component/component';
 import { ChatItem } from '../chatItem/index';
 import { templateMarkup } from './chatList.tpl';
 

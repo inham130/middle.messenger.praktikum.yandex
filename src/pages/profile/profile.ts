@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Component from '../../components/component';
+import Component from '../../utils/component/component';
 import { Button } from '../../components/button/index';
 import { templateMarkup } from './profile.tpl';
 import { LoginController } from '../../controllers/login.controller';

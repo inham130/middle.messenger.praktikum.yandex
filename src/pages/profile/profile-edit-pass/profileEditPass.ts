@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
-import Component from '../../../components/component';
+import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
-import { validation } from '../../../utils/formValidation';
+import { validation } from '../../../utils/validation/formValidation';
 import { templateMarkup } from '../profile-edit-data/profileEditData.tpl';
 import { UserController } from '../../../controllers/user.controller';
 import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';

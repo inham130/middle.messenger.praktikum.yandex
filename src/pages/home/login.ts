@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars';
-import Component from '../../components/component';
+import Component from '../../utils/component/component';
 import { Form } from '../../components/form';
 import { Button } from '../../components/button';
-import { validation } from '../../utils/formValidation';
+import { validation } from '../../utils/validation/formValidation';
 import { notificationManagerMixin } from '../../utils/mixin/notificationManagerMixin';
 import { LoginController } from '../../controllers/login.controller';
 import { Router } from '../../utils/router/index';
