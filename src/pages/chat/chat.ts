@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import Component from '../../utils/component/component';
-import { ChatLits } from '../../components/chatList';
+import { ChatLits } from '../../components/chat-list';
 import { templateMarkup } from './chat.tpl';
 
 type chatProps = Record<string, unknown>

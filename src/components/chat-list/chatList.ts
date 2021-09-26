@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import Component from '../../utils/component/component';
-import { ChatItem } from '../chatItem/index';
-import { ChatController } from '../../controllers/chat.controller'
+import { ChatItem } from '../chat-item/index';
+import { ChatController } from '../../controllers/chat.controller';
 import { templateMarkup } from './chatList.tpl';
 
 export class ChatLits extends Component {
