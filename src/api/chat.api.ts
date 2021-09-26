@@ -16,4 +16,11 @@ export class ChatAPI extends BaseAPI {
 
         return this.http.get(url, options);
     }
+
+    addChat(data) {
+        const url = '/chats';
+        const options = {data, headers: this.defaultHeaders};
+
+        return this.http.post(url, options);
+    }
 }

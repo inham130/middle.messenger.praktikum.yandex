@@ -86,12 +86,6 @@ export class Login extends Component {
             formTarget.replaceWith(this.form.getContent() as Node);
         }
 
-        const buttonTarget: HTMLElement | null = fragment.querySelector('[data-component-type="button"]');
-        if (buttonTarget !== null) {
-            const button = new Button(this.props.button);
-            buttonTarget.replaceWith(button.getContent() as Node);
-        }
-
         return fragment.firstChild as HTMLElement;
     }
 }

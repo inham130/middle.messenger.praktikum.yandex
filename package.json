@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/inham130/middle.messenger.praktikum.yandex.git"
   },
+  "alias": {
+    "components": "./src/components"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

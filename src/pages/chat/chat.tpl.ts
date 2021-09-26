@@ -1,21 +1,7 @@
 export const templateMarkup = `
     <main class="main">
         <div class="chat">
-            <div class="chat__sidebar">
-                <div class="chat__sidebar-header">
-                    <div class="chat__sidebar-menu">
-                        <div class="avatar">
-                            <img src="/static/avatar.png" alt="" class="photo" width="32" height="32">
-                        </div>
-                        <button class="button button_small" type="button">add chat</button>
-                    </div>
-                    <div class="search">
-                        <input type="text" name="search" placeholder="Поиск">
-                    </div>
-                </div>
-
-                <div data-component-type="chatList"></div>
-            </div>
+            <div data-component-type="chatSideBar"></div>
             <div class="chat__main">
                 <div class="chat__menu">
                     <div class="chat__avatar">

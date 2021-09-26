@@ -10,4 +10,8 @@ export class ChatController {
     getChats(): Promise<unknown> {
         return this.chatAPI.getChats();
     }
+
+    addChat(data): Promise<unknown> {
+        return this.chatAPI.addChat(JSON.stringify(data));
+    }
 }

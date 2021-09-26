@@ -4,7 +4,7 @@ import { ChatItem } from '../chat-item/index';
 import { ChatController } from '../../controllers/chat.controller';
 import { templateMarkup } from './chatList.tpl';
 
-export class ChatLits extends Component {
+export class ChatList extends Component {
     chatController: ChatController;
     constructor(props) {
         super(props);
