@@ -84,9 +84,7 @@ export class Chat extends Component {
 
         this.chatController
             .addChat({title: userLoginInput.value})
-            .then(() => {
-                me.popup.destroy();
-            });
+            .then(() => me.popup.destroy());
     }
 
     render(): HTMLElement {

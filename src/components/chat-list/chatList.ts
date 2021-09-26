@@ -14,8 +14,9 @@ export class ChatList extends Component {
         this.chatController = new ChatController();
 
         this.chatController.getChats()
-            .then((resp) => {
-                console.log(resp);
+            .then((response) => {
+                const chats = JSON.parse(response);
+                this.props.chats = chats;
             });
     }
 

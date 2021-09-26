@@ -4,7 +4,7 @@ export const templateMarkup = `
             <img src="/static/avatar.png" alt="" class="photo" width="47" height="47">
         </div>
         <div class="chat__preview">
-            <div class="text text_dark chat__name">{{chatName}}</div>
+            <div class="text text_dark chat__name">{{title}}</div>
             <div class="text text_gray text_truncate chat__last-message">
                 {{chatPreview}}
             </div>
