@@ -6,13 +6,18 @@ export const templateMarkup = `
         <div class="chat__preview">
             <div class="text text_dark chat__name">{{title}}</div>
             <div class="text text_gray text_truncate chat__last-message">
-                {{chatPreview}}
+                {{last_message}}
             </div>
         </div>
         <div class="chat__meta-info">
-            <div class="text text_gray chat__time">
-                <time datetime="10:14">{{lastDate}}</time>
-            </div>
-            <div class="text text_gray chat__count">{{unreadCount}}</div>
+            <i class="arrow arrow_down"></i>
+            <div class="text text_gray chat__count">{{unread_count}}</div>
         </div>
     </li>`;
+
+
+    /*
+    <div class="text text_gray chat__time">
+        <time datetime="10:14">{{lastDate}}</time>
+    </div>
+    */
