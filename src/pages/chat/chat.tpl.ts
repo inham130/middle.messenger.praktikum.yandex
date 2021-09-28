@@ -5,33 +5,15 @@ export const templateMarkup = `
             <div class="chat__main">
                 <div class="chat__menu">
                     <div class="chat__avatar">
-                        <img src="/static/avatar.png" alt="" class="photo" width="32" height="32">
+                        <img src="{{avatar}}" alt="" class="photo" width="32" height="32">
                     </div>
-                    <div class="text text_dark chat__name">Chat name</div>
+                    <div class="text text_dark chat__name">{{chatTitle}}</div>
                     <div class="chat__actions">
                         <button class="button button_small" type="button">Actions</button>
                     </div>
                 </div>
                 <div class="chat__messages">
-                    <div class="message message_in">
-                        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.</span>
-                    </div>
-                    <div class="message message_in">
-                        <span class="text text_break-word">Lorem ipsum</span>
-                    </div>
-                    <div class="message message_in">
-                        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus</span>
-                    </div>
 
-                    <div class="message message_out">
-                        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.</span>
-                    </div>
-                    <div class="message message_out">
-                        <span class="text text_break-word">Lorem ipsum</span>
-                    </div>
-                    <div class="message message_out">
-                        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus</span>
-                    </div>
                 </div>
                 <form class="chat__message-form">
                     <div class="attach-button">
@@ -47,3 +29,25 @@ export const templateMarkup = `
             </div>
         </div>
     </main>`;
+
+    /*
+    <div class="message message_in">
+        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.</span>
+    </div>
+    <div class="message message_in">
+        <span class="text text_break-word">Lorem ipsum</span>
+    </div>
+    <div class="message message_in">
+        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus</span>
+    </div>
+
+    <div class="message message_out">
+        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.</span>
+    </div>
+    <div class="message message_out">
+        <span class="text text_break-word">Lorem ipsum</span>
+    </div>
+    <div class="message message_out">
+        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus</span>
+    </div>
+    */

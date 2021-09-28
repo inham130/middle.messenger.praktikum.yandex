@@ -4,10 +4,12 @@ import { ChatSideBar } from 'components/chat-side-bar';
 import { ChatController } from '~/src/controllers/chat.controller';
 import { Popup } from 'components/popup';
 import { templateMarkup } from './chat.tpl';
+import avatar from '/static/avatar.png';
 
 type chatProps = Record<string, unknown>
 const chatProps = {
     chatSideBar: {
+        avatar,
         button: {
             text: 'Добавить чат',
             type: 'button',
@@ -15,12 +17,7 @@ const chatProps = {
             action: 'addChatPopup'
         },
         chatList: {
-            chats: [{
-                chatName: 'chat name',
-                chatPreview: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.',
-                lastDate: '10:14',
-                unreadCount: 4
-            }]
+            chats: []
         }
     },
     events: {
@@ -35,6 +32,15 @@ export class Chat extends Component {
         super(props);
 
         this.submitChat = this.submitChat.bind(this);
+    }
+
+    registerCustomEvents(): void {
+        this.element.addEventListener('chatItemClick', (e: Event) => this.selectChat(e));
+    }
+
+    selectChat(event: Event) {
+        const {id, title: chatTitle} = event.detail;
+        this.props.chatTitle = chatTitle;
     }
 
     clickHandler(event:Event) {
