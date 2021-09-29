@@ -4,10 +4,14 @@ export const templateMarkup = `
             <div data-component-type="chatSideBar"></div>
             <div class="chat__main">
                 <div class="chat__menu">
-                    <div class="chat__avatar">
-                        <img src="{{avatar}}" alt="" class="photo" width="32" height="32">
-                    </div>
-                    <div class="text text_dark chat__name">{{chatTitle}}</div>
+                    {{#if avatar}}
+                        <div class="chat__avatar">
+                            <img src="{{avatar}}" alt="" class="photo" width="32" height="32">
+                        </div>
+                    {{/if}}
+                    {{#if chatTitle}}
+                        <div class="text text_dark chat__name">{{chatTitle}}</div>
+                    {{/if}}
                     <div class="chat__actions">
                         <button class="button button_small" type="button">Actions</button>
                     </div>

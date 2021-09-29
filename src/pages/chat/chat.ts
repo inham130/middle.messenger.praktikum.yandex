@@ -90,7 +90,25 @@ export class Chat extends Component {
 
         this.chatController
             .addChat({title: userLoginInput.value})
-            .then(() => me.popup.destroy());
+            .then((response) => {
+                const {id} = JSON.parse(response);
+                const newProps = Object.assign({}, this.props);
+                newProps.chatSideBar.chatList.chats.unshift({id, title: userLoginInput.value, avatar: null});
+                this.setProps(newProps);
+                me.popup.destroy();
+            });
+    }
+
+    componentDidMount() {
+        this.chatController = new ChatController();
+
+        this.chatController.getChats()
+            .then((response: string) => {
+                const chats = JSON.parse(response);
+                const newProps = Object.assign({}, this.props);
+                newProps.chatSideBar.chatList.chats = chats;
+                this.setProps(newProps);
+            });
     }
 
     render(): HTMLElement {

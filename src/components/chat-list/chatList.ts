@@ -10,16 +10,6 @@ export class ChatList extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        this.chatController = new ChatController();
-
-        this.chatController.getChats()
-            .then((response: string) => {
-                const chats = JSON.parse(response);
-                this.props.chats = chats;
-            });
-    }
-
     render(): HTMLElement {
         this.chats = [];
         const template = Handlebars.compile(templateMarkup);
