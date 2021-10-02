@@ -47,4 +47,16 @@ export class UserAPI extends BaseAPI {
         const options = {data};
         return this.http.put(url, options);
     }
+
+    getUserId(data) {
+        const url = '/user/search';
+        const options = {
+            data,
+            headers: {
+                'content-type': 'application/json'
+            }
+        };
+
+        return this.http.post(url, options);
+    }
 }

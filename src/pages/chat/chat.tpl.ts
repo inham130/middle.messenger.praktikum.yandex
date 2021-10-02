@@ -12,9 +12,11 @@ export const templateMarkup = `
                     {{#if chatTitle}}
                         <div class="text text_dark chat__name">{{chatTitle}}</div>
                     {{/if}}
-                    <div class="chat__actions">
-                        <button class="button button_small" type="button">Actions</button>
-                    </div>
+                    {{#if activeChatId}}
+                        <div class="chat__actions">
+                            <button class="button button_small" data-action="addUsetPopup" type="button">Добавить пользователя</button>
+                        </div>
+                    {{/if}}
                 </div>
                 <div class="chat__messages">
 

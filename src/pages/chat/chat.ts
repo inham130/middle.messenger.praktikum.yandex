@@ -8,6 +8,7 @@ import avatar from '/static/avatar.png';
 
 type chatProps = Record<string, unknown>
 const chatProps = {
+    activeChatId: null,
     chatSideBar: {
         avatar,
         button: {
@@ -32,6 +33,7 @@ export class Chat extends Component {
         super(props);
 
         this.submitChat = this.submitChat.bind(this);
+        this.addUser = this.addUser.bind(this);
     }
 
     registerCustomEvents(): void {
@@ -41,6 +43,7 @@ export class Chat extends Component {
     selectChat(event: Event) {
         const {id, title: chatTitle} = event.detail;
         this.props.chatTitle = chatTitle;
+        this.props.activeChatId = id;
     }
 
     clickHandler(event:Event) {
@@ -51,6 +54,9 @@ export class Chat extends Component {
             switch(action) {
                 case 'addChatPopup':
                     this.addChatPopup();
+                    break;
+                case 'addUsetPopup':
+                    this.addUserPopup();
                     break;
                 default:
                     console.log('Unknown action');
@@ -78,13 +84,36 @@ export class Chat extends Component {
                 }
             }
         };
-        this.popup = new Popup(popupProps);
-        this.element.appendChild(this.popup.element);
+        this.addChatPopup = new Popup(popupProps);
+        this.element.appendChild(this.addChatPopup.element);
+    }
+
+    addUserPopup() {
+        const popupProps = {
+            title: 'Добавить пользователя',
+            form: {
+                name: 'addChat',
+                controls: [{
+                    label: '',
+                    name: 'userLogin',
+                    type: 'text',
+                    controlId: 'userLogin'
+                }],
+                button: {
+                    text: 'Добавить',
+                    type: 'submit'
+                },
+                events: {
+                    submit: this.addUser
+                }
+            }
+        };
+        this.addUserPopup = new Popup(popupProps);
+        this.element.appendChild(this.addUserPopup.element);
     }
 
     submitChat(event: Event) {
         event.preventDefault();
-        this.chatController = new ChatController();
         const userLoginInput = event.target.querySelector('#userLogin');
         const me = this;
 
@@ -95,7 +124,20 @@ export class Chat extends Component {
                 const newProps = Object.assign({}, this.props);
                 newProps.chatSideBar.chatList.chats.unshift({id, title: userLoginInput.value, avatar: null});
                 this.setProps(newProps);
-                me.popup.destroy();
+                me.addChatPopup.destroy();
+            });
+    }
+
+    addUser(event: Event) {
+        event.preventDefault();
+        const userLoginInput = event.target.querySelector('#userLogin');
+        const me = this;
+
+
+        this.chatController
+            .addUser({chatId: this.props.activeChatId, login: userLoginInput.value})
+            .then(() =>  {
+                me.addUserPopup.destroy();
             });
     }
 

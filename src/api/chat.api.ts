@@ -23,4 +23,18 @@ export class ChatAPI extends BaseAPI {
 
         return this.http.post(url, options);
     }
+
+    addUser(data) {
+        const url = '/chats/users';
+        const options = {data, headers: this.defaultHeaders};
+
+        return this.http.put(url, options);
+    }
+
+    getUsers(id) {
+        const url = `/chats/${id}/users`;
+        const options = {headers: this.defaultHeaders};
+
+        return this.http.get(url, options);
+    }
 }
