@@ -37,4 +37,11 @@ export class ChatAPI extends BaseAPI {
 
         return this.http.get(url, options);
     }
+
+    getToken(id) {
+        const url = `/chats/token/${id}`;
+        const options = {headers: this.defaultHeaders};
+
+        return this.http.post(url, options);
+    }
 }

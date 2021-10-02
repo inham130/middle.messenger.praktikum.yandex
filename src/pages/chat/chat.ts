@@ -5,10 +5,12 @@ import { ChatController } from '~/src/controllers/chat.controller';
 import { Popup } from 'components/popup';
 import { templateMarkup } from './chat.tpl';
 import avatar from '/static/avatar.png';
+import { UserController } from '~/src/controllers/user.controller';
 
 type chatProps = Record<string, unknown>
 const chatProps = {
     activeChatId: null,
+    userId: null,
     chatSideBar: {
         avatar,
         button: {
@@ -29,6 +31,7 @@ const chatProps = {
 };
 export class Chat extends Component {
     chatController: ChatController;
+    socket: WebSocket;
     constructor(props: chatProps = chatProps) {
         super(props);
 
@@ -44,6 +47,13 @@ export class Chat extends Component {
         const {id, title: chatTitle} = event.detail;
         this.props.chatTitle = chatTitle;
         this.props.activeChatId = id;
+
+        const connectionConfig = {userId: this.props.userId, chatId: id};
+        this.chatController.setUpConnection(connectionConfig)
+            .then((socket: WebSocket) => {
+                this.socket = socket;
+                console.log(this);
+            });
     }
 
     clickHandler(event:Event) {
@@ -149,6 +159,14 @@ export class Chat extends Component {
                 const chats = JSON.parse(response);
                 const newProps = Object.assign({}, this.props);
                 newProps.chatSideBar.chatList.chats = chats;
+                this.setProps(newProps);
+            });
+
+        new UserController().getUserData()
+            .then((response: string) => JSON.parse(response))
+            .then(({ id }) => {
+                const newProps = Object.assign({}, this.props);
+                newProps.userId = id;
                 this.setProps(newProps);
             });
     }

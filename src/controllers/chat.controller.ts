@@ -1,5 +1,6 @@
 import { ChatAPI } from '../api/chat.api';
 import { UserAPI } from '../api/user.api';
+import { chatSocketFactory } from '../utils/web-soket/chatSocketFactory';
 
 export class ChatController {
     private chatAPI: ChatAPI;
@@ -31,7 +32,16 @@ export class ChatController {
             });
     }
 
-    getUsers(id) {
+    getUsers(id): Promise<unknown> {
         return this.chatAPI.getUsers(id);
+    }
+
+    setUpConnection(config): Promise<unknown> {
+        return this.chatAPI.getToken(config.chatId)
+            .then((response) => JSON.parse(response))
+            .then(({ token }) => {
+                config.token = token;
+                return chatSocketFactory(config);
+            });
     }
 }
