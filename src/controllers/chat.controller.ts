@@ -44,4 +44,11 @@ export class ChatController {
                 return chatSocketFactory(config);
             });
     }
+
+    sendMessage(message: string, socket: WebSocket) {
+        socket.send(JSON.stringify({
+            content: message,
+            type: 'message',
+        }));
+    }
 }

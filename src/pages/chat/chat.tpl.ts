@@ -19,41 +19,23 @@ export const templateMarkup = `
                     {{/if}}
                 </div>
                 <div class="chat__messages">
-
+                    {{#each messages}}
+                        <div class="message {{#if incoming}}message_in{{else}}message_out{{/if}}">
+                            <span class="text text_break-word">{{content}}</span>
+                        </div>
+                    {{/each}}
                 </div>
                 <form class="chat__message-form">
                     <div class="attach-button">
                         <button class="button button_small" type="button">attach</button>
                     </div>
                     <div class="chat__message-input">
-                        <textarea name="message" class="message-area"></textarea>
+                        <input type="text" name="message" id="messageInput" class="message-area"></input>
                     </div>
                     <div class="send-button">
-                        <button class="button button_small" type="submit">send</button>
+                        <button class="button button_small" data-action="sendMessage" type="submit">send</button>
                     </div>
                 </form>
             </div>
         </div>
     </main>`;
-
-    /*
-    <div class="message message_in">
-        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.</span>
-    </div>
-    <div class="message message_in">
-        <span class="text text_break-word">Lorem ipsum</span>
-    </div>
-    <div class="message message_in">
-        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus</span>
-    </div>
-
-    <div class="message message_out">
-        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus, obcaecati molestias, libero tempora in debitis voluptates rem provident qui.</span>
-    </div>
-    <div class="message message_out">
-        <span class="text text_break-word">Lorem ipsum</span>
-    </div>
-    <div class="message message_out">
-        <span class="text text_break-word">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum soluta accusamus</span>
-    </div>
-    */

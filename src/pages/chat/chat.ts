@@ -11,6 +11,7 @@ type chatProps = Record<string, unknown>
 const chatProps = {
     activeChatId: null,
     userId: null,
+    messages: [],
     chatSideBar: {
         avatar,
         button: {
@@ -37,6 +38,8 @@ export class Chat extends Component {
 
         this.submitChat = this.submitChat.bind(this);
         this.addUser = this.addUser.bind(this);
+        this.submitUser = this.submitUser.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
     }
 
     registerCustomEvents(): void {
@@ -52,7 +55,36 @@ export class Chat extends Component {
         this.chatController.setUpConnection(connectionConfig)
             .then((socket: WebSocket) => {
                 this.socket = socket;
-                console.log(this);
+
+                this.socket.addEventListener('open', () => {
+                    socket.send(JSON.stringify({
+                        content: '0',
+                        type: 'get old',
+                    }));
+                });
+
+                this.socket.addEventListener('message', (event: Event) => {
+                    const data = JSON.parse(event.data);
+                    let messages = [];
+
+                    if (!Array.isArray(data) && data.type !== 'message') {
+                        return;
+                    }
+
+                    if (Array.isArray(data)) {
+                        messages = data.reverse();
+                    } else {
+                        messages = [...this.props.messages, data];
+                    }
+
+                    messages.forEach((item) => {
+                        item.incoming = item.user_id !== this.props.userId;
+                    });
+
+                    const newProps = Object.assign({}, this.props);
+                    newProps.messages = messages;
+                    this.setProps(newProps);
+                });
             });
     }
 
@@ -63,10 +95,13 @@ export class Chat extends Component {
         if (action) {
             switch(action) {
                 case 'addChatPopup':
-                    this.addChatPopup();
+                    this.addChat();
                     break;
                 case 'addUsetPopup':
-                    this.addUserPopup();
+                    this.addUser();
+                    break;
+                case 'sendMessage':
+                    this.sendMessage(event);
                     break;
                 default:
                     console.log('Unknown action');
@@ -74,7 +109,7 @@ export class Chat extends Component {
         }
     }
 
-    addChatPopup() {
+    addChat() {
         const popupProps = {
             title: 'Название чата',
             form: {
@@ -98,7 +133,7 @@ export class Chat extends Component {
         this.element.appendChild(this.addChatPopup.element);
     }
 
-    addUserPopup() {
+    addUser() {
         const popupProps = {
             title: 'Добавить пользователя',
             form: {
@@ -114,12 +149,19 @@ export class Chat extends Component {
                     type: 'submit'
                 },
                 events: {
-                    submit: this.addUser
+                    submit: this.submitUser
                 }
             }
         };
         this.addUserPopup = new Popup(popupProps);
         this.element.appendChild(this.addUserPopup.element);
+    }
+
+    sendMessage(event: Event) {
+        event.preventDefault();
+        const message = this.element.querySelector('#messageInput').value;
+
+        this.chatController.sendMessage(message, this.socket);
     }
 
     submitChat(event: Event) {
@@ -138,7 +180,7 @@ export class Chat extends Component {
             });
     }
 
-    addUser(event: Event) {
+    submitUser(event: Event) {
         event.preventDefault();
         const userLoginInput = event.target.querySelector('#userLogin');
         const me = this;

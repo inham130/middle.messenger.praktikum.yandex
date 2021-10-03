@@ -1,7 +1,7 @@
 export function chatSocketFactory(config): WebSocket {
     const {userId, chatId, token} = config;
-    const BASE_URL = 'wss://ya-praktikum.tech/ws/';
-    const webSocket = new WebSocket(`${BASE_URL}chats/${userId}/${chatId}/${token}`);
+    const host = 'wss://ya-praktikum.tech/ws/';
+    const webSocket = new WebSocket(`${host}chats/${userId}/${chatId}/${token}`);
 
     webSocket.addEventListener('open', () => {
         console.log('Connection seted up');
