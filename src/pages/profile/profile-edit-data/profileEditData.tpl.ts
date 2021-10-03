@@ -10,7 +10,7 @@ export const templateMarkup = `
             </div>
             <div data-component-type="form"></div>
             <div class="profile__footer">
-                <a href="/profile" class="link">Назад</a>
+                <a href="/profile" class="link">К профилю</a>
             </div>
         </div>
     </main>`;

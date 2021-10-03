@@ -19,6 +19,9 @@ export const templateMarkup = `
             </div>
             <div class="profile__footer">
                 <div class="profile__link">
+                    <a href="./messenger" class="link">К сообщениям</a>
+                </div>
+                <div class="profile__link">
                     <a href="./settings" class="link">Изменить данные</a>
                 </div>
                 <div class="profile__link">

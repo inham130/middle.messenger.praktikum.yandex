@@ -3,7 +3,9 @@ export const templateMarkup = `
         <div class="chat__sidebar-header">
             <div class="chat__sidebar-menu">
                 <div class="avatar">
-                    <img src="{{avatar}}" alt="" class="photo" width="32" height="32">
+                    <a href="./profile" class="link">
+                        <img src="{{avatar}}" alt="" class="photo" width="48" height="48">
+                    </a>
                 </div>
                 <div data-component-type="button"></div>
             </div>
