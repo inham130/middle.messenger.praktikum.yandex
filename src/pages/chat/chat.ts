@@ -206,9 +206,10 @@ export class Chat extends Component {
 
         new UserController().getUserData()
             .then((response: string) => JSON.parse(response))
-            .then(({ id }) => {
+            .then(({ id, avatar }) => {
                 const newProps = Object.assign({}, this.props);
                 newProps.userId = id;
+                newProps.chatSideBar.avatar = `https://ya-praktikum.tech/api/v2/resources${avatar}`;
                 this.setProps(newProps);
             });
     }
