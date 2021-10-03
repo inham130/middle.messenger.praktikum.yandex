@@ -7,6 +7,7 @@
     "stylelint": "stylelint 'src/**/**.scss' --syntax sass",
     "eslint": "eslint . --ext .ts",
     "dev": "rm -rf .cache && parcel index.html --port 3000",
+    "test": "mocha -r ts-node/register -r jsdom-global/register",
     "start": "parcel build *.html && npm run express",
     "build": "parcel build *.html",
     "express": "node ./server.js "
@@ -26,16 +27,24 @@
   },
   "homepage": "https://github.com/inham130/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
+    "@types/chai": "^4.2.22",
+    "@types/jsdom": "^16.2.13",
+    "@types/mocha": "^9.0.0",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
+    "chai": "^4.3.4",
     "eslint": "^7.32.0",
     "express": "^4.17.1",
     "handlebars": "^4.7.7",
+    "jsdom": "17.0.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^9.1.2",
     "parcel-bundler": "^1.12.5",
     "sass": "^1.35.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
+    "ts-node": "^10.2.1",
     "typescript": "^4.3.5"
   },
   "dependencies": {
