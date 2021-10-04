@@ -20,7 +20,9 @@
          },
          "allowSyntheticDefaultImports": true
      },
-
+     "ts-node": {
+         "transpileOnly": true
+     },
      "exclude": [
         "node_modules"
      ]

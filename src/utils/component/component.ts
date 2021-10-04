@@ -113,6 +113,10 @@ export default class Component {
     }
 
     render(): HTMLElement | null {
+        if (this.props.template) {
+            const fragment: DocumentFragment = this.createFragmentFromString(this.props.template);
+            return fragment.firstChild as HTMLElement;
+        }
         return null;
     }
 
