@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import 'mocha';
 import {JSDOM} from 'jsdom';
 import Component from '../component';
 

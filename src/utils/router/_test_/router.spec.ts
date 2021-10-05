@@ -1,6 +1,5 @@
 import {expect} from 'chai';
 import {JSDOM} from 'jsdom';
-import 'mocha';
 
 declare global {
     namespace NodeJS {
