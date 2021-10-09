@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars';
 import Component from '../../utils/component/component';
 import { Form } from '../../components/form';
+import { Input } from '../../components/input';
 import { Button } from '../../components/button';
 import { validation } from '../../utils/validation/formValidation';
 import { notificationManagerMixin } from '../../utils/mixin/notificationManagerMixin';
@@ -11,38 +12,40 @@ import { templateMarkup } from './login.tpl';
 const loginProps = {
     form: {
         name: 'login',
-        controls: [{
-            label: 'Логин',
-            name: 'login',
-            type: 'text',
-            controlId: 'login',
-            validationFunc: validation.login,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
+        children: {
+            controls: [new Input({
+                label: 'Логин',
+                name: 'login',
+                type: 'text',
+                controlId: 'login',
+                validationFunc: validation.login,
+                events: {
+                    focus: function(event: Event) {
+                        this.props.validationFunc.call(this, event.target.value);
+                    },
+                    blur: function(event: Event) {
+                        this.props.validationFunc.call(this, event.target.value);
+                    }
                 }
-            }
-        }, {
-            label: 'Пароль',
-            name: 'password',
-            type: 'password',
-            controlId: 'password',
-            validationFunc: validation.password,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
+            }), new Input({
+                label: 'Пароль',
+                name: 'password',
+                type: 'password',
+                controlId: 'password',
+                validationFunc: validation.password,
+                events: {
+                    focus: function(event: Event) {
+                        this.props.validationFunc.call(this, event.target.value);
+                    },
+                    blur: function(event: Event) {
+                        this.props.validationFunc.call(this, event.target.value);
+                    }
                 }
-            }
-        }],
-        button: {
-            text: 'Авторизоваться',
-            type: 'submit',
+            })],
+            button: new Button({
+                text: 'Авторизоваться',
+                type: 'submit',
+            })
         },
         events: {
             submit: function(event: Event) {

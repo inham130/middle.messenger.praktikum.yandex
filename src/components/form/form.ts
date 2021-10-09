@@ -5,7 +5,7 @@ import { Button } from '../button';
 import { templateMarkup } from './form.tpl';
 
 type formProps = {
-    controls: Record<string, unknown>,
+    children: Record<string, unknown>,
     events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
     settings?: Record<string, unknown>
 }
@@ -76,7 +76,7 @@ export class Form extends Component {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
 
-        this.props.controls.forEach((control: Record<string, unknown>) => {
+        /* this.props.controls.forEach((control: Record<string, unknown>) => {
             const selector = `[data-component-type="input"][data-component-name="${control.name}"]`;
             const input: HTMLElement | null = fragment.querySelector(selector);
             if (input !== null) {
@@ -89,8 +89,8 @@ export class Form extends Component {
         const buttonTarget: ChildNode | null = fragment.querySelector('[data-component-type="button"]');
         if (buttonTarget !== null) {
             const button = new Button(this.props.button);
-            buttonTarget.replaceWith(button.getContent() as Node);
-        }
+            buttonTarget.replaceWith(button.getContent( q) as Node);
+        } */
 
         return fragment.firstChild as HTMLElement;
     }

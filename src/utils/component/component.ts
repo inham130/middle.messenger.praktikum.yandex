@@ -94,6 +94,11 @@ export default class Component {
         this._removeEvents();
 
         const component = this.render();
+        if (this.props.children) {
+            const componentPlaceholders = component?.querySelectorAll('[data-component-type]');
+            this.renderChildren(this.props.children, componentPlaceholders);
+        }
+
         if (this._element === null) {
             this._element = component;
         } else if (component !== null) {
@@ -104,6 +109,20 @@ export default class Component {
         this._addEvents();
 
         this.eventBus.emit(Component.EVENTS.FLOW_CDR);
+    }
+
+    renderChildren(children, componentPlaceholders) {
+        componentPlaceholders?.forEach((placehoder, index) => {
+            const source = placehoder.dataset.source;
+            let child;
+            if (Array.isArray(children[source])) {
+                child = children[source][index];
+            } else {
+                child = children[source];
+            }
+            placehoder.replaceWith(child.getContent() as Node);
+
+        });
     }
 
     createFragmentFromString(str: string) {
