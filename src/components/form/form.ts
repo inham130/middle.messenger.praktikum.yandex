@@ -61,7 +61,6 @@ export class Form extends Component {
 
         if (isFormValid) {
             const formData: FormData = new FormData(form);
-            console.log(Object.fromEntries(formData));
 
             const customEvent = new CustomEvent('formSubmit', {
                 bubbles: true,

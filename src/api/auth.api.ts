@@ -9,8 +9,8 @@ class AuthApi extends BaseAPI {
         return this.http.post('/signup', {data});
     }
 
-    request(): Promise<unknown> {
-        return this.http.get('/user', {data});
+    getUser(): Promise<unknown> {
+        return this.http.get('/user');
     }
 }
 

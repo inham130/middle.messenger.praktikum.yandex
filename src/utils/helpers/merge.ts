@@ -1,11 +1,8 @@
+import { isObject } from './index';
+
 type Indexed<T = unknown> = {
     [key in string]: T;
 };
-
-function isObject(value: unknown): boolean {
-    const type = typeof value;
-    return type === 'function' || type === 'object' && !!value;
-}
 
 export function merge(lhs: Indexed, rhs: Indexed): Indexed {
     const result = Object.assign({}, lhs);

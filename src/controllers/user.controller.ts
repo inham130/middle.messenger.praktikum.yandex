@@ -1,14 +1,13 @@
-import { UserAPI } from '../api/user.api';
-
+import UserAPI from '../api/user.api';
+import AuthApi from '../api/auth.api';
 export class UserController {
-    userAPI: UserAPI;
+    private userAPI = UserAPI;
+    private authAPI = AuthApi;
 
-    constructor() {
-        this.userAPI = new UserAPI();
-    }
+    constructor() {}
 
     getUserData(): Promise<unknown> {
-        return this.userAPI.request();
+        return this.authAPI.getUser();
     }
 
     saveUserData(data): Promise<unknown> {

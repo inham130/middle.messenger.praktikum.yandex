@@ -1,63 +1,26 @@
 import BaseAPI from './baseApi';
-import HTTPTransport from '../utils/http/HTTPtransport';
-
-export class UserAPI extends BaseAPI {
+class UserAPI extends BaseAPI {
     private http: HTTPTransport;
 
     constructor() {
-        super();
-        this.http = new HTTPTransport(this.host);
+        super('user');
     }
 
-    /* should be AuthAPI
-    request() {
-        const url = '/auth/user';
-        const options = {
-            headers: {
-                'content-type': 'application/json'
-            }
-        };
-        return this.http.get(url, options);
-    } */
-
-    update(data) {
-        const url = '/user/profile';
-        const options = {
-            data,
-            headers: {
-                'content-type': 'application/json'
-            }
-        };
-        return this.http.put(url, options);
+    update(data): Promise<unknown> {
+        return this.http.put('/profile', {data});
     }
 
-    changePassword(data) {
-        const url = '/user/password';
-        const options = {
-            data,
-            headers: {
-                'content-type': 'application/json'
-            }
-        };
-
-        return this.http.put(url, options);
+    changePassword(data): Promise<unknown> {
+        return this.http.put('/password', {data});
     }
 
-    uploadAvatar(data) {
-        const url = '/user/profile/avatar';
-        const options = {data};
-        return this.http.put(url, options);
+    uploadAvatar(data): Promise<unknown> {
+        return this.http.put('/profile/avatar', {headers: null, data});
     }
 
-    getUserId(data) {
-        const url = '/user/search';
-        const options = {
-            data,
-            headers: {
-                'content-type': 'application/json'
-            }
-        };
-
-        return this.http.post(url, options);
+    getUserId(data): Promise<unknown> {
+        return this.http.post('/search', {data});
     }
 }
+
+export default new UserAPI();

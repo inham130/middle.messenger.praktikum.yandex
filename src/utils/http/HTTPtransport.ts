@@ -1,4 +1,4 @@
-import { merge } from '../helpers/index';
+import { merge, isObject } from '../helpers/index';
 
 enum Methods {
     GET = 'GET',
@@ -55,7 +55,14 @@ export default class HTTPTransport {
 
     request = (url: string, options: options) => {
         const {data = null, method, timeout} = options;
-        const headers = options.headers === undefined ? defaultHeaders : merge(options.headers, defaultHeaders);
+
+        let headers = defaultHeaders;
+        if (options.headers === null) {
+            headers = {};
+        } else if (isObject(options.headers)) {
+            headers = merge(options.headers, defaultHeaders);
+        }
+
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
