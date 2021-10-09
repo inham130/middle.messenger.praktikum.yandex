@@ -21,8 +21,7 @@ export const notificationManagerMixin = {
     showNotification,
 
     showHTTPError(responseData, selector = '#notificationContainer'): void {
-        const response = JSON.parse(responseData.response);
-        const {reason: errorText = 'что - то пошло не так'} = response;
+        const {reason: errorText = 'что - то пошло не так'} = responseData;
 
         showNotification(NOTIFICATION_TYPES.ERROR, errorText, selector);
     },

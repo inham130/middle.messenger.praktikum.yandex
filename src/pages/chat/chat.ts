@@ -171,8 +171,7 @@ export class Chat extends Component {
 
         this.chatController
             .addChat({title: userLoginInput.value})
-            .then((response) => {
-                const {id} = JSON.parse(response);
+            .then(({id}) => {
                 const newProps = Object.assign({}, this.props);
                 newProps.chatSideBar.chatList.chats.unshift({id, title: userLoginInput.value, avatar: null});
                 this.setProps(newProps);
@@ -197,15 +196,13 @@ export class Chat extends Component {
         this.chatController = new ChatController();
 
         this.chatController.getChats()
-            .then((response: string) => {
-                const chats = JSON.parse(response);
+            .then((chats) => {
                 const newProps = Object.assign({}, this.props);
                 newProps.chatSideBar.chatList.chats = chats;
                 this.setProps(newProps);
             });
 
         new UserController().getUserData()
-            .then((response: string) => JSON.parse(response))
             .then(({ id, avatar }) => {
                 const newProps = Object.assign({}, this.props);
                 newProps.userId = id;

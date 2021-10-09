@@ -100,9 +100,8 @@ export class EditPass extends Component {
 
         this.userController
             .getUserData()
-            .then((response: string) => {
+            .then((userData) => {
                 try {
-                    const userData = JSON.parse(response);
                     if (userData.avatar) {
                         const avatarSrc = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
                         const img = document.querySelector('#profileAvatar');

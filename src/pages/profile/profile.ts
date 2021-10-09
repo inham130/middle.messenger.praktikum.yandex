@@ -84,9 +84,8 @@ export class Profile extends Component {
 
         this.userController
             .getUserData()
-            .then((response: string) => {
+            .then((userData) => {
                 try {
-                    const userData = JSON.parse(response);
                     const actualData = this.userController.mapUserData(this.props.userData, userData);
 
                     this.props.displayName = userData.display_name;

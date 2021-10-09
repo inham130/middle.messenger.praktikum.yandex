@@ -19,8 +19,8 @@ export class ChatController {
     addUser({chatId, login}): Promise<unknown> {
         return this.userAPI
             .getUserId(JSON.stringify({login}))
-            .then((response) => JSON.parse(response)[0])
-            .then(({id}) => {
+            .then((response) => {
+                const {id} = response[0];
                 const data = {users: [id], chatId};
                 return this.chatAPI.addUser(JSON.stringify(data));
             });
@@ -32,7 +32,6 @@ export class ChatController {
 
     setUpConnection(config): Promise<unknown> {
         return this.chatAPI.getToken(config.chatId)
-            .then((response) => JSON.parse(response))
             .then(({ token }) => {
                 config.token = token;
                 return chatSocketFactory(config);

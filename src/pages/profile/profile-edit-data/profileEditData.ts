@@ -169,9 +169,8 @@ export class EditProfile extends Component {
 
         this.userController
             .uploadAvatar(formData)
-            .then((response: string) => {
+            .then((userData) => {
                 try {
-                    const userData = JSON.parse(response);
                     if (userData.avatar) {
                         this.renderAvatar(userData.avatar);
                     }
@@ -197,9 +196,8 @@ export class EditProfile extends Component {
 
         this.userController
             .getUserData()
-            .then((response: string) => {
+            .then((userData: string) => {
                 try {
-                    const userData = JSON.parse(response);
                     const actualData = this.userController.mapUserData(this.props.form.controls, userData);
 
                     this.props.displayName = userData.display_name;
