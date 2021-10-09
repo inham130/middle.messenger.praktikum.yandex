@@ -1,47 +1,29 @@
 import BaseAPI from './baseApi';
-import HTTPTransport from '../utils/http/HTTPtransport';
 
-export class ChatAPI extends BaseAPI {
-    private http: HTTPTransport;
-    private defaultHeaders = {'content-type': 'application/json'}
-
+class ChatAPI extends BaseAPI {
     constructor() {
-        super();
-        this.http = new HTTPTransport(this.host);
+        super('chats');
     }
 
-    getChats() {
-        const url = '/chats';
-        const options = {headers: this.defaultHeaders};
-
-        return this.http.get(url, options);
+    getChats(): Promise<unknown> {
+        return this.http.get('', {});
     }
 
-    addChat(data) {
-        const url = '/chats';
-        const options = {data, headers: this.defaultHeaders};
-
-        return this.http.post(url, options);
+    addChat(data): Promise<unknown> {
+        return this.http.post('', {data});
     }
 
-    addUser(data) {
-        const url = '/chats/users';
-        const options = {data, headers: this.defaultHeaders};
-
-        return this.http.put(url, options);
+    addUser(data): Promise<unknown> {
+        return this.http.put('/users', {data});
     }
 
-    getUsers(id) {
-        const url = `/chats/${id}/users`;
-        const options = {headers: this.defaultHeaders};
-
-        return this.http.get(url, options);
+    getUsers(id): Promise<unknown> {
+        return this.http.get(`/${id}/users`, {});
     }
 
-    getToken(id) {
-        const url = `/chats/token/${id}`;
-        const options = {headers: this.defaultHeaders};
-
-        return this.http.post(url, options);
+    getToken(id): Promise<unknown> {
+        return this.http.post(`/token/${id}`, {});
     }
 }
+
+export default new ChatAPI();

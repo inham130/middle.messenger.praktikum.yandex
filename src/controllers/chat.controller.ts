@@ -1,15 +1,12 @@
-import { ChatAPI } from '../api/chat.api';
-import { UserAPI } from '../api/user.api';
+import ChatAPI from '../api/chat.api';
+import UserAPI from '../api/user.api';
 import { chatSocketFactory } from '../utils/web-soket/chatSocketFactory';
 
 export class ChatController {
-    private chatAPI: ChatAPI;
-    private userAPI: UserAPI;
+    private chatAPI = ChatAPI;
+    private userAPI = UserAPI;
 
-    constructor() {
-        this.chatAPI = new ChatAPI();
-        this.userAPI = new UserAPI();
-    }
+    constructor() {}
 
     getChats(): Promise<unknown> {
         return this.chatAPI.getChats();
@@ -26,13 +23,10 @@ export class ChatController {
             .then(({id}) => {
                 const data = {users: [id], chatId};
                 return this.chatAPI.addUser(JSON.stringify(data));
-            })
-            .then((response) => {
-                console.log(response);
             });
     }
 
-    getUsers(id): Promise<unknown> {
+    getUsers(id: number): Promise<unknown> {
         return this.chatAPI.getUsers(id);
     }
 
