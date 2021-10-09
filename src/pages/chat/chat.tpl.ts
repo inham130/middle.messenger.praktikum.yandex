@@ -26,14 +26,11 @@ export const templateMarkup = `
                     {{/each}}
                 </div>
                 <form class="chat__message-form">
-                    <div class="attach-button">
-                        <button class="button button_small" type="button">attach</button>
-                    </div>
                     <div class="chat__message-input">
                         <input type="text" name="message" id="messageInput" class="message-area"></input>
                     </div>
                     <div class="send-button">
-                        <button class="button button_small" data-action="sendMessage" type="submit">send</button>
+                        <button class="button button_small" data-action="sendMessage" type="submit">Отправить</button>
                     </div>
                 </form>
             </div>
