@@ -1,31 +1,17 @@
 import BaseAPI from './baseApi';
-import HTTPTransport from '../utils/http/HTTPtransport';
 
-export class LoginApi extends BaseAPI {
-    private http: HTTPTransport;
+class LoginApi extends BaseAPI {
     constructor() {
-        super();
-        this.http = new HTTPTransport(this.host);
+        super('auth');
     }
 
-    signIn(data) {
-        const url = '/auth/signin';
-        const options = {
-            data,
-            headers: {
-                'content-type': 'application/json'
-            }
-        };
-        return this.http.post(url, options);
+    signIn(data): Promise<unknown> {
+        return this.http.post('/signin', {data});
     }
 
-    logout() {
-        const url = '/auth/logout';
-        const options = {
-            headers: {
-                'content-type': 'application/json'
-            }
-        };
-        return this.http.post(url, options);
+    logout(): Promise<unknown> {
+        return this.http.post('/logout', {});
     }
 }
+
+export default new LoginApi();
