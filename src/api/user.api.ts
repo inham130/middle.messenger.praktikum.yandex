@@ -6,7 +6,7 @@ class UserAPI extends BaseAPI {
         super('user');
     }
 
-    update(data): Promise<unknown> {
+    updateUserData(data): Promise<unknown> {
         return this.http.put('/profile', {data});
     }
 

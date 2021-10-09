@@ -11,7 +11,7 @@ export class UserController {
     }
 
     saveUserData(data): Promise<unknown> {
-        return this.userAPI.update(JSON.stringify(data));
+        return this.userAPI.updateUserData(JSON.stringify(data));
     }
 
     uploadAvatar(data) {
