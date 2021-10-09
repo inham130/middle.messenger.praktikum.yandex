@@ -5,25 +5,12 @@ class AuthApi extends BaseAPI {
         super('auth');
     }
 
-    create(data): Promise<unknown> {
-        const url = '/signup';
-        const options = {
-            data,
-            headers: {
-                'content-type': 'application/json'
-            }
-        };
-        return this.http.post(url, options);
+    register(data): Promise<unknown> {
+        return this.http.post('/signup', {data});
     }
 
     request(): Promise<unknown> {
-        const url = '/user';
-        const options = {
-            headers: {
-                'content-type': 'application/json'
-            }
-        };
-        return this.http.get(url, options);
+        return this.http.get('/user', {data});
     }
 }
 

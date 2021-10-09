@@ -1,13 +1,12 @@
 import AuthApi from '../api/auth.api';
 
 export class SignUpController {
-    constructor() {
-        this.authApi = AuthApi;
-    }
+    private authApi = AuthApi;
+    constructor() {}
 
     signUp(data: Record<string, unknown>) {
         return this.authApi
-            .create(JSON.stringify(data))
+            .register(JSON.stringify(data))
             .then(() => this.authApi.request());
     }
 }

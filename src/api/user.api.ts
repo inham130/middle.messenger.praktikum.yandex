@@ -9,6 +9,7 @@ export class UserAPI extends BaseAPI {
         this.http = new HTTPTransport(this.host);
     }
 
+    /* should be AuthAPI
     request() {
         const url = '/auth/user';
         const options = {
@@ -17,7 +18,7 @@ export class UserAPI extends BaseAPI {
             }
         };
         return this.http.get(url, options);
-    }
+    } */
 
     update(data) {
         const url = '/user/profile';

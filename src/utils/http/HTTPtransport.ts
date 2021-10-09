@@ -1,3 +1,5 @@
+import { merge } from '../helpers/index';
+
 enum Methods {
     GET = 'GET',
     POST = 'POST',
@@ -15,6 +17,10 @@ type options = {
 const defaultType: options = {
     timeout: 10000,
     data: {}
+};
+
+const defaultHeaders = {
+    'content-type': 'application/json'
 };
 
 function queryStringify(data: Record<string, string> | null) {
@@ -48,7 +54,8 @@ export default class HTTPTransport {
     };
 
     request = (url: string, options: options) => {
-        const {data = null, headers = {}, method, timeout} = options;
+        const {data = null, method, timeout} = options;
+        const headers = options.headers === undefined ? defaultHeaders : merge(options.headers, defaultHeaders);
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
