@@ -1,19 +1,24 @@
-export class BaseAPI {
-    protected host = 'https://ya-praktikum.tech/api/v2';
+import HTTPTransport from '../utils/http/HTTPtransport';
+export default class BaseAPI {
+    protected http: HTTPTransport;
 
-    create(): void {
+    constructor(endpoint: string) {
+        this.http = new HTTPTransport(`https://ya-praktikum.tech/api/v2/${endpoint}`);
+    }
+
+    create(): Promise<unknown> {
         throw new Error('Not implemented');
     }
 
-    request(): void {
+    request(): Promise<unknown> {
         throw new Error('Not implemented');
     }
 
-    update(): void {
+    update(): Promise<unknown> {
         throw new Error('Not implemented');
     }
 
-    delete(): void {
+    delete(): Promise<unknown> {
         throw new Error('Not implemented');
     }
 }

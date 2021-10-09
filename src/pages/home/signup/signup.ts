@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
-import { SignUpController } from './signup.controller';
+import { SignUpController } from '../../../controllers/signup.controller';
 import { validation } from '../../../utils/validation/formValidation';
 import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
 import { templateMarkup } from './signup.tpl';

@@ -1,16 +1,12 @@
-import { BaseAPI } from './baseApi';
-import HTTPTransport from '../utils/http/HTTPtransport';
+import BaseAPI from './baseApi';
 
-export class SignUpApi extends BaseAPI {
-    private http: HTTPTransport;
-
+class AuthApi extends BaseAPI {
     constructor() {
-        super();
-        this.http = new HTTPTransport(this.host);
+        super('auth');
     }
 
-    create(data) {
-        const url = '/auth/signup';
+    create(data): Promise<unknown> {
+        const url = '/signup';
         const options = {
             data,
             headers: {
@@ -20,8 +16,8 @@ export class SignUpApi extends BaseAPI {
         return this.http.post(url, options);
     }
 
-    request() {
-        const url = '/auth/user';
+    request(): Promise<unknown> {
+        const url = '/user';
         const options = {
             headers: {
                 'content-type': 'application/json'
@@ -30,3 +26,5 @@ export class SignUpApi extends BaseAPI {
         return this.http.get(url, options);
     }
 }
+
+export default new AuthApi();

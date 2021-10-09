@@ -1,4 +1,4 @@
-import { BaseAPI } from './baseApi';
+import BaseAPI from './baseApi';
 import HTTPTransport from '../utils/http/HTTPtransport';
 
 export class LoginApi extends BaseAPI {
