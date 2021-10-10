@@ -7,11 +7,11 @@ export const templateMarkup = `
                         <img src="{{avatar}}" alt="" class="photo" width="48" height="48">
                     </a>
                 </div>
-                <div data-component-type="button"></div>
+                <div data-component-type="button" data-source="button"></div>
             </div>
             <div class="search">
                 <input type="text" name="search" placeholder="Поиск">
             </div>
         </div>
-        <div data-component-type="chatList"></div>
+        <div data-component-type="chatList" data-source="chatList"></div>
     </div>`;

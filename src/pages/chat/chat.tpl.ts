@@ -1,7 +1,7 @@
 export const templateMarkup = `
     <main class="main">
         <div class="chat">
-            <div data-component-type="chatSideBar"></div>
+            <div data-component-type="chatSideBar" data-source="chatSideBar"></div>
             <div class="chat__main">
                 <div class="chat__menu">
                     {{#if avatar}}

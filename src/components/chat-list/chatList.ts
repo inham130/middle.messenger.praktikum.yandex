@@ -11,11 +11,11 @@ export class ChatList extends Component {
     }
 
     render(): HTMLElement {
-        this.chats = [];
+        // this.chats = [];
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
 
-        this.props.chats.forEach((item: Record<string, unknown>) => {
+        /* this.props.chats.forEach((item: Record<string, unknown>) => {
             const selector = `[data-component-type="chatItem"]`;
             const chat: HTMLElement | null = fragment.querySelector(selector);
             if (chat !== null) {
@@ -23,7 +23,7 @@ export class ChatList extends Component {
                 this.chats.push(chatComponent);
                 chat.replaceWith(chatComponent.getContent() as Node);
             }
-        });
+        }); */
 
         return fragment.firstChild as HTMLElement;
     }

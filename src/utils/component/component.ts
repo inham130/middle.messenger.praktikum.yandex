@@ -121,6 +121,8 @@ export default class Component {
             } else {
                 child = children[source];
             }
+            console.log(source, child);
+
             placehoder.replaceWith(child.getContent() as Node);
         });
     }

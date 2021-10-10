@@ -6,23 +6,34 @@ import { Popup } from 'components/popup';
 import { templateMarkup } from './chat.tpl';
 import avatar from '/static/avatar.png';
 import { UserController } from '~/src/controllers/user.controller';
+import { Button } from '~/src/components/button';
+import { ChatList } from '~/src/components/chat-list';
+import { ChatItem } from '../../components/chat-item/chatItem';
+import { Form } from '~/src/components/form';
+import { Input } from '~/src/components/input';
 
 type chatProps = Record<string, unknown>
 const chatProps = {
     activeChatId: null,
     userId: null,
     messages: [],
-    chatSideBar: {
-        avatar,
-        button: {
-            text: 'Добавить чат',
-            type: 'button',
-            classes: 'button_small',
-            action: 'addChatPopup'
-        },
-        chatList: {
-            chats: []
-        }
+    children: {
+        chatSideBar: new ChatSideBar({
+            avatar,
+            children: {
+                button: new Button({
+                    text: 'Добавить чат',
+                    type: 'button',
+                    classes: 'button_small',
+                    action: 'addChatPopup'
+                }),
+                chatList: new ChatList({
+                    children: {
+                        chats: []
+                    }
+                })
+            }
+        })
     },
     events: {
         click: function(event: Event) {
@@ -112,21 +123,25 @@ export class Chat extends Component {
     addChat() {
         const popupProps = {
             title: 'Название чата',
-            form: {
-                name: 'addChat',
-                controls: [{
-                    label: '',
-                    name: 'userLogin',
-                    type: 'text',
-                    controlId: 'userLogin'
-                }],
-                button: {
-                    text: 'Добавить',
-                    type: 'submit'
-                },
-                events: {
-                    submit: this.submitChat
-                }
+            children: {
+                form: new Form({
+                    name: 'addChat',
+                    children: {
+                        controls: [new Input({
+                            label: '',
+                            name: 'userLogin',
+                            type: 'text',
+                            controlId: 'userLogin'
+                        })],
+                        button: new Button({
+                            text: 'Добавить',
+                            type: 'submit'
+                        })
+                    },
+                    events: {
+                        submit: this.submitChat
+                    }
+                })
             }
         };
         this.addChatPopup = new Popup(popupProps);
@@ -136,21 +151,25 @@ export class Chat extends Component {
     addUser() {
         const popupProps = {
             title: 'Добавить пользователя',
-            form: {
-                name: 'addChat',
-                controls: [{
-                    label: '',
-                    name: 'userLogin',
-                    type: 'text',
-                    controlId: 'userLogin'
-                }],
-                button: {
-                    text: 'Добавить',
-                    type: 'submit'
-                },
-                events: {
-                    submit: this.submitUser
-                }
+            children: {
+                form: new Form({
+                    name: 'addChat',
+                    children: {
+                        controls: [new Input({
+                            label: '',
+                            name: 'userLogin',
+                            type: 'text',
+                            controlId: 'userLogin'
+                        })],
+                        button: new Button({
+                            text: 'Добавить',
+                            type: 'submit'
+                        })
+                    },
+                    events: {
+                        submit: this.submitUser
+                    }
+                })
             }
         };
         this.addUserPopup = new Popup(popupProps);
@@ -172,9 +191,9 @@ export class Chat extends Component {
         this.chatController
             .addChat({title: userLoginInput.value})
             .then(({id}) => {
-                const newProps = Object.assign({}, this.props);
-                newProps.chatSideBar.chatList.chats.unshift({id, title: userLoginInput.value, avatar: null});
-                this.setProps(newProps);
+                const newChatItem = new ChatItem({id, title: userLoginInput.value, avatar: null});
+                const chatList = [newChatItem, ...this.props.children.chatSideBar.props.children.chatList.props.children.chats];
+                this.props.children.chatSideBar.props.children.chatList.setProps({children: {chats: chatList}})
                 me.addChatPopup.destroy();
             });
     }
@@ -197,16 +216,19 @@ export class Chat extends Component {
 
         this.chatController.getChats()
             .then((chats) => {
-                const newProps = Object.assign({}, this.props);
-                newProps.chatSideBar.chatList.chats = chats;
-                this.setProps(newProps);
+                const.chatList = []
+                chats.forEach(chat => {
+                    const chatItem = new ChatItem(chat);
+                    chatList.push(chatItem);
+                });
+                this.props.children.chatSideBar.props.children.chatList.setProps({children: {chats: chatList}})
             });
 
         new UserController().getUserData()
             .then(({ id, avatar }) => {
                 const newProps = Object.assign({}, this.props);
                 newProps.userId = id;
-                newProps.chatSideBar.avatar = `https://ya-praktikum.tech/api/v2/resources${avatar}`;
+                newProps.children.chatSideBar.props.avatar = `https://ya-praktikum.tech/api/v2/resources${avatar}`;
                 this.setProps(newProps);
             });
     }
@@ -214,12 +236,6 @@ export class Chat extends Component {
     render(): HTMLElement {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        const chatSideBarTarget: ChildNode | null = fragment.querySelector('[data-component-type="chatSideBar"]');
-        if (chatSideBarTarget !== null) {
-            const chatSideBar = new ChatSideBar(this.props.chatSideBar);
-            chatSideBarTarget.replaceWith(chatSideBar.getContent() as Node);
-        }
 
         return fragment.firstChild as HTMLElement;
     }
