@@ -75,8 +75,7 @@ export class Login extends Component {
         const data = Object.fromEntries(formData);
         this.loginController.signIn(data)
             .then(() => {
-                // поскольку Router является синглтоном я использую new, но не уверен, что это хорошо
-                new Router().go('/profile');
+                Router.go('/profile');
             })
             .catch(this.showHTTPError);
     }

@@ -1,23 +1,19 @@
 import { Route } from './route';
 
-export class Router {
+class Router {
     static __instance: Router;
     private _currentRoute: Route | null;
-    private _rootQuery: string;
     routes: Route[];
     history: History;
 
     constructor(rootQuery: string) {
-        if (Router.__instance) {
-            return Router.__instance;
-        }
-
         this.routes = [];
         this.history = window.history;
         this._currentRoute = null;
-        this._rootQuery = rootQuery;
+    }
 
-        Router.__instance = this;
+    setRootQuery(rootQuery) {
+        this._rootQuery =  rootQuery;
     }
 
     use(pathname, block) {
@@ -67,3 +63,5 @@ export class Router {
         return this.routes.find(route => route.match(pathname));
     }
 }
+const instance = new Router();
+export { instance as Router };

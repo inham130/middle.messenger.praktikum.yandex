@@ -7,9 +7,8 @@ import { Chat } from './pages/chat/index';
 import { Router } from './utils/router/index';
 
 
-const router = new Router('#root');
-
-router
+Router.setRootQuery('#root');
+Router
     .use('/', Login)
     .use('/sign-up', SignUp)
     .use('/profile', Profile)

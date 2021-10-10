@@ -62,7 +62,7 @@ export class Profile extends Component {
     logout() {
         this.loginController.logout()
             .then(() => {
-                new Router().go('/');
+                Router.go('/');
             })
             .catch((error) => {
                 console.log(error);
