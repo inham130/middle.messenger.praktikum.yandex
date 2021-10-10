@@ -1,7 +1,5 @@
 import Handlebars  from 'handlebars';
 import Component from '../../utils/component/component';
-import { Input } from '../input/index';
-import { Button } from '../button';
 import { templateMarkup } from './form.tpl';
 
 type formProps = {
@@ -42,7 +40,7 @@ export class Form extends Component {
 
     validateForm() {
         let isFormValid = true;
-        this.controls.forEach(function(control) {
+        this.props.children.controls.forEach(function(control) {
             if (control.props.validationFunc) {
                 const isControlValid = control.props.validationFunc.call(control, control.element.value);
                 if (isControlValid === false) {
@@ -71,26 +69,8 @@ export class Form extends Component {
     }
 
     render(): HTMLElement {
-        this.controls = [];
-
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        /* this.props.controls.forEach((control: Record<string, unknown>) => {
-            const selector = `[data-component-type="input"][data-component-name="${control.name}"]`;
-            const input: HTMLElement | null = fragment.querySelector(selector);
-            if (input !== null) {
-                const inputComponent: Input = new Input(control);
-                this.controls.push(inputComponent);
-                input.replaceWith(inputComponent.getContent() as Node);
-            }
-        });
-
-        const buttonTarget: ChildNode | null = fragment.querySelector('[data-component-type="button"]');
-        if (buttonTarget !== null) {
-            const button = new Button(this.props.button);
-            buttonTarget.replaceWith(button.getContent( q) as Node);
-        } */
 
         return fragment.firstChild as HTMLElement;
     }

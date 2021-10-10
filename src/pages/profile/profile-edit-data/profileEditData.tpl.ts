@@ -8,7 +8,7 @@ export const templateMarkup = `
             <div class="profile__title">
                 <span class="title">{{userName}}</span>
             </div>
-            <div data-component-type="form"></div>
+            <div data-component-type="form" data-source="form"></div>
             <div class="profile__footer">
                 <a href="/profile" class="link">К профилю</a>
             </div>

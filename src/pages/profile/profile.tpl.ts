@@ -9,11 +9,8 @@ export const templateMarkup = `
             </div>
             <div class="profile__data">
                 <ul class="profile__list">
-                    {{#each userData}}
-                        <li class="profile__list-item">
-                            <span class="text text_dark">{{label}}</span>
-                            <span class="text text_gray">{{value}}</span>
-                        </li>
+                    {{#each children.infoItems}}
+                        <div data-component-type="userInfoItem" data-source="infoItems" data-component-name="{{props.name}}"></div>
                     {{/each}}
                 </ul>
             </div>
@@ -28,7 +25,7 @@ export const templateMarkup = `
                     <a href="./pass" class="link">Изменить пароль</a>
                 </div>
                 <div class="profile__link">
-                    <div data-component-type="button" data-component-name="logoutButton"></div>
+                    <div data-component-type="button" data-source="logoutButton" data-component-name="logoutButton"></div>
                 </div>
             </div>
         </div>

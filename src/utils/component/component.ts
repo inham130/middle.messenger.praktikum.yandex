@@ -18,6 +18,7 @@ export default class Component {
         FLOW_CDR: 'flow:component-did-render'
     };
 
+    children = {};
     props: Record<any, any>;
     eventBus: EventBus;
     _element: HTMLElement | null;
@@ -121,7 +122,6 @@ export default class Component {
                 child = children[source];
             }
             placehoder.replaceWith(child.getContent() as Node);
-
         });
     }
 

@@ -10,48 +10,50 @@ import { Router } from '../../utils/router/index';
 import { templateMarkup } from './login.tpl';
 
 const loginProps = {
-    form: {
-        name: 'login',
-        children: {
-            controls: [new Input({
-                label: 'Логин',
-                name: 'login',
-                type: 'text',
-                controlId: 'login',
-                validationFunc: validation.login,
-                events: {
-                    focus: function(event: Event) {
-                        this.props.validationFunc.call(this, event.target.value);
-                    },
-                    blur: function(event: Event) {
-                        this.props.validationFunc.call(this, event.target.value);
+    children: {
+        form: new Form({
+            name: 'login',
+            children: {
+                controls: [new Input({
+                    label: 'Логин',
+                    name: 'login',
+                    type: 'text',
+                    controlId: 'login',
+                    validationFunc: validation.login,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
                     }
-                }
-            }), new Input({
-                label: 'Пароль',
-                name: 'password',
-                type: 'password',
-                controlId: 'password',
-                validationFunc: validation.password,
-                events: {
-                    focus: function(event: Event) {
-                        this.props.validationFunc.call(this, event.target.value);
-                    },
-                    blur: function(event: Event) {
-                        this.props.validationFunc.call(this, event.target.value);
+                }), new Input({
+                    label: 'Пароль',
+                    name: 'password',
+                    type: 'password',
+                    controlId: 'password',
+                    validationFunc: validation.password,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
                     }
+                })],
+                button: new Button({
+                    text: 'Авторизоваться',
+                    type: 'submit',
+                })
+            },
+            events: {
+                submit: function(event: Event) {
+                    this.submit(event);
                 }
-            })],
-            button: new Button({
-                text: 'Авторизоваться',
-                type: 'submit',
-            })
-        },
-        events: {
-            submit: function(event: Event) {
-                this.submit(event);
             }
-        }
+        })
     }
 };
 
@@ -82,12 +84,6 @@ export class Login extends Component {
     render(): HTMLElement {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        const formTarget: HTMLElement | null = fragment.querySelector('[data-component-type="form"]');
-        if (formTarget !== null) {
-            this.form = new Form(this.props.form);
-            formTarget.replaceWith(this.form.getContent() as Node);
-        }
 
         return fragment.firstChild as HTMLElement;
     }

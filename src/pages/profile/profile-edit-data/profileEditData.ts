@@ -1,6 +1,8 @@
 import Handlebars from 'handlebars';
 import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
+import { Input } from '../../../components/input';
+import { Button } from '../../../components/button';
 import { Popup } from '../../../components/popup/index';
 import { UserController } from '../../../controllers/user.controller';
 import { validation } from '../../../utils/validation/formValidation';
@@ -11,96 +13,100 @@ import avatar from '/static/avatar.png';
 const editProfileProps = {
     avatar,
     displayName: '',
-    form: {
-        classes: 'profile',
-        name: 'editUserInfo',
-        controls: [{
-            label: 'Почта',
-            name: 'email',
-            type: 'text',
-            controlId: 'email',
-            validationFunc: validation.email,
+    children: {
+        form: new Form({
+            classes: 'profile',
+            name: 'editUserInfo',
+            children: {
+                controls: [new Input({
+                    label: 'Почта',
+                    name: 'email',
+                    type: 'text',
+                    controlId: 'email',
+                    validationFunc: validation.email,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Логин',
+                    name: 'login',
+                    type: 'text',
+                    controlId: 'login',
+                    validationFunc: validation.login,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Имя',
+                    name: 'first_name',
+                    type: 'text',
+                    controlId: 'first_name',
+                    validationFunc: validation.name,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Фамилия',
+                    name: 'second_name',
+                    type: 'text',
+                    controlId: 'second_name',
+                    validationFunc: validation.name,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Имя в чате',
+                    value: '',
+                    name: 'display_name',
+                    type: 'text',
+                    controlId: 'display_name'
+                }), new Input({
+                    label: 'Телефон',
+                    name: 'phone',
+                    type: 'text',
+                    controlId: 'phone',
+                    validationFunc: validation.phone,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                })],
+                button: new Button({
+                    text: 'Сохранить',
+                    type: 'submit'
+                }),
+            },
             events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
+                submit: function(event: Event) {
+                    this.submit(event);
                 }
             }
-        }, {
-            label: 'Логин',
-            name: 'login',
-            type: 'text',
-            controlId: 'login',
-            validationFunc: validation.login,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }, {
-            label: 'Имя',
-            name: 'first_name',
-            type: 'text',
-            controlId: 'first_name',
-            validationFunc: validation.name,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }, {
-            label: 'Фамилия',
-            name: 'second_name',
-            type: 'text',
-            controlId: 'second_name',
-            validationFunc: validation.name,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }, {
-            label: 'Имя в чате',
-            value: '',
-            name: 'display_name',
-            type: 'text',
-            controlId: 'display_name'
-        }, {
-            label: 'Телефон',
-            name: 'phone',
-            type: 'text',
-            controlId: 'phone',
-            validationFunc: validation.phone,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }],
-        button: {
-            text: 'Сохранить',
-            type: 'submit'
-        },
-        events: {
-            submit: function(event: Event) {
-                this.submit(event);
-            }
-        }
-    },
+        })
+    }
     events: {
         click: function(event: Event) {
             this.clickHandler(event);
@@ -198,10 +204,10 @@ export class EditProfile extends Component {
             .getUserData()
             .then((userData: string) => {
                 try {
-                    const actualData = this.userController.mapUserData(this.props.form.controls, userData);
-
+                    const { form } = this.props.children;
+                    this.userController.mapUserData(form.props.children.controls, userData);
                     this.props.displayName = userData.display_name;
-                    this.props.userData = actualData;
+
                     if (userData.avatar) {
                         this.renderAvatar(userData.avatar);
                     }
@@ -221,12 +227,6 @@ export class EditProfile extends Component {
     render(): HTMLElement {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        const formTarget: HTMLElement | null = fragment.querySelector('[data-component-type="form"]');
-        if (formTarget !== null) {
-            const form = new Form(this.props.form);
-            formTarget.replaceWith(form.getContent() as Node);
-        }
 
         return fragment.firstChild as HTMLElement;
     }

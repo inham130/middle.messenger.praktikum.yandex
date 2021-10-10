@@ -1,6 +1,8 @@
 import Handlebars from 'handlebars';
 import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
+import { Input } from '../../../components/input';
+import { Button } from '../../../components/button';
 import { SignUpController } from '../../../controllers/signup.controller';
 import { validation } from '../../../utils/validation/formValidation';
 import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
@@ -8,116 +10,120 @@ import { templateMarkup } from './signup.tpl';
 import { Router } from '../../../utils/router/index';
 
 const signUpProps = {
-    form: {
-        name: 'signUp',
-        controls: [{
-            label: 'Почта',
-            name: 'email',
-            type: 'text',
-            controlId: 'email',
-            validationFunc: validation.email,
+    children: {
+        form: new Form({
+            name: 'signUp',
+            children: {
+                controls: [new Input({
+                    label: 'Почта',
+                    name: 'email',
+                    type: 'text',
+                    controlId: 'email',
+                    validationFunc: validation.email,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Логин',
+                    name: 'login',
+                    type: 'text',
+                    controlId: 'login',
+                    validationFunc: validation.login,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Имя',
+                    name: 'first_name',
+                    type: 'text',
+                    controlId: 'first_name',
+                    validationFunc: validation.name,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Фамилия',
+                    name: 'second_name',
+                    type: 'text',
+                    controlId: 'second_name',
+                    validationFunc: validation.name,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Телефон',
+                    name: 'phone',
+                    type: 'text',
+                    controlId: 'phone',
+                    validationFunc: validation.phone,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Пароль',
+                    name: 'password',
+                    type: 'password',
+                    controlId: 'password',
+                    validationFunc: validation.password,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Пароль еще раз',
+                    name: 'confirmPassword',
+                    type: 'password',
+                    controlId: 'confirmPassword',
+                    validationFunc: validation.password,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                })],
+                button: new Button({
+                    text: 'Зарегистрироваться',
+                    type: 'submit'
+                })
+            },
             events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
+                submit: function(event: Event) {
+                    this.submit(event);
                 }
             }
-        }, {
-            label: 'Логин',
-            name: 'login',
-            type: 'text',
-            controlId: 'login',
-            validationFunc: validation.login,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }, {
-            label: 'Имя',
-            name: 'first_name',
-            type: 'text',
-            controlId: 'first_name',
-            validationFunc: validation.name,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }, {
-            label: 'Фамилия',
-            name: 'second_name',
-            type: 'text',
-            controlId: 'second_name',
-            validationFunc: validation.name,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }, {
-            label: 'Телефон',
-            name: 'phone',
-            type: 'text',
-            controlId: 'phone',
-            validationFunc: validation.phone,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }, {
-            label: 'Пароль',
-            name: 'password',
-            type: 'password',
-            controlId: 'password',
-            validationFunc: validation.password,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }, {
-            label: 'Пароль еще раз',
-            name: 'confirmPassword',
-            type: 'password',
-            controlId: 'confirmPassword',
-            validationFunc: validation.password,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }],
-        button: {
-            text: 'Зарегистрироваться',
-            type: 'submit'
-        },
-        events: {
-            submit: function(event: Event) {
-                this.submit(event);
-            }
-        }
+        })
     }
 };
 
@@ -137,12 +143,6 @@ export class SignUp extends Component {
     render() {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        const formTarget: HTMLElement | null = fragment.querySelector('[data-component-type="form"]');
-        if (formTarget !== null) {
-            const form = new Form(this.props.form);
-            formTarget.replaceWith(form.getContent() as HTMLElement);
-        }
 
         return fragment.firstChild;
     }

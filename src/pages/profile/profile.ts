@@ -1,5 +1,6 @@
 import Handlebars from 'handlebars';
 import Component from '../../utils/component/component';
+import { userInfoItem } from '../../components/user-info-item/';
 import { Button } from '../../components/button/index';
 import { templateMarkup } from './profile.tpl';
 import { LoginController } from '../../controllers/login.controller';
@@ -10,36 +11,38 @@ import avatar from '/static/avatar.png';
 const profileProps = {
     avatar,
     displayName: '',
-    userData: [{
-        label: 'Почта',
-        value: 'dymm@email.com',
-        name: 'email'
-    }, {
-        label: 'Логин',
-        value: 'ivanovivan',
-        name: 'login'
-    }, {
-        label: 'Имя',
-        value: 'Иван',
-        name: 'first_name'
-    }, {
-        label: 'Фамилия',
-        value: 'Иванов',
-        name: 'second_name'
-    }, {
-        label: 'Имя в чате',
-        value: 'ivan',
-        name: 'display_name'
-    }, {
-        label: 'Телефон',
-        value: '+79999999999',
-        name: 'phone'
-    }],
-    logoutButton: {
-        text: 'Выйти',
-        type: 'button',
-        classes: 'button_small',
-        action: 'logout'
+    children: {
+        infoItems: [ new userInfoItem({
+            label: 'Почта',
+            value: 'dymm@email.com',
+            name: 'email'
+        }), new userInfoItem({
+            label: 'Логин',
+            value: 'ivanovivan',
+            name: 'login'
+        }), new userInfoItem({
+            label: 'Имя',
+            value: 'Иван',
+            name: 'first_name'
+        }), new userInfoItem({
+            label: 'Фамилия',
+            value: 'Иванов',
+            name: 'second_name'
+        }), new userInfoItem({
+            label: 'Имя в чате',
+            value: 'ivan',
+            name: 'display_name'
+        }), new userInfoItem({
+            label: 'Телефон',
+            value: '+79999999999',
+            name: 'phone'
+        })],
+        logoutButton: new Button({
+            text: 'Выйти',
+            type: 'button',
+            classes: 'button_small',
+            action: 'logout'
+        })
     },
     events: {
         click: function(event: Event) {
@@ -86,10 +89,8 @@ export class Profile extends Component {
             .getUserData()
             .then((userData) => {
                 try {
-                    const actualData = this.userController.mapUserData(this.props.userData, userData);
-
+                    this.userController.mapUserData(this.props.children.infoItems, userData);
                     this.props.displayName = userData.display_name;
-                    this.props.userData = actualData;
 
                     if (userData.avatar) {
                         const avatarSrc = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
@@ -105,12 +106,6 @@ export class Profile extends Component {
     render(): HTMLElement {
         const template = Handlebars.compile(templateMarkup);
         const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        const buttonTarget: ChildNode | null = fragment.querySelector('[data-component-type="button"][data-component-name="logoutButton"]');
-        if (buttonTarget !== null) {
-            const button = new Button(this.props.logoutButton);
-            buttonTarget.replaceWith(button.getContent() as Node);
-        }
 
         return fragment.firstChild as HTMLElement;
     }

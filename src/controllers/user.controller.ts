@@ -22,11 +22,11 @@ export class UserController {
         return this.userAPI.changePassword(JSON.stringify(data));
     }
 
-    mapUserData(target: [], data: Record<string, unknown>): Array<Record<string, unknown>> {
+    mapUserData(target: [], data: Record<string, unknown>): void {
         let value;
-        return target.map((item) => {
-            value = data[item.name] === null ? '' : data[item.name];
-            item.value = value;
+        target.forEach((item) => {
+            value = data[item.props.name] === null ? '' : data[item.props.name];
+            item.props.value = value;
             return item;
         });
     }
