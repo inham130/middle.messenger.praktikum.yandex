@@ -92,9 +92,7 @@ export class Chat extends Component {
                         item.incoming = item.user_id !== this.props.userId;
                     });
 
-                    const newProps = Object.assign({}, this.props);
-                    newProps.messages = messages;
-                    this.setProps(newProps);
+                    this.setProps({ ...this.props, messages });
                 });
             });
     }
