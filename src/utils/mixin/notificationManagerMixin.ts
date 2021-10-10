@@ -21,13 +21,15 @@ export const notificationManagerMixin = {
     showNotification,
 
     showHTTPError(responseData, selector = '#notificationContainer'): void {
-        let response;
+        let response, errorText;
         try {
             response = JSON.parse(responseData.response);
         } catch (error) {
             errorText = 'что - то пошло не так';
         }
-        const {reason: errorText = 'что - то пошло не так'} = response;
+        if (response.reason) {
+            errorText = response.reason;
+        }
 
         showNotification(NOTIFICATION_TYPES.ERROR, errorText, selector);
     },
