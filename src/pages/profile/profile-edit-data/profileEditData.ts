@@ -143,22 +143,26 @@ export class EditProfile extends Component {
     uploadPhoto() {
         const popupProps = {
             title: 'Загрузите файл',
-            form: {
-                name: 'uploadPhoto',
-                controls: [{
-                    label: '',
-                    name: 'avatar',
-                    type: 'file',
-                    controlId: 'avatar',
-                    accept: ['.jpg', '.jpeg', '.png']
-                }],
-                button: {
-                    text: 'Загрузить',
-                    type: 'submit'
-                },
-                events: {
-                    submit: this.submitPhoto
-                }
+            children: {
+                form: new Form({
+                    name: 'uploadPhoto',
+                    children: {
+                        controls: [new Input({
+                            label: '',
+                            name: 'avatar',
+                            type: 'file',
+                            controlId: 'avatar',
+                            accept: ['.jpg', '.jpeg', '.png']
+                        })],
+                        button: new Button({
+                            text: 'Загрузить',
+                            type: 'submit'
+                        })
+                    },
+                    events: {
+                        submit: this.submitPhoto
+                    }
+                })
             }
         };
         this.popup = new Popup(popupProps);
