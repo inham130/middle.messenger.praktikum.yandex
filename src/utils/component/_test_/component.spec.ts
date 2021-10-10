@@ -22,7 +22,8 @@ afterEach(() => {
 
 function createElement() {
     const props = {
-        template: '<div class="element">content</div>'
+        template: '<div class="{{class}}">content</div>',
+        class: 'element'
     };
 
     return new Component(props);
@@ -45,7 +46,7 @@ describe('check base compomonent', () => {
     it('Changes in props leads to rerender', () => {
         const el = createElement();
         const newProps = {
-            template: '<div class="new-element">content</div>'
+            class: 'new-element'
         };
         el.setProps(newProps);
         render(el);
