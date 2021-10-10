@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
 import { Input } from '../../../components/input';
@@ -11,6 +10,7 @@ import { templateMarkup } from './profileEditData.tpl';
 import avatar from '/static/avatar.png';
 
 const editProfileProps = {
+    template: templateMarkup,
     avatar,
     displayName: '',
     children: {
@@ -221,14 +221,6 @@ export class EditProfile extends Component {
         const avatarSrc = `https://ya-praktikum.tech/api/v2/resources${fileName}`;
         const img = document.querySelector('#profileAvatar');
         img.setAttribute('src', avatarSrc);
-    }
-
-
-    render(): HTMLElement {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        return fragment.firstChild as HTMLElement;
     }
 }
 

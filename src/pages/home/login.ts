@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import Component from '../../utils/component/component';
 import { Form } from '../../components/form';
 import { Input } from '../../components/input';
@@ -10,6 +9,7 @@ import { Router } from '../../utils/router/index';
 import { templateMarkup } from './login.tpl';
 
 const loginProps = {
+    template: templateMarkup,
     children: {
         form: new Form({
             name: 'login',
@@ -79,13 +79,6 @@ export class Login extends Component {
                 new Router().go('/profile');
             })
             .catch(this.showHTTPError);
-    }
-
-    render(): HTMLElement {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        return fragment.firstChild as HTMLElement;
     }
 }
 

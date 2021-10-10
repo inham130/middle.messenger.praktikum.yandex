@@ -1,4 +1,3 @@
-import Handlebars  from 'handlebars';
 import Component from '../../utils/component/component';
 import { templateMarkup } from './form.tpl';
 
@@ -9,6 +8,7 @@ type formProps = {
 }
 export class Form extends Component {
     constructor(props: formProps) {
+        props.template = templateMarkup;
         super(props);
 
         this.registerCustomEvents();
@@ -66,12 +66,5 @@ export class Form extends Component {
             });
             this.element.dispatchEvent(customEvent);
         }
-    }
-
-    render(): HTMLElement {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        return fragment.firstChild as HTMLElement;
     }
 }

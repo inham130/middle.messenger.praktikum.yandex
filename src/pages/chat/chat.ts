@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import Component from '../../utils/component/component';
 import { ChatSideBar } from 'components/chat-side-bar';
 import { ChatController } from '~/src/controllers/chat.controller';
@@ -14,6 +13,7 @@ import { Input } from '~/src/components/input';
 
 type chatProps = Record<string, unknown>
 const chatProps = {
+    template: templateMarkup,
     activeChatId: null,
     userId: null,
     messages: [],
@@ -231,12 +231,5 @@ export class Chat extends Component {
                 newProps.children.chatSideBar.props.avatar = `https://ya-praktikum.tech/api/v2/resources${avatar}`;
                 this.setProps(newProps);
             });
-    }
-
-    render(): HTMLElement {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        return fragment.firstChild as HTMLElement;
     }
 }

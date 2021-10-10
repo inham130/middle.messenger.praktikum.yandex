@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import Component from '../../utils/component/component';
 import { userInfoItem } from '../../components/user-info-item/';
 import { Button } from '../../components/button/index';
@@ -9,6 +8,7 @@ import { Router } from '../../utils/router/index';
 import avatar from '/static/avatar.png';
 
 const profileProps = {
+    template: templateMarkup,
     avatar,
     displayName: '',
     children: {
@@ -101,12 +101,5 @@ export class Profile extends Component {
                     throw new Error(error);
                 }
             });
-    }
-
-    render(): HTMLElement {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        return fragment.firstChild as HTMLElement;
     }
 }

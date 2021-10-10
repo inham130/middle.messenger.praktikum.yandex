@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import Component from '../../utils/component/component';
 import { templateMarkup } from './input.tpl';
 
@@ -12,14 +11,8 @@ type inputProps = {
 }
 export class Input extends Component {
     constructor(props: inputProps) {
+        props.template = templateMarkup;
         super(props);
-    }
-
-    render(): HTMLElement {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        return fragment.firstChild as HTMLElement;
     }
 
     updateValidity(isValid: boolean): void {

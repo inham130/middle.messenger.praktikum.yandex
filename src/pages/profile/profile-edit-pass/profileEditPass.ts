@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
 import { Input } from '../../../components/input';
@@ -11,6 +10,7 @@ import { NOTIFICATION_TYPES } from '../../../utils/mixin/notificationTypes';
 import avatar from '/static/avatar.png';
 
 const editPassProps = {
+    template: templateMarkup,
     avatar,
     displayName: '',
     children: {
@@ -115,13 +115,6 @@ export class EditPass extends Component {
                     throw new Error(error);
                 }
             });
-    }
-
-    render(): HTMLElement {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        return fragment.firstChild as HTMLElement;
     }
 }
 

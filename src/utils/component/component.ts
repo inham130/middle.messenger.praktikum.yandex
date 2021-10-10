@@ -1,4 +1,5 @@
 import {v4 as makeUUID} from 'uuid';
+import Handlebars from 'handlebars';
 import EventBus from '../eventbus/eventBus';
 
 type meta = {
@@ -121,8 +122,6 @@ export default class Component {
             } else {
                 child = children[source];
             }
-            console.log(source, child);
-
             placehoder.replaceWith(child.getContent() as Node);
         });
     }
@@ -135,7 +134,8 @@ export default class Component {
 
     render(): HTMLElement | null {
         if (this.props.template) {
-            const fragment: DocumentFragment = this.createFragmentFromString(this.props.template);
+            const compiledTemplate = Handlebars.compile(this.props.template);
+            const fragment: DocumentFragment = this.createFragmentFromString(compiledTemplate(this.props));
             return fragment.firstChild as HTMLElement;
         }
         return null;

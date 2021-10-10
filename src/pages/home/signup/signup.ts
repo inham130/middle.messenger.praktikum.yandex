@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
 import { Input } from '../../../components/input';
@@ -10,6 +9,7 @@ import { templateMarkup } from './signup.tpl';
 import { Router } from '../../../utils/router/index';
 
 const signUpProps = {
+    template: templateMarkup,
     children: {
         form: new Form({
             name: 'signUp',
@@ -138,13 +138,6 @@ export class SignUp extends Component {
 
     registerCustomEvents(): void {
         this.element.addEventListener('formSubmit', (e: CustomEvent) => this.signUp(e));
-    }
-
-    render() {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        return fragment.firstChild;
     }
 
     signUp(event: CustomEvent) {
