@@ -1,7 +1,7 @@
 export const templateMarkup = `
     <li class="chat__item">
         <div class="chat__avatar">
-            <img src="{{avatar}}" alt="" class="photo" width="47" height="47">
+            <img src="{{avatar}}" alt="" class="photo">
         </div>
         <div class="chat__preview">
             <div class="text text_dark chat__name">{{title}}</div>

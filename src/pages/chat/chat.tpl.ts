@@ -6,7 +6,7 @@ export const templateMarkup = `
                 <div class="chat__menu">
                     {{#if avatar}}
                         <div class="chat__avatar">
-                            <img src="{{avatar}}" alt="" class="photo" width="32" height="32">
+                            <img src="{{avatar}}" alt="" class="photo">
                         </div>
                     {{/if}}
                     {{#if chatTitle}}

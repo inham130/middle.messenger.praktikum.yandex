@@ -4,7 +4,7 @@ export const templateMarkup = `
             <div class="chat__sidebar-menu">
                 <div class="avatar">
                     <a href="./profile" class="link">
-                        <img src="{{avatar}}" alt="" class="photo" width="48" height="48">
+                        <img src="{{avatar}}" alt="" class="photo">
                     </a>
                 </div>
                 <div data-component-type="button" data-source="button"></div>

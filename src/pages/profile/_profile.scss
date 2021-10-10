@@ -9,6 +9,11 @@
   &__photo {
     border-radius: 50%;
     margin-bottom: 20px;
+
+    img {
+      width: 130px;
+      height: 130px;
+    }
   }
 
   &__title {

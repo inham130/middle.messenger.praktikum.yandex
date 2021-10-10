@@ -20,6 +20,11 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 10px 15px 10px;
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
   }
 
   &__list {
@@ -41,6 +46,11 @@
 
   &__avatar {
     margin-right: 10px;
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
   }
 
   &__preview {
