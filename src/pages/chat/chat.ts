@@ -184,28 +184,25 @@ export class Chat extends Component {
     submitChat(event: Event) {
         event.preventDefault();
         const userLoginInput = event.target.querySelector('#userLogin');
-        const me = this;
 
         this.chatController
-            .addChat({title: userLoginInput.value})
+            .addChat({title: userLoginInput?.value})
             .then(({id}) => {
-                const newChatItem = new ChatItem({id, title: userLoginInput.value, avatar: null});
+                const newChatItem = new ChatItem({id, title: userLoginInput?.value, avatar: null});
                 const chatList = [newChatItem, ...this.props.children.chatSideBar.props.children.chatList.props.children.chats];
                 this.props.children.chatSideBar.props.children.chatList.setProps({children: {chats: chatList}})
-                me.addChatPopup.destroy();
+                this.addChatPopup.destroy();
             });
     }
 
     submitUser(event: Event) {
         event.preventDefault();
         const userLoginInput = event.target.querySelector('#userLogin');
-        const me = this;
-
 
         this.chatController
-            .addUser({chatId: this.props.activeChatId, login: userLoginInput.value})
+            .addUser({chatId: this.props.activeChatId, login: userLoginInput?.value})
             .then(() =>  {
-                me.addUserPopup.destroy();
+                this.addUserPopup.destroy();
             });
     }
 

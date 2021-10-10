@@ -172,9 +172,8 @@ export class EditProfile extends Component {
     submitPhoto(event: Event) {
         event.preventDefault();
         const fileInput = event.target.querySelector('input[type="file"]');
-        const [file] = fileInput.files;
+        const [file] = fileInput?.files;
         const formData: FormData = new FormData();
-        const me = this;
         formData.append('avatar', file);
 
         this.userController
@@ -185,8 +184,8 @@ export class EditProfile extends Component {
                         const avatar = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
                         this.setProps({...this.props, avatar});
                     }
-                    me.popup.destroy();
-                    me.showHTTPSuccess();
+                    this.popup.destroy();
+                    this.showHTTPSuccess();
                 } catch(error) {
                     throw new Error(error);
                 }
