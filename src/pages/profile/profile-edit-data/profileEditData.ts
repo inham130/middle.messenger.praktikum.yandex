@@ -178,7 +178,8 @@ export class EditProfile extends Component {
             .then((userData) => {
                 try {
                     if (userData.avatar) {
-                        this.renderAvatar(userData.avatar);
+                        const avatar = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
+                        this.setProps({...this.props, avatar});
                     }
                     me.popup.destroy();
                     me.showHTTPSuccess();
@@ -206,21 +207,13 @@ export class EditProfile extends Component {
                 try {
                     const { form } = this.props.children;
                     this.userController.mapUserData(form.props.children.controls, userData);
-                    this.props.displayName = userData.display_name;
-
-                    if (userData.avatar) {
-                        this.renderAvatar(userData.avatar);
-                    }
+                    const displayName = userData.display_name;
+                    const avatar = userData.avatar ? `https://ya-praktikum.tech/api/v2/resources${userData.avatar}` : avatar;
+                    this.setProps({...this.props, displayName, avatar});
                 } catch (error) {
                     throw new Error(error);
                 }
             });
-    }
-
-    renderAvatar(fileName) {
-        const avatarSrc = `https://ya-praktikum.tech/api/v2/resources${fileName}`;
-        const img = document.querySelector('#profileAvatar');
-        img.setAttribute('src', avatarSrc);
     }
 }
 

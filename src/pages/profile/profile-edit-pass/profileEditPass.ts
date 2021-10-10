@@ -107,9 +107,8 @@ export class EditPass extends Component {
             .then((userData) => {
                 try {
                     if (userData.avatar) {
-                        const avatarSrc = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
-                        const img = document.querySelector('#profileAvatar');
-                        img.setAttribute('src', avatarSrc);
+                        const avatar = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
+                        this.setProps({...this.props, avatar});
                     }
                 } catch (error) {
                     throw new Error(error);

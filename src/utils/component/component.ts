@@ -20,6 +20,7 @@ export default class Component {
     };
 
     children = {};
+    compiledTemplate: CallableFunction;
     props: Record<any, any>;
     eventBus: EventBus;
     _element: HTMLElement | null;
@@ -51,6 +52,9 @@ export default class Component {
 
     private _createResources(): void {
         this._element = null;
+        if (this.props.template) {
+            this.compiledTemplate = Handlebars.compile(this.props.template);
+        }
     }
 
     init(): void {
@@ -134,8 +138,7 @@ export default class Component {
 
     render(): HTMLElement | null {
         if (this.props.template) {
-            const compiledTemplate = Handlebars.compile(this.props.template);
-            const fragment: DocumentFragment = this.createFragmentFromString(compiledTemplate(this.props));
+            const fragment: DocumentFragment = this.createFragmentFromString(this.compiledTemplate(this.props));
             return fragment.firstChild as HTMLElement;
         }
         return null;
