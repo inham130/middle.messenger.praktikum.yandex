@@ -1,1 +1,1 @@
-export const templateMarkup = '<button type="{{type}}" class="button">{{text}}</button>';
+export const templateMarkup = '<button type="{{type}}" {{#if action}}data-action="{{action}}"{{/if}} class="button {{classes}}">{{text}}</button>';

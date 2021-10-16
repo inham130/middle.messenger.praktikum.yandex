@@ -1,16 +1,14 @@
-import Handlebars  from 'handlebars';
-import Component from '../component';
-import { Input } from '../input/index';
-import { Button } from '../button';
+import Component from '../../utils/component/component';
 import { templateMarkup } from './form.tpl';
 
 type formProps = {
-    controls: Record<string, unknown>,
+    children: Record<string, unknown>,
     events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
     settings?: Record<string, unknown>
 }
 export class Form extends Component {
     constructor(props: formProps) {
+        props.template = templateMarkup;
         super(props);
 
         this.registerCustomEvents();
@@ -42,38 +40,31 @@ export class Form extends Component {
 
     validateForm() {
         let isFormValid = true;
-        this.controls.forEach(function(control) {
-            const isControlValid = control.props.validationFunc.call(control, control.element.value);
-            if (isControlValid === false) {
-                isFormValid = false;
+        this.props.children.controls.forEach(function(control) {
+            if (control.props.validationFunc) {
+                const isControlValid = control.props.validationFunc.call(control, control.element.value);
+                if (isControlValid === false) {
+                    isFormValid = false;
+                }
             }
         });
 
         return isFormValid;
     }
 
-    render(): HTMLElement {
-        this.controls = [];
+    submit(event: Event) {
+        event.preventDefault();
+        const form: HTMLFormElement | null = document.querySelector(`form[name="${this.props.name}"]`);
+        const isFormValid = this.validateForm();
 
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
+        if (isFormValid) {
+            const formData: FormData = new FormData(form);
 
-        this.props.controls.forEach((control: Record<string, unknown>) => {
-            const selector = `[data-component-type="input"][data-component-name="${control.name}"]`;
-            const input: HTMLElement | null = fragment.querySelector(selector);
-            if (input !== null) {
-                const inputComponent: Input = new Input(control);
-                this.controls.push(inputComponent);
-                input.replaceWith(inputComponent.getContent() as Node);
-            }
-        });
-
-        const buttonTarget: ChildNode | null = fragment.querySelector('[data-component-type="button"]');
-        if (buttonTarget !== null) {
-            const button = new Button(this.props.button);
-            buttonTarget.replaceWith(button.getContent() as Node);
+            const customEvent = new CustomEvent('formSubmit', {
+                bubbles: true,
+                detail: {formData}
+            });
+            this.element.dispatchEvent(customEvent);
         }
-
-        return fragment.firstChild as HTMLElement;
     }
 }

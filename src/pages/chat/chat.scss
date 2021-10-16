@@ -20,6 +20,11 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 10px 15px 10px;
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
   }
 
   &__list {
@@ -41,6 +46,11 @@
 
   &__avatar {
     margin-right: 10px;
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
   }
 
   &__preview {
@@ -56,12 +66,14 @@
     justify-content: space-around;
     align-items: center;
     margin-right: 8px;
+    margin-left: auto;
   }
 
   &__main {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+    height: 100vh;
   }
 
   &__menu {
@@ -79,6 +91,7 @@
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+    overflow-y: scroll;
   }
 
   &__message-form {
@@ -142,4 +155,57 @@
     background-color: $gallery;
     padding-left: 15px;
   }
+}
+
+.arrow {
+  border: solid $dusty-gray;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+
+  &_right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+
+  &_left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+  &_up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+  }
+
+  &_down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+}
+
+
+.cross {
+  width: 8px;
+  height: 8px;
+  opacity: 0.3;
+  position: relative;
+}
+.cross:hover {
+  opacity: 1;
+}
+.cross:before, .cross:after {
+  position: absolute;
+  left: 3px;
+  content: ' ';
+  height: 16px;
+  width: 2px;
+  background-color: $dusty-gray;
+}
+.cross:before {
+  transform: rotate(45deg);
+}
+.cross:after {
+  transform: rotate(-45deg);
 }

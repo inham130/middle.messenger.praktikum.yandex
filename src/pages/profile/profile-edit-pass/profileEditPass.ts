@@ -1,99 +1,120 @@
-import Handlebars from 'handlebars';
-import Component from '../../../components/component';
+import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
-import { validation } from '../../../utils/formValidation';
+import { Input } from '../../../components/input';
+import { Button } from '../../../components/button';
+import { validation } from '../../../utils/validation/formValidation';
 import { templateMarkup } from '../profile-edit-data/profileEditData.tpl';
+import { UserController } from '../../../controllers/user.controller';
+import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
+import { NOTIFICATION_TYPES } from '../../../utils/mixin/notificationTypes';
 import avatar from '/static/avatar.png';
 
 const editPassProps = {
+    template: templateMarkup,
     avatar,
-    userName: 'Иван',
-    form: {
-        classes: 'profile',
-        profileTitle: 'Иван',
-        name: 'editUserInfo',
-        controls: [{
-            label: 'Пароль',
-            name: 'password',
-            type: 'password',
-            controlId: 'password',
-            validationFunc: validation.password,
+    displayName: '',
+    children: {
+        form: new Form({
+            classes: 'profile',
+            name: 'editUserInfo',
+            children: {
+                controls: [ new Input({
+                    label: 'Пароль',
+                    name: 'oldPassword',
+                    type: 'password',
+                    controlId: 'oldPassword',
+                    validationFunc: validation.password,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Новый пароль',
+                    name: 'newPassword',
+                    type: 'password',
+                    controlId: 'newPassword',
+                    validationFunc: validation.password,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                }), new Input({
+                    label: 'Повторите новый пароль',
+                    value: '',
+                    name: 'newPasswordRepeat',
+                    type: 'password',
+                    controlId: 'newPasswordRepeat',
+                    validationFunc: validation.password,
+                    events: {
+                        focus: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        },
+                        blur: function(event: Event) {
+                            this.props.validationFunc.call(this, event.target.value);
+                        }
+                    }
+                })],
+                button: new Button({
+                    text: 'Сохранить',
+                    type: 'submit'
+                })
+            },
             events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
+                submit: function(event: Event) {
+                    this.submit(event);
                 }
             }
-        }, {
-            label: 'Пароль еще раз',
-            name: 'newPassword',
-            type: 'newPassword',
-            controlId: 'newPassword',
-            validationFunc: validation.password,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }, {
-            label: 'Повторите новый пароль',
-            value: '',
-            name: 'newPasswordRepeat',
-            type: 'password',
-            controlId: 'newPasswordRepeat',
-            validationFunc: validation.password,
-            events: {
-                focus: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                },
-                blur: function(event: Event) {
-                    this.props.validationFunc.call(this, event.target.value);
-                }
-            }
-        }],
-        button: {
-            text: 'Сохранить',
-            type: 'submit'
-        },
-        events: {
-            submit: function(event: Event) {
-                event.preventDefault();
-                const form: HTMLFormElement | null = document.querySelector('form[name="editUserInfo"]');
-                const isFormValid = this.validateForm();
-
-                if (!isFormValid) {
-                    event.preventDefault();
-                }
-
-                if (form !== null) {
-                    const formData: FormData = new FormData(form);
-                    console.log(Object.fromEntries(formData));
-                }
-            }
-        }
+        })
     }
 };
 
 export class EditPass extends Component {
+    userController: UserController;
     constructor(props = editPassProps) {
         super(props);
     }
 
-    render(): HTMLElement {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
+    registerCustomEvents(): void {
+        this.element.addEventListener('formSubmit', (e: CustomEvent) => { this.changePassword(e); });
+    }
 
-        const formTarget: HTMLElement | null = fragment.querySelector('[data-component-type="form"]');
-        if (formTarget !== null) {
-            const form = new Form(this.props.form);
-            formTarget.replaceWith(form.getContent() as Node);
+    changePassword(event: CustomEvent): void {
+        const formData = event.detail.formData;
+        const data = Object.fromEntries(formData);
+
+        if (data.newPasswordRepeat === data.newPassword) {
+            this.userController.changePassword(data)
+            .then(() => this.showHTTPSuccess())
+            .catch(this.showHTTPError);
+        } else {
+            this.showNotification(NOTIFICATION_TYPES.ERROR, 'новые пароли не совпадают');
         }
+    }
 
-        return fragment.firstChild as HTMLElement;
+    componentDidMount() {
+        this.userController = new UserController();
+
+        this.userController
+            .getUserData()
+            .then((userData) => {
+                try {
+                    if (userData.avatar) {
+                        const avatar = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
+                        this.setProps({...this.props, avatar});
+                    }
+                } catch (error) {
+                    throw new Error(error);
+                }
+            });
     }
 }
+
+Object.assign(EditPass.prototype, notificationManagerMixin);

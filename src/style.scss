@@ -25,6 +25,7 @@ $dusty-gray: #999;
 $gallery: #eaeaea;
 $royal-blue: #3369f3;
 $red: #f00;
+$green: #24a324;
 $white: #fff;
 $default-border-radius: 6px;
 
@@ -62,6 +63,10 @@ $default-border-radius: 6px;
 
   &_red {
     color: $red;
+  }
+
+  &_green {
+    color: $green;
   }
 
   &_right {
@@ -110,7 +115,15 @@ $default-border-radius: 6px;
   }
 }
 
+.photo {
+  border-radius: 50%;
+  &_edit {
+    cursor: pointer;
+  }
+}
+
 @import './components/form/form';
+@import './components/popup/popup';
 @import './pages/home/login';
 @import './pages/profile/profile';
 @import './pages/chat/chat.scss';

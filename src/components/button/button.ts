@@ -1,5 +1,4 @@
-import Handlebars from 'handlebars';
-import Component from '../component';
+import Component from '../../utils/component/component';
 import { templateMarkup } from './button.tpl';
 
 enum ButtonTypes {
@@ -11,18 +10,14 @@ type buttonProps = {
     text: string,
     type: ButtonTypes,
     events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
-    settings?: Record<string, unknown>
+    settings?: Record<string, unknown>,
+    classes?: string,
+    action: string,
 }
 
 export class Button extends Component {
     constructor(props: buttonProps) {
+        props.template = templateMarkup;
         super(props);
-    }
-
-    render(): HTMLElement {
-        const template = Handlebars.compile(templateMarkup);
-        const fragment: DocumentFragment = this.createFragmentFromString(template(this.props));
-
-        return fragment.firstChild as HTMLElement;
     }
 }
