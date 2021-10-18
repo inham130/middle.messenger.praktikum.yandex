@@ -211,7 +211,7 @@ export class Chat extends Component {
 
         this.chatController.getChats()
             .then((chats) => {
-                const.chatList = []
+                const chatList = [];
                 chats.forEach(chat => {
                     const chatItem = new ChatItem(chat);
                     chatList.push(chatItem);

@@ -106,7 +106,7 @@ const editProfileProps = {
                 }
             }
         })
-    }
+    },
     events: {
         click: function(event: Event) {
             this.clickHandler(event);
