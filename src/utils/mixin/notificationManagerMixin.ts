@@ -20,10 +20,10 @@ function showNotification(type: string, message: string, selector = '#notificati
 export const notificationManagerMixin = {
     showNotification,
 
-    showHTTPError(responseData, selector = '#notificationContainer'): void {
+    showHTTPError(responseData: Record<string, unknown>, selector = '#notificationContainer'): void {
         let response, errorText;
         try {
-            response = JSON.parse(responseData.response);
+            response = JSON.parse(responseData.response as string);
         } catch (error) {
             errorText = 'что - то пошло не так';
         }

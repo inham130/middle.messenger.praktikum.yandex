@@ -6,22 +6,22 @@ class ChatAPI extends BaseAPI {
     }
 
     getChats(): Promise<unknown> {
-        return this.http.get('', {});
+        return this.http.get('');
     }
 
-    addChat(data): Promise<unknown> {
+    addChat(data: string): Promise<unknown> {
         return this.http.post('', {data});
     }
 
-    addUser(data): Promise<unknown> {
+    addUser(data: string): Promise<unknown> {
         return this.http.put('/users', {data});
     }
 
-    getUsers(id): Promise<unknown> {
-        return this.http.get(`/${id}/users`, {});
+    getUsers(id: number): Promise<unknown> {
+        return this.http.get(`/${id}/users`);
     }
 
-    getToken(id): Promise<unknown> {
+    getToken(id: string): Promise<unknown> {
         return this.http.post(`/token/${id}`, {});
     }
 }

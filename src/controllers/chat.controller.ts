@@ -1,6 +1,7 @@
 import ChatAPI from '../api/chat.api';
 import UserAPI from '../api/user.api';
 import { chatSocketFactory } from '../utils/web-soket/chatSocketFactory';
+import PlainObject from '../types/plainObject';
 
 export class ChatController {
     private chatAPI = ChatAPI;
@@ -12,14 +13,14 @@ export class ChatController {
         return this.chatAPI.getChats();
     }
 
-    addChat(data): Promise<unknown> {
+    addChat(data: Record<string, string>): Promise<unknown> {
         return this.chatAPI.addChat(JSON.stringify(data));
     }
 
-    addUser({chatId, login}): Promise<unknown> {
+    addUser({chatId, login}: Record<string, string>): Promise<unknown> {
         return this.userAPI
             .getUserId(JSON.stringify({login}))
-            .then((response) => {
+            .then((response: PlainObject[]) => {
                 const {id} = response[0];
                 const data = {users: [id], chatId};
                 return this.chatAPI.addUser(JSON.stringify(data));
@@ -30,7 +31,7 @@ export class ChatController {
         return this.chatAPI.getUsers(id);
     }
 
-    setUpConnection(config): Promise<unknown> {
+    setUpConnection(config: PlainObject): Promise<unknown> {
         return this.chatAPI.getToken(config.chatId)
             .then(({ token }) => {
                 config.token = token;

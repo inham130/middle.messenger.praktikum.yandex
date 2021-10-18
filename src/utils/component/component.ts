@@ -1,6 +1,7 @@
 import {v4 as makeUUID} from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from '../eventbus/eventBus';
+import PlainObject from '../../types/plainObject';
 
 type meta = {
     props: Record<string, unknown>
@@ -21,11 +22,11 @@ export default class Component {
 
     children = {};
     compiledTemplate: CallableFunction;
-    props: Record<any, any>;
+    props: Record<any, any> | null;
     eventBus: EventBus;
     _element: HTMLElement | null;
     _fragment: DocumentFragment
-    _meta: meta;
+    _meta: meta | null;
     _events: event[] = [];
     _id: string;
 
@@ -52,7 +53,7 @@ export default class Component {
 
     private _createResources(): void {
         this._element = null;
-        if (this.props.template) {
+        if (this.props?.template) {
             this.compiledTemplate = Handlebars.compile(this.props.template);
         }
     }
@@ -100,9 +101,9 @@ export default class Component {
         this._removeEvents();
 
         const component = this.render();
-        if (this.props.children) {
+        if (this.props?.children) {
             const componentPlaceholders = component?.querySelectorAll('[data-component-type]');
-            this.renderChildren(this.props.children, componentPlaceholders);
+            this.renderChildren(this.props.children, componentPlaceholders as NodeListOf<HTMLElementTagNameMap[K]>);
         }
 
         if (this._element === null) {
@@ -117,8 +118,8 @@ export default class Component {
         this.eventBus.emit(Component.EVENTS.FLOW_CDR);
     }
 
-    renderChildren(children, componentPlaceholders) {
-        componentPlaceholders?.forEach((placehoder, index) => {
+    renderChildren(children: PlainObject, componentPlaceholders: NodeListOf<HTMLElementTagNameMap[K]>) {
+        componentPlaceholders?.forEach((placehoder, index: number) => {
             const source = placehoder.dataset.source;
             let child;
             if (Array.isArray(children[source])) {
@@ -137,7 +138,7 @@ export default class Component {
     }
 
     render(): HTMLElement | null {
-        if (this.props.template) {
+        if (this.props?.template) {
             const fragment: DocumentFragment = this.createFragmentFromString(this.compiledTemplate(this.props));
             return fragment.firstChild as HTMLElement;
         }
@@ -187,14 +188,14 @@ export default class Component {
     }
 
     hide() {
-        this.element.setAttribute('style', 'display:none');
+        this?.element?.setAttribute('style', 'display:none');
     }
     show() {
-        this.element.removeAttribute('style');
+        this?.element?.removeAttribute('style');
     }
 
     remove() {
-        this.element.remove();
+        this?.element?.remove();
     }
 
     destroy() {

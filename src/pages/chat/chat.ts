@@ -1,15 +1,15 @@
 import Component from '../../utils/component/component';
-import { ChatSideBar } from 'components/chat-side-bar';
-import { ChatController } from '~/src/controllers/chat.controller';
-import { Popup } from 'components/popup';
+import { ChatSideBar } from '../../components/chat-side-bar';
+import { ChatController } from '../../controllers/chat.controller';
+import { Popup } from '../../components/popup';
 import { templateMarkup } from './chat.tpl';
 import avatar from '/static/avatar.png';
-import { UserController } from '~/src/controllers/user.controller';
-import { Button } from '~/src/components/button';
-import { ChatList } from '~/src/components/chat-list';
+import { UserController } from '../../controllers/user.controller';
+import { Button } from '../../components/button';
+import { ChatList } from '../../components/chat-list';
 import { ChatItem } from '../../components/chat-item/chatItem';
-import { Form } from '~/src/components/form';
-import { Input } from '~/src/components/input';
+import { Form } from '../../components/form';
+import { Input } from '../../components/input';
 
 type chatProps = Record<string, unknown>
 const chatProps = {

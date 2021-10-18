@@ -11,6 +11,9 @@ module.exports = {
     },
     resolve: {
       extensions: ['.ts', '.js', '.json'],
+      alias: {
+        handlebars: 'handlebars/dist/handlebars.min.js',
+      },
     },
     module: {
       rules: [
@@ -20,12 +23,29 @@ module.exports = {
             {
               loader: 'ts-loader',
               options: {
-                configFile: path.r  esolve(__dirname, 'tsconfig.json'),
+                configFile: path.resolve(__dirname, 'tsconfig.json'),
               },
             },
           ],
           exclude: /(node_modules)/
-        }
+        }, {
+          test: /\.s[ac]ss$/i,
+          use: [
+            // Creates `style` nodes from JS strings
+            "style-loader",
+            // Translates CSS into CommonJS
+            "css-loader",
+            // Compiles Sass to CSS
+            "sass-loader",
+          ],
+        }, {
+          test: /\.(png|jpe?g|gif)$/i,
+          use: [
+            {
+              loader: 'file-loader',
+            },
+          ],
+        },
       ]
     },
     plugins: [new HtmlWebpackPlugin({

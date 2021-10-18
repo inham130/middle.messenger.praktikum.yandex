@@ -1,22 +1,24 @@
+import Component from '../component/component';
 import { Route } from './route';
 
 class Router {
     static __instance: Router;
     private _currentRoute: Route | null;
+    _rootQuery : string;
     routes: Route[];
     history: History;
 
-    constructor(rootQuery: string) {
+    constructor() {
         this.routes = [];
         this.history = window.history;
         this._currentRoute = null;
     }
 
-    setRootQuery(rootQuery) {
+    setRootQuery(rootQuery: string) {
         this._rootQuery =  rootQuery;
     }
 
-    use(pathname, block) {
+    use(pathname: string, block: Component) {
         const route = new Route(pathname, block, {rootQuery: this._rootQuery});
         this.routes.push(route);
 
@@ -24,8 +26,8 @@ class Router {
     }
 
     start(): void {
-        window.onpopstate = event => {
-            this._onRoute(event.currentTarget.location.pathname);
+        window.onpopstate = (event: PopStateEvent) => {
+            this._onRoute((event?.currentTarget as Window)?.location.pathname);
         };
 
         this._onRoute(window.location.pathname);
@@ -59,8 +61,8 @@ class Router {
         this.history.forward();
     }
 
-    getRoute(pathname): Route {
-        return this.routes.find(route => route.match(pathname));
+    getRoute(pathname: string): Route {
+        return this.routes.find(route => route.match(pathname)) as Route;
     }
 }
 const instance = new Router();
