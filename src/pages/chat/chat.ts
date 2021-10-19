@@ -2,14 +2,15 @@ import Component from '../../utils/component/component';
 import { ChatSideBar } from '../../components/chat-side-bar';
 import { ChatController } from '../../controllers/chat.controller';
 import { Popup } from '../../components/popup';
-import { templateMarkup } from './chat.tpl';
-import avatar from '/static/avatar.png';
 import { UserController } from '../../controllers/user.controller';
-import { Button } from '../../components/button';
+import { Button, ButtonTypes } from '../../components/button';
 import { ChatList } from '../../components/chat-list';
 import { ChatItem } from '../../components/chat-item/chatItem';
 import { Form } from '../../components/form';
 import { Input } from '../../components/input';
+import PlainObject from '../../types/plainObject';
+import { templateMarkup } from './chat.tpl';
+import avatar from '/static/avatar.png';
 
 type chatProps = Record<string, unknown>
 const chatProps = {
@@ -23,7 +24,7 @@ const chatProps = {
             children: {
                 button: new Button({
                     text: 'Добавить чат',
-                    type: 'button',
+                    type: ButtonTypes.button,
                     classes: 'button_small',
                     action: 'addChatPopup'
                 }),
@@ -44,6 +45,9 @@ const chatProps = {
 export class Chat extends Component {
     chatController: ChatController;
     socket: WebSocket;
+    addChatPopup: Popup;
+    addUserPopup: Popup;
+
     constructor(props: chatProps = chatProps) {
         super(props);
 
@@ -54,10 +58,10 @@ export class Chat extends Component {
     }
 
     registerCustomEvents(): void {
-        this.element.addEventListener('chatItemClick', (e: Event) => this.selectChat(e));
+        this.element.addEventListener('chatItemClick', (e: CustomEvent) => this.selectChat(e));
     }
 
-    selectChat(event: Event) {
+    selectChat(event: CustomEvent) {
         const {id, title: chatTitle} = event.detail;
         this.props.chatTitle = chatTitle;
         this.props.activeChatId = id;
@@ -74,7 +78,7 @@ export class Chat extends Component {
                     }));
                 });
 
-                this.socket.addEventListener('message', (event: Event) => {
+                this.socket.addEventListener('message', (event: any) => {
                     const data = JSON.parse(event.data);
                     let messages = [];
 
@@ -99,7 +103,7 @@ export class Chat extends Component {
 
     clickHandler(event:Event) {
         const target = event.target;
-        const action = target.dataset.action;
+        const action = (target as HTMLElement).dataset.action;
 
         if (action) {
             switch(action) {
@@ -133,7 +137,7 @@ export class Chat extends Component {
                         })],
                         button: new Button({
                             text: 'Добавить',
-                            type: 'submit'
+                            type: ButtonTypes.submit
                         })
                     },
                     events: {
@@ -161,7 +165,7 @@ export class Chat extends Component {
                         })],
                         button: new Button({
                             text: 'Добавить',
-                            type: 'submit'
+                            type: ButtonTypes.submit
                         })
                     },
                     events: {
@@ -176,28 +180,28 @@ export class Chat extends Component {
 
     sendMessage(event: Event) {
         event.preventDefault();
-        const message = this.element.querySelector('#messageInput').value;
+        const message = (this.element.querySelector('#messageInput') as HTMLInputElement).value;
 
         this.chatController.sendMessage(message, this.socket);
     }
 
     submitChat(event: Event) {
         event.preventDefault();
-        const userLoginInput = event.target.querySelector('#userLogin');
+        const userLoginInput: HTMLInputElement = (event.target as HTMLInputElement).querySelector('#userLogin');
 
         this.chatController
             .addChat({title: userLoginInput?.value})
             .then(({id}) => {
                 const newChatItem = new ChatItem({id, title: userLoginInput?.value, avatar: null});
                 const chatList = [newChatItem, ...this.props.children.chatSideBar.props.children.chatList.props.children.chats];
-                this.props.children.chatSideBar.props.children.chatList.setProps({children: {chats: chatList}})
+                this.props.children.chatSideBar.props.children.chatList.setProps({children: {chats: chatList}});
                 this.addChatPopup.destroy();
             });
     }
 
     submitUser(event: Event) {
         event.preventDefault();
-        const userLoginInput = event.target.querySelector('#userLogin');
+        const userLoginInput: HTMLInputElement = (event.target as HTMLInputElement).querySelector('#userLogin');
 
         this.chatController
             .addUser({chatId: this.props.activeChatId, login: userLoginInput?.value})
@@ -210,13 +214,13 @@ export class Chat extends Component {
         this.chatController = new ChatController();
 
         this.chatController.getChats()
-            .then((chats) => {
+            .then((chats: PlainObject[]) => {
                 const chatList = [];
                 chats.forEach(chat => {
                     const chatItem = new ChatItem(chat);
                     chatList.push(chatItem);
                 });
-                this.props.children.chatSideBar.props.children.chatList.setProps({children: {chats: chatList}})
+                this.props.children.chatSideBar.props.children.chatList.setProps({children: {chats: chatList}});
             });
 
         new UserController().getUserData()

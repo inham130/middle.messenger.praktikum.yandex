@@ -5,7 +5,7 @@ import { templateMarkup } from './profile.tpl';
 import { LoginController } from '../../controllers/login.controller';
 import { UserController } from '../../controllers/user.controller';
 import { Router } from '../../utils/router/index';
-import avatar from '/static/avatar.png';
+import avatar from 'static/avatar.png';
 
 const profileProps = {
     template: templateMarkup,

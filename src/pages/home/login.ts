@@ -1,7 +1,7 @@
 import Component from '../../utils/component/component';
 import { Form } from '../../components/form';
 import { Input } from '../../components/input';
-import { Button } from '../../components/button';
+import { Button, ButtonTypes } from '../../components/button';
 import { validation } from '../../utils/validation/formValidation';
 import { notificationManagerMixin } from '../../utils/mixin/notificationManagerMixin';
 import { LoginController } from '../../controllers/login.controller';
@@ -22,10 +22,10 @@ const loginProps = {
                     validationFunc: validation.login,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -36,16 +36,16 @@ const loginProps = {
                     validationFunc: validation.password,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 })],
                 button: new Button({
                     text: 'Авторизоваться',
-                    type: 'submit',
+                    type: ButtonTypes.submit,
                 })
             },
             events: {
@@ -59,6 +59,7 @@ const loginProps = {
 
 export class Login extends Component {
     loginController: LoginController;
+    showHTTPError: CallableFunction;
 
     constructor(props = loginProps) {
         super(props);
@@ -76,7 +77,7 @@ export class Login extends Component {
         this.loginController.signIn(data)
             .then(() => {
                 Router.go('/profile');
-            })
+            })// @ts-ignore
             .catch(this.showHTTPError);
     }
 }

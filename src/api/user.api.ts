@@ -1,3 +1,4 @@
+import PlainObject from '../types/plainObject';
 import BaseAPI from './baseApi';
 class UserAPI extends BaseAPI {
     constructor() {
@@ -12,7 +13,7 @@ class UserAPI extends BaseAPI {
         return this.http.put('/password', {data});
     }
 
-    uploadAvatar(data: string): Promise<unknown> {
+    uploadAvatar(data: PlainObject): Promise<unknown> {
         return this.http.put('/profile/avatar', {headers: null, data});
     }
 

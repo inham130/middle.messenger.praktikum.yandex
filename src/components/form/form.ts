@@ -1,10 +1,14 @@
+import PlainObject from '../../types/plainObject';
 import Component from '../../utils/component/component';
 import { templateMarkup } from './form.tpl';
 
 type formProps = {
     children: Record<string, unknown>,
-    events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
-    settings?: Record<string, unknown>
+    name?: string,
+    events?: PlainObject,
+    settings?: Record<string, unknown>,
+    template?: string,
+    classes?: string
 }
 export class Form extends Component {
     constructor(props: formProps) {

@@ -1,13 +1,14 @@
 import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
 import { Input } from '../../../components/input';
-import { Button } from '../../../components/button';
+import { Button, ButtonTypes } from '../../../components/button';
 import { Popup } from '../../../components/popup/index';
 import { UserController } from '../../../controllers/user.controller';
 import { validation } from '../../../utils/validation/formValidation';
+import PlainObject from '../../../types/plainObject';
 import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
 import { templateMarkup } from './profileEditData.tpl';
-import avatar from '/static/avatar.png';
+import avatar from '../../../../static/avatar.png';
 
 const editProfileProps = {
     template: templateMarkup,
@@ -26,10 +27,10 @@ const editProfileProps = {
                     validationFunc: validation.email,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -40,10 +41,10 @@ const editProfileProps = {
                     validationFunc: validation.login,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -54,10 +55,10 @@ const editProfileProps = {
                     validationFunc: validation.name,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -68,15 +69,14 @@ const editProfileProps = {
                     validationFunc: validation.name,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
                     label: 'Имя в чате',
-                    value: '',
                     name: 'display_name',
                     type: 'text',
                     controlId: 'display_name'
@@ -88,16 +88,16 @@ const editProfileProps = {
                     validationFunc: validation.phone,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 })],
                 button: new Button({
                     text: 'Сохранить',
-                    type: 'submit'
+                    type: ButtonTypes.submit
                 }),
             },
             events: {
@@ -116,6 +116,7 @@ const editProfileProps = {
 
 export class EditProfile extends Component {
     userController: UserController;
+    popup: Popup;
     constructor(props = editProfileProps) {
         super(props);
 
@@ -127,9 +128,9 @@ export class EditProfile extends Component {
         this.element.addEventListener('formSubmit', this.saveUserData);
     }
 
-    clickHandler(event:Event) {
+    clickHandler(event: Event) {
         const target = event.target;
-        const action = target.dataset.action;
+        const action = (target as HTMLInputElement).dataset.action;
 
         if (action) {
             switch(action) {
@@ -156,7 +157,7 @@ export class EditProfile extends Component {
                         })],
                         button: new Button({
                             text: 'Загрузить',
-                            type: 'submit'
+                            type: ButtonTypes.submit
                         })
                     },
                     events: {
@@ -171,33 +172,34 @@ export class EditProfile extends Component {
 
     submitPhoto(event: Event) {
         event.preventDefault();
-        const fileInput = event.target.querySelector('input[type="file"]');
-        const [file] = fileInput?.files;
+        const fileInput = (event.target as HTMLInputElement).querySelector('input[type="file"]');
+        const [file] = (fileInput as any)?.files;
         const formData: FormData = new FormData();
         formData.append('avatar', file);
 
         this.userController
             .uploadAvatar(formData)
-            .then((userData) => {
+            .then((userData: PlainObject) => {
                 try {
                     if (userData.avatar) {
                         const avatar = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;
                         this.setProps({...this.props, avatar});
                     }
                     this.popup.destroy();
+                    // @ts-ignore
                     this.showHTTPSuccess();
                 } catch(error) {
                     throw new Error(error);
                 }
-            })
+            })// @ts-ignore
             .catch(this.showHTTPError);
     }
 
     saveUserData(event: CustomEvent) {
         const formData = event.detail.formData;
         const data = Object.fromEntries(formData);
-        this.userController.saveUserData(data)
-            .then(() => this.showHTTPSuccess())
+        this.userController.saveUserData(data)// @ts-ignore
+            .then(() => this.showHTTPSuccess())// @ts-ignore
             .catch(this.showHTTPError);
     }
 
@@ -206,13 +208,13 @@ export class EditProfile extends Component {
 
         this.userController
             .getUserData()
-            .then((userData: string) => {
+            .then((userData: PlainObject) => {
                 try {
                     const { form } = this.props.children;
                     this.userController.mapUserData(form.props.children.controls, userData);
                     const displayName = userData.display_name;
-                    const avatar = userData.avatar ? `https://ya-praktikum.tech/api/v2/resources${userData.avatar}` : avatar;
-                    this.setProps({...this.props, displayName, avatar});
+                    const avatarToShow = userData.avatar ? `https://ya-praktikum.tech/api/v2/resources${userData.avatar}` : avatar;
+                    this.setProps({...this.props, displayName, avatarToShow});
                 } catch (error) {
                     throw new Error(error);
                 }

@@ -1,6 +1,6 @@
 import Component from '../../utils/component/component';
 import { templateMarkup } from './chatItem.tpl';
-import avatar from '/static/avatar.png';
+import * as avatar from '../../../static/avatar.png';
 
 export class ChatItem extends Component {
     constructor(props) {
