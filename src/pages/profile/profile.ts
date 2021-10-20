@@ -6,8 +6,7 @@ import { LoginController } from '../../controllers/login.controller';
 import { UserController } from '../../controllers/user.controller';
 import { Router } from '../../utils/router/index';
 import PlainObject from '../../types/plainObject';
-// @ts-ignore
-import avatar from '../../../static/avatar.png';
+import * as avatar from '../../../static/avatar.png';
 
 const profileProps = {
     template: templateMarkup,
