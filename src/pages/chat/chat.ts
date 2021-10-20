@@ -10,7 +10,8 @@ import { Form } from '../../components/form';
 import { Input } from '../../components/input';
 import PlainObject from '../../types/plainObject';
 import { templateMarkup } from './chat.tpl';
-import avatar from '/static/avatar.png';
+// @ts-ignore
+import avatar from '../../../static/avatar.png';
 
 type chatProps = Record<string, unknown>
 const chatProps = {

@@ -11,7 +11,7 @@
     "test": "mocha -r ts-node/register -r jsdom-global/register",
     "start": "parcel build *.html && npm run express",
     "build": "parcel build *.html",
-    "build:webpack": "",
+    "build:webpack": "webpack",
     "express": "node ./server.js "
   },
   "repository": {
@@ -56,6 +56,7 @@
     "ts-loader": "^9.2.6",
     "ts-node": "^10.2.1",
     "typescript": "^4.3.5",
+    "url-loader": "^4.1.1",
     "webpack": "^5.58.2",
     "webpack-cli": "^4.9.0",
     "webpack-dev-server": "^4.3.1"

@@ -8,7 +8,8 @@ import { UserController } from '../../../controllers/user.controller';
 import PlainObject from '../../../types/plainObject';
 import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
 import { NOTIFICATION_TYPES } from '../../../utils/mixin/notificationTypes';
-import avatar from 'static/avatar.png';
+// @ts-ignore
+import avatar from '../../../../static/avatar.png';
 
 const editPassProps = {
     template: templateMarkup,

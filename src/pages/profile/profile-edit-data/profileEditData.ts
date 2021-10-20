@@ -8,6 +8,7 @@ import { validation } from '../../../utils/validation/formValidation';
 import PlainObject from '../../../types/plainObject';
 import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
 import { templateMarkup } from './profileEditData.tpl';
+// @ts-ignore
 import avatar from '../../../../static/avatar.png';
 
 const editProfileProps = {

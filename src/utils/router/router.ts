@@ -1,4 +1,3 @@
-import Component from '../component/component';
 import { Route } from './route';
 
 class Router {
@@ -18,7 +17,7 @@ class Router {
         this._rootQuery =  rootQuery;
     }
 
-    use(pathname: string, block: Component) {
+    use(pathname: string, block: any) {
         const route = new Route(pathname, block, {rootQuery: this._rootQuery});
         this.routes.push(route);
 

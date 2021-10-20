@@ -102,8 +102,8 @@ export default class Component {
 
         const component = this.render();
         if (this.props?.children) {
-            const componentPlaceholders = component?.querySelectorAll('[data-component-type]');
-            this.renderChildren(this.props.children, componentPlaceholders as NodeListOf<HTMLElementTagNameMap[K]>);
+            const componentPlaceholders: NodeListOf<HTMLElement> = component?.querySelectorAll('[data-component-type]');
+            this.renderChildren(this.props.children, componentPlaceholders);
         }
 
         if (this._element === null) {
@@ -118,7 +118,7 @@ export default class Component {
         this.eventBus.emit(Component.EVENTS.FLOW_CDR);
     }
 
-    renderChildren(children: PlainObject, componentPlaceholders: NodeListOf<HTMLElementTagNameMap[K]>) {
+    renderChildren(children: PlainObject, componentPlaceholders: NodeListOf<HTMLElement>) {
         componentPlaceholders?.forEach((placehoder, index: number) => {
             const source = placehoder.dataset.source;
             let child;
