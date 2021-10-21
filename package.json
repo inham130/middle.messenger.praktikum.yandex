@@ -9,7 +9,7 @@
     "dev:webpack": "webpack-dev-server",
     "dev": "rm -rf .cache && parcel index.html --port 3000",
     "test": "mocha -r ts-node/register -r jsdom-global/register",
-    "start": "parcel build *.html && npm run express",
+    "start": "webpack && npm run express",
     "build": "parcel build *.html",
     "build:webpack": "webpack",
     "express": "node ./server.js "
