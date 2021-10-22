@@ -5,7 +5,7 @@ Messenger is a training project in «[Middle frontend-developer course](https://
 
 ## Figma concept: https://www.figma.com/file/CuaudgPwioZnJpFI7XpuSc/Messenger?node-id=0%3A1
 ## Heroku
-### https://modest-golick-66a38a.netlify.app/
+### https://yandex-afr-messenger.herokuapp.com/
 
 <h2 align="center">Install</h2>
 
