@@ -6,12 +6,10 @@
   "scripts": {
     "stylelint": "stylelint 'src/**/**.scss' --syntax sass",
     "eslint": "eslint . --ext .ts",
-    "dev:webpack": "webpack-dev-server",
-    "dev": "rm -rf .cache && parcel index.html --port 3000",
+    "dev": "webpack-dev-server",
     "test": "mocha -r ts-node/register -r jsdom-global/register",
     "start": "webpack && npm run express",
-    "build": "parcel build *.html",
-    "build:webpack": "webpack",
+    "build": "webpack",
     "express": "node ./server.js ",
     "prepare": "husky install"
   },
