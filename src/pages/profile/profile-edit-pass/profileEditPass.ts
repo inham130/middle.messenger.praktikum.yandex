@@ -1,13 +1,14 @@
 import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
 import { Input } from '../../../components/input';
-import { Button } from '../../../components/button';
+import { Button, ButtonTypes } from '../../../components/button';
 import { validation } from '../../../utils/validation/formValidation';
 import { templateMarkup } from '../profile-edit-data/profileEditData.tpl';
 import { UserController } from '../../../controllers/user.controller';
+import PlainObject from '../../../types/plainObject';
 import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
 import { NOTIFICATION_TYPES } from '../../../utils/mixin/notificationTypes';
-import avatar from '/static/avatar.png';
+import * as avatar from '../../../../static/avatar.png';
 
 const editPassProps = {
     template: templateMarkup,
@@ -26,10 +27,10 @@ const editPassProps = {
                     validationFunc: validation.password,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -40,31 +41,30 @@ const editPassProps = {
                     validationFunc: validation.password,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
                     label: 'Повторите новый пароль',
-                    value: '',
                     name: 'newPasswordRepeat',
                     type: 'password',
                     controlId: 'newPasswordRepeat',
                     validationFunc: validation.password,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 })],
                 button: new Button({
                     text: 'Сохранить',
-                    type: 'submit'
+                    type: ButtonTypes.submit
                 })
             },
             events: {
@@ -91,10 +91,11 @@ export class EditPass extends Component {
         const data = Object.fromEntries(formData);
 
         if (data.newPasswordRepeat === data.newPassword) {
-            this.userController.changePassword(data)
-            .then(() => this.showHTTPSuccess())
+            this.userController.changePassword(data)// @ts-ignore
+            .then(() => this.showHTTPSuccess())// @ts-ignore
             .catch(this.showHTTPError);
         } else {
+            // @ts-ignore
             this.showNotification(NOTIFICATION_TYPES.ERROR, 'новые пароли не совпадают');
         }
     }
@@ -104,7 +105,7 @@ export class EditPass extends Component {
 
         this.userController
             .getUserData()
-            .then((userData) => {
+            .then((userData: PlainObject) => {
                 try {
                     if (userData.avatar) {
                         const avatar = `https://ya-praktikum.tech/api/v2/resources${userData.avatar}`;

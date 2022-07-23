@@ -8,11 +8,11 @@
          ],
          "declaration": false,
          "module": "commonjs",
-         "noImplicitAny": true,
+         "noImplicitAny": false,
          "noUnusedLocals": true,
-         "noUnusedParameters": true,
+         "noUnusedParameters": false,
          "sourceMap": true,
-         "strictNullChecks": true,
+         "strictNullChecks": false,
          "moduleResolution": "Node",
          "baseUrl": ".",
          "paths": {
@@ -24,6 +24,7 @@
          "transpileOnly": true
      },
      "exclude": [
-        "node_modules"
+        "node_modules",
+        "./src/**/*.spec.ts"
      ]
 }

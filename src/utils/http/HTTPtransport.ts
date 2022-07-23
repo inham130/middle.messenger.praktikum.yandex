@@ -1,4 +1,5 @@
 import { merge, isObject } from '../helpers/index';
+import PlainObject from '../../types/plainObject';
 
 enum Methods {
     GET = 'GET',
@@ -8,9 +9,9 @@ enum Methods {
 }
 
 type options = {
-    data: Record<string, string> | null,
+    data?: any,
     timeout?: number,
-    headers?: Record<string, string>,
+    headers?: PlainObject,
     method?: Methods
 }
 
@@ -43,24 +44,24 @@ export default class HTTPTransport {
         options.data = null;
         return this.request(url, {...options, method: Methods.GET});
     };
-    put = (url: string, options: options) => {
+    put = (url: string, options: PlainObject) => {
         return this.request(`${this.HOST_URL}${url}`, {...options, method: Methods.PUT});
     };
-    post = (url: string, options: options) => {
+    post = (url: string, options: PlainObject) => {
         return this.request(`${this.HOST_URL}${url}`, {...options, method: Methods.POST});
     };
-    delete = (url: string, options: options) => {
+    delete = (url: string, options: PlainObject) => {
         return this.request(`${this.HOST_URL}${url}`, {...options, method: Methods.DELETE});
     };
 
     request = (url: string, options: options) => {
-        const {data = null, method, timeout} = options;
+        const {data = null, method, timeout = 10000} = options;
 
-        let headers = defaultHeaders;
+        let headers: PlainObject = defaultHeaders;
         if (options.headers === null) {
             headers = {};
         } else if (isObject(options.headers)) {
-            headers = merge(options.headers, defaultHeaders);
+            headers = merge(options.headers as PlainObject, defaultHeaders);
         }
 
 

@@ -1,7 +1,7 @@
 import Component from '../../../utils/component/component';
 import { Form } from '../../../components/form';
 import { Input } from '../../../components/input';
-import { Button } from '../../../components/button';
+import { Button, ButtonTypes } from '../../../components/button';
 import { SignUpController } from '../../../controllers/signup.controller';
 import { validation } from '../../../utils/validation/formValidation';
 import { notificationManagerMixin } from '../../../utils/mixin/notificationManagerMixin';
@@ -22,10 +22,10 @@ const signUpProps = {
                     validationFunc: validation.email,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -36,10 +36,10 @@ const signUpProps = {
                     validationFunc: validation.login,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -50,10 +50,10 @@ const signUpProps = {
                     validationFunc: validation.name,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -64,10 +64,10 @@ const signUpProps = {
                     validationFunc: validation.name,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -78,10 +78,10 @@ const signUpProps = {
                     validationFunc: validation.phone,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -92,10 +92,10 @@ const signUpProps = {
                     validationFunc: validation.password,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 }), new Input({
@@ -106,16 +106,16 @@ const signUpProps = {
                     validationFunc: validation.password,
                     events: {
                         focus: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         },
                         blur: function(event: Event) {
-                            this.props.validationFunc.call(this, event.target.value);
+                            this.props.validationFunc.call(this, (event.target as HTMLInputElement).value);
                         }
                     }
                 })],
                 button: new Button({
                     text: 'Зарегистрироваться',
-                    type: 'submit'
+                    type: ButtonTypes.submit
                 })
             },
             events: {
@@ -131,7 +131,7 @@ export class SignUp extends Component {
     showHTTPError: CallableFunction;
     private signUpController: SignUpController;
 
-    constructor(props = signUpProps, controller = SignUpController) {
+    constructor(props = signUpProps) {
         super(props);
         this.signUpController = new SignUpController();
     }
@@ -146,9 +146,8 @@ export class SignUp extends Component {
         this.signUpController
             .signUp(data)
             .then(() => {
-                // поскольку Router является синглтоном я использую new, но не уверен, что это хорошо
-                new Router().go('/messenger');
-            })
+                Router.go('/messenger');
+            })// @ts-ignore
             .catch(this.showHTTPError);
     }
 }

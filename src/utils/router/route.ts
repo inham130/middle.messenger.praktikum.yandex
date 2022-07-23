@@ -1,4 +1,4 @@
-import Component from '../../components/component';
+import Component from '../component/component';
 import { render } from '../render/renderDOM';
 
 function isEqual(lhs: string, rhs: string) {
@@ -7,7 +7,7 @@ function isEqual(lhs: string, rhs: string) {
 
 export class Route {
     private _pathname: string;
-    private _blockClass: Component;
+    private _blockClass: any;
     private _block: Component | null;
     private _props: Record<string, unknown>;
 
@@ -40,6 +40,6 @@ export class Route {
             this._block = new this._blockClass();
         }
 
-        render(this._props.rootQuery, this._block);
+        render(this._props.rootQuery as string, this._block as Component);
     }
 }

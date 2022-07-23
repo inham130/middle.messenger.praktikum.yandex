@@ -1,10 +1,7 @@
 import { isObject } from './index';
+import PlainObject from '../../types/plainObject';
 
-type Indexed<T = unknown> = {
-    [key in string]: T;
-};
-
-export function merge(lhs: Indexed, rhs: Indexed): Indexed {
+export function merge(lhs: PlainObject, rhs: PlainObject): PlainObject {
     const result = Object.assign({}, lhs);
     if (isObject(lhs) && isObject(rhs)) {
         Object.keys(rhs).forEach(key => {

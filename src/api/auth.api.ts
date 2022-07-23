@@ -5,7 +5,7 @@ class AuthApi extends BaseAPI {
         super('auth');
     }
 
-    register(data): Promise<unknown> {
+    register(data: string): Promise<unknown> {
         return this.http.post('/signup', {data});
     }
 

@@ -25,7 +25,7 @@ export default class EventBus {
         throw new Error(`There is no event: ${event}`);
       } else {
         this.listeners[event].forEach(function(listener) {
-          listener(...args);
+          listener.apply(this, args);
         });
       }
     }

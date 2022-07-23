@@ -1,6 +1,6 @@
 import Component from '../../utils/component/component';
 import { templateMarkup } from './chatItem.tpl';
-import avatar from '/static/avatar.png';
+import * as avatar from '../../../static/avatar.png';
 
 export class ChatItem extends Component {
     constructor(props) {
@@ -9,7 +9,7 @@ export class ChatItem extends Component {
     }
 
     registerCustomEvents(): void {
-        this.element.addEventListener('click', (event: Event) => {
+        this.element.addEventListener('click', () => {
             const customEvent = new CustomEvent('chatItemClick', {
                 bubbles: true,
                 detail: {id: this.props.id, title: this.props.title}

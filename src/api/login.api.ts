@@ -5,7 +5,7 @@ class LoginApi extends BaseAPI {
         super('auth');
     }
 
-    signIn(data): Promise<unknown> {
+    signIn(data: string): Promise<unknown> {
         return this.http.post('/signin', {data});
     }
 

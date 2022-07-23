@@ -1,9 +1,9 @@
 import Component from '../../utils/component/component';
 import { templateMarkup } from './button.tpl';
 
-enum ButtonTypes {
+export enum ButtonTypes {
     submit = 'submit',
-    button = 'button'
+    button = 'button',
 }
 
 type buttonProps = {
@@ -12,7 +12,8 @@ type buttonProps = {
     events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
     settings?: Record<string, unknown>,
     classes?: string,
-    action: string,
+    template?: string
+    action?: string
 }
 
 export class Button extends Component {

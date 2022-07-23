@@ -1,24 +1,23 @@
+import PlainObject from '../types/plainObject';
 import BaseAPI from './baseApi';
 class UserAPI extends BaseAPI {
-    private http: HTTPTransport;
-
     constructor() {
         super('user');
     }
 
-    updateUserData(data): Promise<unknown> {
+    updateUserData(data: string): Promise<unknown> {
         return this.http.put('/profile', {data});
     }
 
-    changePassword(data): Promise<unknown> {
+    changePassword(data: string): Promise<unknown> {
         return this.http.put('/password', {data});
     }
 
-    uploadAvatar(data): Promise<unknown> {
+    uploadAvatar(data: PlainObject): Promise<unknown> {
         return this.http.put('/profile/avatar', {headers: null, data});
     }
 
-    getUserId(data): Promise<unknown> {
+    getUserId(data: string): Promise<unknown> {
         return this.http.post('/search', {data});
     }
 }

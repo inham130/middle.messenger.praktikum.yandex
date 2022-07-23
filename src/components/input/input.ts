@@ -1,13 +1,17 @@
+import PlainObject from '../../types/plainObject';
 import Component from '../../utils/component/component';
 import { templateMarkup } from './input.tpl';
 
 type inputProps = {
+    label: string,
     name: string,
     type: string,
     controlId: string,
     validationFunc?: CallableFunction,
-    events?: Record<keyof HTMLElementEventMap, EventListenerOrEventListenerObject>,
-    settings?: Record<string, unknown>
+    events?: PlainObject,
+    settings?: Record<string, unknown>,
+    template?: string,
+    accept?: string[]
 }
 export class Input extends Component {
     constructor(props: inputProps) {

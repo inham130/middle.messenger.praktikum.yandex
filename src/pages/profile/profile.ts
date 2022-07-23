@@ -1,11 +1,12 @@
 import Component from '../../utils/component/component';
 import { userInfoItem } from '../../components/user-info-item/';
-import { Button } from '../../components/button/index';
+import { Button, ButtonTypes } from '../../components/button/index';
 import { templateMarkup } from './profile.tpl';
 import { LoginController } from '../../controllers/login.controller';
 import { UserController } from '../../controllers/user.controller';
 import { Router } from '../../utils/router/index';
-import avatar from '/static/avatar.png';
+import PlainObject from '../../types/plainObject';
+import * as avatar from '../../../static/avatar.png';
 
 const profileProps = {
     template: templateMarkup,
@@ -39,7 +40,7 @@ const profileProps = {
         })],
         logoutButton: new Button({
             text: 'Выйти',
-            type: 'button',
+            type: ButtonTypes.button,
             classes: 'button_small',
             action: 'logout'
         })
@@ -69,9 +70,9 @@ export class Profile extends Component {
             });
     }
 
-    clickHandler(event:Event) {
+    clickHandler(event :Event) {
         const target = event.target;
-        const action = target.dataset.action;
+        const action = (target as HTMLElement).dataset.action;
         if (action) {
             switch(action) {
                 case 'logout':
@@ -87,7 +88,7 @@ export class Profile extends Component {
 
         this.userController
             .getUserData()
-            .then((userData) => {
+            .then((userData: PlainObject) => {
                 try {
                     this.userController.mapUserData(this.props.children.infoItems, userData);
                     this.props.displayName = userData.display_name;

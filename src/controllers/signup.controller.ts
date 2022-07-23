@@ -6,7 +6,6 @@ export class SignUpController {
 
     signUp(data: Record<string, unknown>) {
         return this.authApi
-            .register(JSON.stringify(data))
-            .then(() => this.authApi.request());
+            .register(JSON.stringify(data));
     }
 }
